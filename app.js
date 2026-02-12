@@ -1,4 +1,4 @@
-﻿const VIRTUAL_ROW_HEIGHT = 42;
+﻿const VIRTUAL_ROW_HEIGHT = 70;
 const VIRTUAL_BUFFER_ROWS = 6;
 const SEARCH_DEBOUNCE_MS = 180;
 
@@ -62,6 +62,8 @@ const GENDERS = ['female', 'male'];
 const state = {
   master: null,
   report: null,
+  marketByItemId: {},
+  marketItemCount: 0,
   items: [],
   bySlot: {},
   itemById: {},
@@ -70,6 +72,8 @@ const state = {
   gender: 'male',
   onlyBuyable: false,
   onlyGiftShop: false,
+  selectedTags: [],
+  availableTags: [],
   searchBySlot: {},
   collapsedBySlot: {},
 };
@@ -80,6 +84,8 @@ const els = {
   slots: document.getElementById('slots'),
   gender: document.getElementById('gender'),
   toggleAllBtn: document.getElementById('toggleAllBtn'),
+  clearTagsBtn: document.getElementById('clearTagsBtn'),
+  tagFilterChips: document.getElementById('tagFilterChips'),
   randomizeBtn: document.getElementById('randomizeBtn'),
   clearBtn: document.getElementById('clearBtn'),
   previewGrid: document.getElementById('previewGrid'),
@@ -99,7 +105,8 @@ async function init() {
     restore();
     bindGlobal();
     renderAll();
-    setStatus(`Loaded ${state.items.length} cosmetics from master dataset.`);
+    const marketPart = state.marketItemCount ? ` Market items: ${state.marketItemCount}.` : ' Market data unavailable.';
+    setStatus(`Loaded ${state.items.length} cosmetics from master dataset.${marketPart}`);
     renderDataHealth();
   } catch (error) {
     console.error(error);
@@ -128,7 +135,15 @@ async function loadMasterData() {
     throw new Error('Master dataset loaded but contains no valid cosmetic items.');
   }
 
-  state.items = normalizedItems.sort((a, b) => a.name.localeCompare(b.name));
+  await loadMarketData();
+  state.items = normalizedItems
+    .map((item) => ({ ...item, market: buildMarketInfo(item) }))
+    .sort((a, b) => a.name.localeCompare(b.name));
+  state.availableTags = Array.from(
+    new Set(
+      state.items.flatMap((item) => arr(item.tags).filter(Boolean))
+    )
+  ).sort((a, b) => a.localeCompare(b));
   state.bySlot = groupBySlot(state.items);
   state.itemById = Object.fromEntries(state.items.map((item) => [item.id, item]));
 
@@ -153,7 +168,7 @@ function normalizeMasterItem(item) {
 
   const itemId = Number(item?.itemId || itemIds[0] || 0);
 
-  return {
+  const normalized = {
     id,
     name: normalizedName,
     searchName: normalizeName(normalizedName),
@@ -174,7 +189,28 @@ function normalizeMasterItem(item) {
       vanityIndex: arr(item?.sources?.vanityIndex),
       findingGuide: arr(item?.sources?.findingGuide),
     },
+    market: null,
   };
+  normalized.tags = deriveDisplayTags(normalized);
+  return normalized;
+}
+
+function deriveDisplayTags(item) {
+  const tags = new Set();
+  const existing = arr(item?.tags).map((t) => String(t || ''));
+  const availability = arr(item?.availability).map((t) => normalizeName(String(t || '')));
+  const vanityDetails = arr(item?.sources?.vanityIndex).map((v) => normalizeName(String(v?.detail || '')));
+
+  if (Boolean(item?.buyable?.isBuyable) || availability.includes('mart items')) tags.add('Mart Items');
+  if (Boolean(item?.giftShop?.isGiftShop) || availability.includes('gift shop')) tags.add('Gift Shop');
+  if (existing.includes('PvP Reward') || availability.includes('pvp reward')) tags.add('PvP Reward');
+  if (existing.includes('PvE Reward') || availability.includes('pve reward') || vanityDetails.some((d) => /pve|quest/.test(d))) tags.add('PvE Reward');
+  if (existing.includes('Seasonal') || availability.includes('seasonal')) tags.add('Seasonal');
+  if (existing.includes('Limited') || availability.includes('limited')) tags.add('Limited');
+  if (existing.includes('Event Only') || existing.includes('Event') || availability.includes('event only')) tags.add('Event Only');
+  if (existing.includes('CO')) tags.add('CO');
+
+  return Array.from(tags);
 }
 
 function groupBySlot(items) {
@@ -192,6 +228,7 @@ function groupBySlot(items) {
 
 function setupControls() {
   els.gender.innerHTML = GENDERS.map((g) => `<option value="${g}">${capitalize(g)}</option>`).join('');
+  renderTagFilterChips();
 }
 
 function bindGlobal() {
@@ -218,6 +255,24 @@ function bindGlobal() {
   els.randomizeBtn.addEventListener('click', randomizeSelection);
   els.clearBtn.addEventListener('click', clearSelection);
   els.toggleAllBtn.addEventListener('click', toggleAllSlots);
+  els.clearTagsBtn.addEventListener('click', () => {
+    state.selectedTags = [];
+    renderAll();
+    persist();
+  });
+  els.tagFilterChips.addEventListener('click', (event) => {
+    const btn = event.target.closest('button[data-tag]');
+    if (!btn) return;
+    const tag = String(btn.dataset.tag || '');
+    if (!tag) return;
+    if (state.selectedTags.includes(tag)) {
+      state.selectedTags = state.selectedTags.filter((t) => t !== tag);
+    } else {
+      state.selectedTags = [...state.selectedTags, tag];
+    }
+    renderAll();
+    persist();
+  });
 }
 
 function renderSlots() {
@@ -334,10 +389,16 @@ function renderVirtualRows(slotEl, slot) {
     }
 
     const icon = getItemIconUrl(iconSlotNum, item.itemId);
+    const marketText = formatMarketShort(item.market);
+    const tagText = formatTagShort(item.tags);
     return `
       <button class="item-row${selected}" data-item-id="${item.itemId}" title="${escapeHTML(item.name)}" style="height:${VIRTUAL_ROW_HEIGHT}px">
         <span class="item-icon"><img src="${icon}" alt="icon" loading="lazy" /></span>
-        <span class="item-name">${escapeHTML(item.name)}</span>
+        <span>
+          <span class="item-name">${escapeHTML(item.name)}</span>
+          <span class="item-meta">${escapeHTML(marketText)}</span>
+          <span class="item-meta">${escapeHTML(tagText)}</span>
+        </span>
       </button>
     `;
   }).join('');
@@ -355,6 +416,7 @@ function renderAll() {
   els.gender.value = state.gender;
   els.onlyBuyable.checked = state.onlyBuyable;
   els.onlyGiftShop.checked = state.onlyGiftShop;
+  renderTagFilterChips();
   if (els.toggleAllBtn) {
     els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? 'Open all' : 'Close all';
   }
@@ -456,6 +518,7 @@ function renderLocationInfo() {
   const rows = Array.from(dedup.values()).map((item) => {
     const locationEntries = arr(item.buyable?.locations);
     const vanityEntries = arr(item.sources?.vanityIndex);
+    const market = item.market || null;
 
     if (!locationEntries.length && !vanityEntries.length) {
       return `
@@ -487,9 +550,17 @@ function renderLocationInfo() {
       .map((src) => `<a href="${escapeHTML(src)}" target="_blank" rel="noopener noreferrer">Source</a>`)
       .join(' - ');
 
+    const marketSource = ' <a href="https://pokemmohub.com/items" target="_blank" rel="noopener noreferrer">Source</a>';
+    const marketLine = market
+      ? `<div class="entry"><strong>Market:</strong> ${escapeHTML(formatMarketLong(market))}${marketSource}</div>`
+      : `<div class="entry"><strong>Market:</strong> No market data.${marketSource}</div>`;
+    const tagsLine = `<div class="entry"><strong>Tags:</strong> ${renderTagChips(item.tags)}</div>`;
+
     return `
       <div class="location-item">
         <div class="name">${escapeHTML(item.name)}</div>
+        ${marketLine}
+        ${tagsLine}
         ${lines}
         ${sourceLinks ? `<div class="entry">${sourceLinks}</div>` : ''}
       </div>
@@ -534,6 +605,13 @@ function getFilteredSlotItems(slot, query = '') {
 
   if (state.onlyGiftShop) {
     list = list.filter((item) => isGiftShop(item));
+  }
+
+  if (state.selectedTags.length) {
+    list = list.filter((item) => {
+      const tags = arr(item.tags);
+      return state.selectedTags.every((tag) => tags.includes(tag));
+    });
   }
 
   const q = normalizeName(query || '');
@@ -638,6 +716,7 @@ function persist() {
     gender: state.gender,
     onlyBuyable: state.onlyBuyable,
     onlyGiftShop: state.onlyGiftShop,
+    selectedTags: state.selectedTags,
     searchBySlot: state.searchBySlot,
     collapsedBySlot: state.collapsedBySlot,
   }));
@@ -655,6 +734,7 @@ function restore() {
     if (GENDERS.includes(parsed.gender)) state.gender = parsed.gender;
     state.onlyBuyable = Boolean(parsed.onlyBuyable);
     state.onlyGiftShop = Boolean(parsed.onlyGiftShop);
+    state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags : [];
     state.searchBySlot = typeof parsed.searchBySlot === 'object' && parsed.searchBySlot ? parsed.searchBySlot : {};
     state.collapsedBySlot = typeof parsed.collapsedBySlot === 'object' && parsed.collapsedBySlot ? parsed.collapsedBySlot : {};
   } catch {
@@ -731,6 +811,126 @@ function unloadSlotIcons(slotEl) {
     img.removeAttribute('src');
   });
 }
+
+async function loadMarketData() {
+  const url = 'https://apis.fiereu.de/pokemmoprices/v1/items';
+  try {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) return;
+
+    const data = await response.json();
+    if (!Array.isArray(data)) return;
+
+    const byId = {};
+    for (const row of data) {
+      const itemId = Number(row?.item_id);
+      if (!itemId) continue;
+      byId[itemId] = {
+        itemId,
+        tradable: Boolean(row?.tradable),
+        price: Number(row?.price || 0),
+        quantity: Number(row?.quantity || 0),
+        listings: Number(row?.listings || 0),
+        lastUpdated: String(row?.last_updated || ''),
+      };
+    }
+
+    state.marketByItemId = byId;
+    state.marketItemCount = Object.keys(byId).length;
+  } catch {
+    state.marketByItemId = {};
+    state.marketItemCount = 0;
+  }
+}
+
+function buildMarketInfo(item) {
+  const ids = [item.itemId, ...arr(item.itemIds)]
+    .map((value) => Number(value))
+    .filter((value) => Number.isFinite(value) && value > 0);
+
+  let best = null;
+  for (const id of ids) {
+    const row = state.marketByItemId[id];
+    if (!row) continue;
+    if (!best) {
+      best = row;
+      continue;
+    }
+    const bestListed = best.quantity > 0;
+    const rowListed = row.quantity > 0;
+    if (rowListed && !bestListed) {
+      best = row;
+      continue;
+    }
+    if (rowListed === bestListed && row.price > 0 && (best.price === 0 || row.price < best.price)) {
+      best = row;
+    }
+  }
+
+  if (!best) return null;
+  return {
+    ...best,
+    isListed: best.quantity > 0,
+  };
+}
+
+function formatMarketShort(market) {
+  if (!market) return 'Market: no data';
+  if (!market.isListed) return 'Market: not listed';
+  return `Market: ${formatYen(market.price)} (${market.quantity}x)`;
+}
+
+function formatMarketLong(market) {
+  if (!market) return 'No data';
+  if (!market.isListed) return 'Not currently listed';
+  return `Listed now - ${formatYen(market.price)} - Qty ${market.quantity} - Listings ${market.listings}`;
+}
+
+function formatYen(value) {
+  const amount = Number(value || 0);
+  return `${new Intl.NumberFormat('en-US').format(amount)} Pokeyen`;
+}
+
+function formatTagShort(tags) {
+  const all = arr(tags).filter(Boolean);
+  if (!all.length) return 'Tags: none';
+  const short = all.slice(0, 2).join(', ');
+  if (all.length <= 2) return `Tags: ${short}`;
+  return `Tags: ${short} +${all.length - 2}`;
+}
+
+function renderTagChips(tags) {
+  const all = arr(tags).filter(Boolean);
+  if (!all.length) return '<span class="tag-chip">None</span>';
+  return all
+    .map((tag) => `<span class="tag-chip ${tagClassName(tag)}">${escapeHTML(tag)}</span>`)
+    .join(' ');
+}
+
+function tagClassName(tag) {
+  const normalized = normalizeName(tag);
+  const map = {
+    'mart items': 'tag-mart',
+    'pvp reward': 'tag-pvp',
+    'gift shop': 'tag-gift',
+    seasonal: 'tag-seasonal',
+    'event only': 'tag-event',
+    limited: 'tag-limited',
+    'pve reward': 'tag-pve',
+  };
+  return map[normalized] || 'tag-default';
+}
+
+function renderTagFilterChips() {
+  if (!els.tagFilterChips) return;
+  const chips = state.availableTags.map((tag) => {
+    const selected = state.selectedTags.includes(tag) ? ' selected' : '';
+    return `<button type="button" class="tag-chip ${tagClassName(tag)}${selected}" data-tag="${escapeHTML(tag)}">${escapeHTML(tag)}</button>`;
+  }).join('');
+  els.tagFilterChips.innerHTML = chips || '<span class="item-meta">No tags available.</span>';
+}
+
+
 
 
 

@@ -39,16 +39,6 @@ const SLOT_BY_NUM = {
   12: "bicycle",
 };
 
-const LIMITATION_MAP = {
-  0: "Gift Shop",
-  1: "Limited",
-  2: "PvP Reward",
-  4: "Event Only",
-  8: "Seasonal",
-  16: "Ultra Rare Event",
-  20: "Limited",
-};
-
 const FESTIVAL_MAP = {
   0: "No Event",
   1: "Halloween",
@@ -124,6 +114,14 @@ function dedupeLocations(locations) {
 function arr(v) {
   if (v == null) return [];
   return Array.isArray(v) ? v : [v];
+}
+
+function hasLimitationBit(limitationValues, bit) {
+  for (const value of limitationValues) {
+    const limitation = Number(value || 0);
+    if (limitation !== 0 && (limitation & bit) === bit) return true;
+  }
+  return false;
 }
 
 function toWindowData(varName, data) {
@@ -243,40 +241,57 @@ async function main() {
     row.sources.findingGuide = dedupeLocations(row.sources.findingGuide);
     row.buyable.locations = row.sources.findingGuide;
 
-    const isBuyableByVanityDetail = row.sources.vanityIndex.some((v) =>
-      /pokeyen|coins|shop|store|mart/i.test(String(v.detail || ""))
+    const isMartByVanityDetail = row.sources.vanityIndex.some((v) =>
+      /pokemart|mart|pokeyen|shop price/i.test(String(v.detail || ""))
     );
-
     const isGiftShopBySource = row.sources.vanityIndex.some((v) =>
       /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
     );
     const isGiftShopByLimitation = row._limitation.includes(0);
+    const isMartByLocation = row.buyable.locations.length > 0;
+    const isMart = isMartByLocation || (isMartByVanityDetail && !isGiftShopBySource);
+    const isGiftShop = isGiftShopBySource || isGiftShopByLimitation;
+
+    const isPvpReward =
+      hasLimitationBit(row._limitation, 2) ||
+      row.sources.vanityIndex.some((v) => /pvp|mystery\s*box/i.test(String(v.detail || "")));
+    const isPveReward =
+      hasLimitationBit(row._limitation, 32) ||
+      row.sources.vanityIndex.some((v) => /pve|quest/i.test(String(v.detail || "")));
+    const isEventOnly = hasLimitationBit(row._limitation, 4) || row._festival.some((f) => Number(f || 0) !== 0);
+    const isSeasonal = hasLimitationBit(row._limitation, 8);
+    const isLimited = hasLimitationBit(row._limitation, 1);
 
     row.giftShop = {
-      isGiftShop: isGiftShopBySource || isGiftShopByLimitation,
+      isGiftShop,
       details: row.sources.vanityIndex.filter((v) =>
         /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
       ),
     };
 
-    row.buyable.isBuyable = row.buyable.locations.length > 0 || isBuyableByVanityDetail;
+    row.buyable.isBuyable = isMart;
 
     const availability = new Set();
-    for (const lim of new Set(row._limitation)) {
-      if (LIMITATION_MAP[lim] != null) availability.add(LIMITATION_MAP[lim]);
-    }
+    if (isMart) availability.add("Mart Items");
+    if (isGiftShop) availability.add("Gift Shop");
+    if (isPvpReward) availability.add("PvP Reward");
+    if (isPveReward) availability.add("PvE Reward");
+    if (isSeasonal) availability.add("Seasonal");
+    if (isEventOnly) availability.add("Event Only");
+    if (isLimited) availability.add("Limited");
     for (const fes of new Set(row._festival)) {
       if (fes !== 0 && FESTIVAL_MAP[fes] != null) availability.add(FESTIVAL_MAP[fes]);
     }
     row.availability = Array.from(availability);
 
     const tags = new Set();
-    if (row.buyable.isBuyable) tags.add("Buyable");
-    if (row.giftShop.isGiftShop) tags.add("Gift Shop");
-    if (row.availability.includes("Event Only") || row._festival.some((f) => f !== 0)) tags.add("Event");
-    if (row.availability.includes("Seasonal")) tags.add("Seasonal");
-    if (row.availability.includes("Limited")) tags.add("Limited");
-    if (row.availability.includes("PvP Reward")) tags.add("PvP Reward");
+    if (isMart) tags.add("Mart Items");
+    if (isGiftShop) tags.add("Gift Shop");
+    if (isSeasonal) tags.add("Seasonal");
+    if (isEventOnly) tags.add("Event Only");
+    if (isLimited) tags.add("Limited");
+    if (isPvpReward) tags.add("PvP Reward");
+    if (isPveReward) tags.add("PvE Reward");
     if (row._attribute.some((a) => (a & 8) !== 0)) tags.add("CO");
     row.tags = Array.from(tags);
 

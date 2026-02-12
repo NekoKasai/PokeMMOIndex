@@ -133,6 +133,30 @@ body {
   align-items: end;
 }
 
+.panel-soft {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0a1a2d;
+  padding: 9px 10px;
+  margin-bottom: 12px;
+}
+
+.tag-filter-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.tag-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .toolbar-group label,
 .check span {
   display: block;
@@ -247,6 +271,12 @@ select {
 .btn.secondary { background: linear-gradient(135deg, #3b546d, #4a6988); }
 .btn.warning { background: linear-gradient(135deg, #b98927, var(--yellow)); }
 .btn.danger { background: linear-gradient(135deg, #b94949, var(--red)); }
+.btn.mini {
+  padding: 4px 8px;
+  border-color: #35597f;
+  background: #10283f;
+  font-size: 0.74rem;
+}
 
 .slot-grid {
   display: grid;
@@ -324,7 +354,7 @@ select {
 .item-row {
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   border: none;
   border-bottom: 1px solid #173250;
@@ -362,9 +392,45 @@ select {
 }
 
 .item-name {
+  display: block;
   font-size: 0.84rem;
   line-height: 1.15;
 }
+
+.item-meta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+.tag-chip {
+  border: 1px solid #3a4c61;
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 4px;
+  margin-top: 2px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #223142;
+  color: #d8e5f2;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+.tag-chip.selected {
+  box-shadow: inset 0 0 0 1px #9fd1ff;
+  transform: translateY(-1px);
+}
+
+.tag-default { background: #2a3542; border-color: #3f4f62; }
+.tag-mart { background: #4b5563; border-color: #6b7280; color: #f3f4f6; }
+.tag-pvp { background: #374151; border-color: #4b5563; color: #f3f4f6; }
+.tag-gift { background: #14532d; border-color: #1f7a45; color: #ddfbe9; }
+.tag-seasonal { background: #1d4ed8; border-color: #3b82f6; color: #e6f0ff; }
+.tag-event { background: #991b1b; border-color: #dc2626; color: #ffe8e8; }
+.tag-limited { background: #9a6a12; border-color: #d4a338; color: #fff6df; }
+.tag-pve { background: #6d28d9; border-color: #8b5cf6; color: #efe7ff; }
 
 .option {
   display: flex;
@@ -442,8 +508,8 @@ select {
 }
 
 .location-info {
-  max-height: 250px;
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
 }
 
 .location-item {
