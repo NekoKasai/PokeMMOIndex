@@ -548,9 +548,123 @@ select {
 }
 
 @media (max-width: 920px) {
+  .page {
+    width: min(100%, 100vw);
+    padding: 10px 8px 18px;
+  }
+  .hero {
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .controls,
+  .preview-panel {
+    padding: 10px;
+  }
   .hero-top { flex-direction: column; }
   .hero-links { justify-content: flex-start; }
-  .toolbar { grid-template-columns: 1fr; }
-  .toolbar-actions { justify-content: flex-start; }
+  .toolbar {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .toolbar-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .toolbar-actions .btn {
+    min-height: 40px;
+    padding: 8px 12px;
+  }
+  .check {
+    min-height: 56px;
+  }
+  .slot-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 8px;
+  }
+  .item-list {
+    max-height: 200px;
+  }
   .preview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 1.55rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+  .hero-links {
+    width: 100%;
+    gap: 6px;
+  }
+  .hero-links a {
+    font-size: 0.73rem;
+    padding: 4px 8px;
+  }
+  .panel {
+    border-radius: 10px;
+  }
+  .slot-grid {
+    grid-template-columns: 1fr;
+  }
+  .slot {
+    padding: 9px;
+  }
+  .slot-head {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .slot-title {
+    font-size: 0.85rem;
+  }
+  .slot-count {
+    margin-left: 0;
+    order: 3;
+    width: 100%;
+  }
+  .slot-toggle {
+    min-height: 30px;
+    padding: 3px 10px;
+  }
+  .tag-filter-head {
+    flex-wrap: wrap;
+  }
+  .tag-filter-chips {
+    gap: 5px;
+  }
+  .tag-chip {
+    margin-right: 0;
+    font-size: 0.7rem;
+    padding: 2px 7px;
+  }
+  .item-row {
+    padding: 7px 8px;
+  }
+  .item-name {
+    font-size: 0.82rem;
+  }
+  .item-meta {
+    font-size: 0.69rem;
+  }
+  .preview-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+  }
+  .preview-image-wrap {
+    min-height: 108px;
+  }
+  .preview-image-wrap img.main {
+    max-width: 92px;
+  }
+  .location-panel {
+    padding: 9px;
+  }
+  .location-panel h3 {
+    font-size: 0.86rem;
+  }
+  .location-item .name {
+    font-size: 0.9rem;
+  }
 }
