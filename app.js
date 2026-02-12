@@ -71,6 +71,7 @@ const state = {
   onlyBuyable: false,
   onlyGiftShop: false,
   searchBySlot: {},
+  collapsedBySlot: {},
 };
 
 const els = {
@@ -78,6 +79,7 @@ const els = {
   health: document.getElementById('health'),
   slots: document.getElementById('slots'),
   gender: document.getElementById('gender'),
+  toggleAllBtn: document.getElementById('toggleAllBtn'),
   randomizeBtn: document.getElementById('randomizeBtn'),
   clearBtn: document.getElementById('clearBtn'),
   previewGrid: document.getElementById('previewGrid'),
@@ -101,35 +103,30 @@ async function init() {
     renderDataHealth();
   } catch (error) {
     console.error(error);
-    setStatus(`Load failed: ${error.message}`, true);
+    setStatus(`Load failed: ${error.message}`, 'error');
   }
 }
 
 async function loadMasterData() {
-  state.master = globalThis.COSMETICS_MASTER || null;
-  state.report = globalThis.BUILD_REPORT || null;
+  state.master = await loadLocalJson('cosmetics.master.json');
+  if (!state.master) state.master = globalThis.COSMETICS_MASTER || null;
+  if (!state.master) state.master = await loadRemoteMasterFallback();
 
-  if (!state.master) {
-    const masterRes = await fetch('cosmetics.master.json', { cache: 'no-store' });
-    if (!masterRes.ok) {
-      throw new Error('Could not load cosmetics.master.json');
-    }
-    state.master = await masterRes.json();
+  state.report = await loadLocalJson('build-report.json');
+  if (!state.report) state.report = globalThis.BUILD_REPORT || null;
+
+  if (!state.master || !Array.isArray(state.master.items)) {
+    throw new Error('No valid master dataset found. Serve the page with a local web server and ensure cosmetics.master.json exists.');
   }
 
-  if (!state.report) {
-    try {
-      const reportRes = await fetch('build-report.json', { cache: 'no-store' });
-      state.report = reportRes.ok ? await reportRes.json() : null;
-    } catch {
-      state.report = null;
-    }
-  }
-
-  const rawItems = arr(state.master?.items);
+  const rawItems = arr(state.master.items);
   const normalizedItems = rawItems
     .map((item) => normalizeMasterItem(item))
     .filter((item) => item.id && item.name && item.itemId > 0);
+
+  if (!normalizedItems.length) {
+    throw new Error('Master dataset loaded but contains no valid cosmetic items.');
+  }
 
   state.items = normalizedItems.sort((a, b) => a.name.localeCompare(b.name));
   state.bySlot = groupBySlot(state.items);
@@ -187,6 +184,9 @@ function groupBySlot(items) {
     if (!grouped[slot]) grouped[slot] = [];
     grouped[slot].push(item);
   }
+  for (const slot of Object.keys(grouped)) {
+    grouped[slot].sort((a, b) => a.name.localeCompare(b.name));
+  }
   return grouped;
 }
 
@@ -217,17 +217,26 @@ function bindGlobal() {
 
   els.randomizeBtn.addEventListener('click', randomizeSelection);
   els.clearBtn.addEventListener('click', clearSelection);
+  els.toggleAllBtn.addEventListener('click', toggleAllSlots);
 }
 
 function renderSlots() {
   const slots = Object.keys(state.bySlot).sort((a, b) => SLOT_ORDER.indexOf(a) - SLOT_ORDER.indexOf(b));
+  const hasStoredCollapsed = Object.keys(state.collapsedBySlot).length > 0;
+  if (!hasStoredCollapsed) {
+    slots.forEach((slot, idx) => {
+      state.collapsedBySlot[slot] = idx !== 0;
+    });
+  }
 
   els.slots.innerHTML = slots.map((slot) => {
     const list = getFilteredSlotItems(slot, state.searchBySlot[slot] || '');
+    const isCollapsed = Boolean(state.collapsedBySlot[slot]);
     return `
-      <section class="slot" data-slot="${escapeHTML(slot)}">
+      <section class="slot${isCollapsed ? ' collapsed' : ''}" data-slot="${escapeHTML(slot)}">
         <div class="slot-head">
           <h3 class="slot-title">${escapeHTML(slot)}</h3>
+          <button class="slot-toggle" type="button" data-role="toggle" aria-expanded="${isCollapsed ? 'false' : 'true'}">${isCollapsed ? 'Expand' : 'Collapse'}</button>
           <span class="slot-count">${list.length} items</span>
         </div>
         <input class="search" type="text" placeholder="Search ${escapeHTML(slot)}" data-role="filter" value="${escapeHTML(state.searchBySlot[slot] || '')}" />
@@ -241,8 +250,14 @@ function renderSlots() {
     const slot = String(slotEl.dataset.slot || 'other');
     const listEl = slotEl.querySelector('div[data-role="list"]');
     const filter = slotEl.querySelector('input[data-role="filter"]');
+    const toggleBtn = slotEl.querySelector('button[data-role="toggle"]');
 
-    renderSlotList(slotEl, slot, getFilteredSlotItems(slot, state.searchBySlot[slot] || ''), state.searchBySlot[slot] || '');
+    if (isSlotCollapsed(slot)) {
+      unloadSlotIcons(slotEl);
+      listEl.innerHTML = '';
+    } else {
+      renderSlotList(slotEl, slot, getFilteredSlotItems(slot, state.searchBySlot[slot] || ''), state.searchBySlot[slot] || '');
+    }
 
     listEl.addEventListener('click', (event) => {
       const row = event.target.closest('button[data-item-id]');
@@ -258,6 +273,7 @@ function renderSlots() {
     });
 
     listEl.addEventListener('scroll', () => {
+      if (isSlotCollapsed(slot)) return;
       renderVirtualRows(slotEl, slot);
     });
 
@@ -270,6 +286,12 @@ function renderSlots() {
     }, SEARCH_DEBOUNCE_MS);
 
     filter.addEventListener('input', debouncedInput);
+
+    toggleBtn.addEventListener('click', () => {
+      state.collapsedBySlot[slot] = !isSlotCollapsed(slot);
+      renderAll();
+      persist();
+    });
   });
 }
 
@@ -302,6 +324,7 @@ function renderVirtualRows(slotEl, slot) {
   const topPad = start * VIRTUAL_ROW_HEIGHT;
   const bottomPad = (items.length - end) * VIRTUAL_ROW_HEIGHT;
   const slotNum = SLOT_TO_NUM[slot] || 0;
+  const iconSlotNum = getIconSlotNum(slot, slotNum);
 
   const rows = items.slice(start, end).map((item) => {
     const selected = Number(state.selected[slotNum] || 0) === Number(item.itemId || 0) ? ' selected' : '';
@@ -310,7 +333,7 @@ function renderVirtualRows(slotEl, slot) {
       return `<button class="item-row${selected}" data-item-id="0" style="height:${VIRTUAL_ROW_HEIGHT}px"><span class="item-name">--- none ---</span></button>`;
     }
 
-    const icon = getItemIconUrl(slotNum, item.itemId);
+    const icon = getItemIconUrl(iconSlotNum, item.itemId);
     return `
       <button class="item-row${selected}" data-item-id="${item.itemId}" title="${escapeHTML(item.name)}" style="height:${VIRTUAL_ROW_HEIGHT}px">
         <span class="item-icon"><img src="${icon}" alt="icon" loading="lazy" /></span>
@@ -332,6 +355,9 @@ function renderAll() {
   els.gender.value = state.gender;
   els.onlyBuyable.checked = state.onlyBuyable;
   els.onlyGiftShop.checked = state.onlyGiftShop;
+  if (els.toggleAllBtn) {
+    els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? 'Open all' : 'Close all';
+  }
 
   for (const slot of Object.keys(state.bySlot)) {
     const slotEl = els.slots.querySelector(`.slot[data-slot="${slot}"]`);
@@ -339,10 +365,28 @@ function renderAll() {
 
     const query = state.searchBySlot[slot] || '';
     const filtered = getFilteredSlotItems(slot, query);
+    const collapsed = isSlotCollapsed(slot);
 
-    renderSlotList(slotEl, slot, filtered, query);
+    slotEl.classList.toggle('collapsed', collapsed);
+    const toggle = slotEl.querySelector('button[data-role="toggle"]');
+    if (toggle) {
+      toggle.textContent = collapsed ? 'Expand' : 'Collapse';
+      toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+    }
+
+    if (!collapsed) {
+      renderSlotList(slotEl, slot, filtered, query);
+    } else {
+      unloadSlotIcons(slotEl);
+      const listEl = slotEl.querySelector('div[data-role="list"]');
+      if (listEl) listEl.innerHTML = '';
+    }
     updateSlotCount(slotEl, filtered.length);
-    renderSlotIcon(slotEl, slot);
+    if (!collapsed) {
+      renderSlotIcon(slotEl, slot);
+    } else {
+      clearSlotHeadIcon(slotEl);
+    }
   }
 
   renderPreview();
@@ -360,6 +404,7 @@ function renderSlotIcon(slotEl, slot) {
   }
 
   const slotNum = SLOT_TO_NUM[slot] || 0;
+  const iconSlotNum = getIconSlotNum(slot, slotNum);
   const itemId = Number(state.selected[slotNum] || 0);
   const img = icon.querySelector('img');
 
@@ -370,7 +415,14 @@ function renderSlotIcon(slotEl, slot) {
   }
 
   img.style.display = 'block';
-  img.src = getItemIconUrl(slotNum, itemId);
+  img.src = getItemIconUrl(iconSlotNum, itemId);
+}
+
+function clearSlotHeadIcon(slotEl) {
+  const icon = slotEl.querySelector('.icon-crop img');
+  if (!icon) return;
+  icon.src = '';
+  icon.style.display = 'none';
 }
 
 function renderPreview() {
@@ -409,14 +461,18 @@ function renderLocationInfo() {
       return `
         <div class="location-item">
           <div class="name">${escapeHTML(item.name)}</div>
-          <div class="missing">No source found in master data.</div>
+          <div class="missing">No known shop locations.</div>
         </div>
       `;
     }
 
     let lines = '';
+    if (!locationEntries.length) {
+      lines += `<div class="missing">No known shop locations.</div>`;
+    }
+
     for (const entry of locationEntries) {
-      lines += `<div class="entry">${escapeHTML(entry.region || 'Unknown')} · ${escapeHTML(entry.city || 'Unknown')} · ${escapeHTML(entry.price || 'Unknown')}</div>`;
+      lines += `<div class="entry">${escapeHTML(entry.region || 'Unknown')} - ${escapeHTML(entry.city || 'Unknown')} - ${escapeHTML(entry.price || 'Unknown')}</div>`;
     }
 
     for (const entry of vanityEntries) {
@@ -429,7 +485,7 @@ function renderLocationInfo() {
 
     const sourceLinks = Array.from(sources)
       .map((src) => `<a href="${escapeHTML(src)}" target="_blank" rel="noopener noreferrer">Source</a>`)
-      .join(' · ');
+      .join(' - ');
 
     return `
       <div class="location-item">
@@ -452,6 +508,9 @@ function renderDataHealth() {
   const duplicates = arr(report.duplicatesById).length;
   const missingSlot = arr(report.missingSlot).length;
 
+  const hasIssues = duplicates > 0 || missingSlot > 0;
+  els.health.classList.toggle('warn', hasIssues);
+
   els.health.innerHTML = `
     <strong>Data Health</strong>
     <span>Items: ${state.items.length}</span>
@@ -460,6 +519,10 @@ function renderDataHealth() {
     <span>Duplicates: ${duplicates}</span>
     <span>Missing slot: ${missingSlot}</span>
   `;
+
+  if (hasIssues) {
+    setStatus(`Loaded ${state.items.length} cosmetics with warnings: duplicates=${duplicates}, missingSlot=${missingSlot}.`, 'warning');
+  }
 }
 
 function getFilteredSlotItems(slot, query = '') {
@@ -482,10 +545,12 @@ function getFilteredSlotItems(slot, query = '') {
 }
 
 function isBuyable(item) {
-  return Boolean(item?.buyable?.isBuyable || item?.tags?.includes('Buyable'));
+  return Boolean(item?.buyable?.isBuyable) && !isGiftShop(item);
 }
 
 function isGiftShop(item) {
+  const hasShopLocations = arr(item?.buyable?.locations).length > 0;
+  if (hasShopLocations) return false;
   return Boolean(item?.giftShop?.isGiftShop || item?.tags?.includes('Gift Shop'));
 }
 
@@ -543,11 +608,24 @@ function clearSelection() {
   persist();
 }
 
+function toggleAllSlots() {
+  const collapseAll = !areAllSlotsCollapsed();
+  for (const slot of Object.keys(state.bySlot)) {
+    state.collapsedBySlot[slot] = collapseAll;
+  }
+  renderAll();
+  persist();
+}
+
 function getItemIconUrl(slotNum, itemId) {
   if (!slotNum || !itemId) return '';
   const solo = { ...DEFAULT_CLOTHES, [slotNum]: itemId };
   const sceneKey = slotNum === 6 ? 1 : 2;
   return buildAvatarUrl(sceneKey, solo);
+}
+
+function getIconSlotNum(slot, slotNum) {
+  return slotNum;
 }
 
 function buildAvatarUrl(sceneKey, clothes) {
@@ -561,6 +639,7 @@ function persist() {
     onlyBuyable: state.onlyBuyable,
     onlyGiftShop: state.onlyGiftShop,
     searchBySlot: state.searchBySlot,
+    collapsedBySlot: state.collapsedBySlot,
   }));
 }
 
@@ -577,13 +656,36 @@ function restore() {
     state.onlyBuyable = Boolean(parsed.onlyBuyable);
     state.onlyGiftShop = Boolean(parsed.onlyGiftShop);
     state.searchBySlot = typeof parsed.searchBySlot === 'object' && parsed.searchBySlot ? parsed.searchBySlot : {};
+    state.collapsedBySlot = typeof parsed.collapsedBySlot === 'object' && parsed.collapsedBySlot ? parsed.collapsedBySlot : {};
   } catch {
   }
 }
 
-function setStatus(text, isError = false) {
+function setStatus(text, level = 'info') {
   els.status.textContent = text;
-  els.status.classList.toggle('error', isError);
+  els.status.classList.toggle('error', level === 'error');
+  els.status.classList.toggle('warn', level === 'warning');
+}
+
+async function loadLocalJson(fileName) {
+  try {
+    const res = await fetch(fileName, { cache: 'no-store' });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+async function loadRemoteMasterFallback() {
+  const fallbackUrl = 'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/cosmetics.master.json';
+  try {
+    const res = await fetch(fallbackUrl, { cache: 'no-store' });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
 }
 
 function debounce(fn, delay) {
@@ -612,5 +714,23 @@ function escapeHTML(value) {
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#39;');
 }
+
+function isSlotCollapsed(slot) {
+  return Boolean(state.collapsedBySlot[slot]);
+}
+
+function areAllSlotsCollapsed() {
+  const slots = Object.keys(state.bySlot);
+  if (!slots.length) return false;
+  return slots.every((slot) => isSlotCollapsed(slot));
+}
+
+function unloadSlotIcons(slotEl) {
+  slotEl.querySelectorAll('.item-list img, .icon-crop img').forEach((img) => {
+    img.src = '';
+    img.removeAttribute('src');
+  });
+}
+
 
 

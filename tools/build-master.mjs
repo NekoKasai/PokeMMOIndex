@@ -1,9 +1,11 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 
-const ROOT = process.cwd();
-const PAGE_DIR = path.join(ROOT, "clean-cosmetics-page");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const PAGE_DIR = path.resolve(__dirname, "..");
 
 const INPUTS = {
   vanity: path.join(PAGE_DIR, "buyable-from-vanity-index.json"),
@@ -13,6 +15,8 @@ const INPUTS = {
 const OUTPUTS = {
   master: path.join(PAGE_DIR, "cosmetics.master.json"),
   report: path.join(PAGE_DIR, "build-report.json"),
+  masterJs: path.join(PAGE_DIR, "cosmetics.master.js"),
+  reportJs: path.join(PAGE_DIR, "build-report.js"),
 };
 
 const SOURCES = {
@@ -62,9 +66,10 @@ const FESTIVAL_MAP = {
 function normalizeName(name) {
   const input = String(name || "").trim().toLowerCase();
   if (!input) return "";
+
   return input
     .normalize("NFKD")
-    .replace(/[’´`]/g, "'")
+    .replace(/[\u2019\u00B4`]/g, "'")
     .replace(/'/g, "")
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9 ]+/g, " ")
@@ -121,6 +126,10 @@ function arr(v) {
   return Array.isArray(v) ? v : [v];
 }
 
+function toWindowData(varName, data) {
+  return `window.${varName} = ${JSON.stringify(data, null, 2)};\n`;
+}
+
 async function readJson(filePath) {
   const raw = await fs.readFile(filePath, "utf8");
   return JSON.parse(raw);
@@ -175,7 +184,6 @@ async function main() {
         _limitation: [],
         _festival: [],
         _attribute: [],
-        _year: [],
       });
     } else {
       const prev = byId.get(id);
@@ -190,7 +198,6 @@ async function main() {
     row._limitation.push(Number(cosmetic.limitation || 0));
     row._festival.push(Number(cosmetic.festival || 0));
     row._attribute.push(Number(cosmetic.attribute || 0));
-    row._year.push(Number(cosmetic.year || 0));
   }
 
   const unmatchedInLocations = [];
@@ -236,14 +243,23 @@ async function main() {
     row.sources.findingGuide = dedupeLocations(row.sources.findingGuide);
     row.buyable.locations = row.sources.findingGuide;
 
-    const isGiftShopBySource = row.sources.vanityIndex.some((v) => /gift\s*shop|reward\s*points/i.test(String(v.detail || "")));
+    const isBuyableByVanityDetail = row.sources.vanityIndex.some((v) =>
+      /pokeyen|coins|shop|store|mart/i.test(String(v.detail || ""))
+    );
+
+    const isGiftShopBySource = row.sources.vanityIndex.some((v) =>
+      /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
+    );
     const isGiftShopByLimitation = row._limitation.includes(0);
+
     row.giftShop = {
       isGiftShop: isGiftShopBySource || isGiftShopByLimitation,
-      details: row.sources.vanityIndex.filter((v) => /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))),
+      details: row.sources.vanityIndex.filter((v) =>
+        /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
+      ),
     };
 
-    row.buyable.isBuyable = row.buyable.locations.length > 0 || row.sources.vanityIndex.length > 0;
+    row.buyable.isBuyable = row.buyable.locations.length > 0 || isBuyableByVanityDetail;
 
     const availability = new Set();
     for (const lim of new Set(row._limitation)) {
@@ -271,7 +287,6 @@ async function main() {
     delete row._limitation;
     delete row._festival;
     delete row._attribute;
-    delete row._year;
 
     itemsOut.push(row);
   }
@@ -291,6 +306,8 @@ async function main() {
 
   await fs.writeFile(OUTPUTS.master, JSON.stringify(master, null, 2));
   await fs.writeFile(OUTPUTS.report, JSON.stringify(report, null, 2));
+  await fs.writeFile(OUTPUTS.masterJs, toWindowData("COSMETICS_MASTER", master));
+  await fs.writeFile(OUTPUTS.reportJs, toWindowData("BUILD_REPORT", report));
 
   const shouldFail = report.missingSlot.length > 0 || report.duplicatesById.length > 0;
   if (shouldFail) {
@@ -298,7 +315,9 @@ async function main() {
     process.exit(2);
   }
 
-  console.log(`Build done: items=${master.items.length}, unmatchedLocations=${report.unmatchedInLocations.length}, unmatchedVanity=${report.unmatchedInVanityIndex.length}`);
+  console.log(
+    `Build done: items=${master.items.length}, unmatchedLocations=${report.unmatchedInLocations.length}, unmatchedVanity=${report.unmatchedInVanityIndex.length}`
+  );
 }
 
 main().catch((error) => {

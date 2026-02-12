@@ -5,7 +5,7 @@
 
     return input
       .normalize("NFKD")
-      .replace(/[’´`]/g, "'")
+      .replace(/[\u2019\u00B4`]/g, "'")
       .replace(/'/g, "")
       .replace(/&/g, " and ")
       .replace(/[^a-z0-9 ]+/g, " ")
