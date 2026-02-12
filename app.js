@@ -58,20 +58,29 @@ const SCENES = [
 ];
 
 const GENDERS = ['female', 'male'];
+const CATEGORY_ICON_URLS = {
+  back: 'https://images.shoutwiki.com/pokemmo/2/21/Vanity_Back_Grey.png',
+  top: 'https://images.shoutwiki.com/pokemmo/9/94/Vanity_Top_Red.png',
+  hat: 'https://images.shoutwiki.com/pokemmo/b/bd/Vanity_Hat_Grey.png',
+  bicycle: 'https://images.shoutwiki.com/pokemmo/2/25/Vanity_Bicycle_Yellow.png',
+  gloves: 'https://images.shoutwiki.com/pokemmo/e/eb/Vanity_Gloves_Grey.png',
+  face: 'https://images.shoutwiki.com/pokemmo/3/34/Vanity_Face_Grey.png',
+  hair: 'https://images.shoutwiki.com/pokemmo/f/f2/Vanity_Hair_Grey.png',
+  eyes: 'https://images.shoutwiki.com/pokemmo/c/c4/Vanity_Eyes_Grey.png',
+};
 
 const state = {
   master: null,
   report: null,
   marketByItemId: {},
   marketItemCount: 0,
+  cosmeticMetaByItemId: {},
   items: [],
   bySlot: {},
   itemById: {},
   itemByItemId: {},
   selected: { ...DEFAULT_CLOTHES },
   gender: 'male',
-  onlyBuyable: false,
-  onlyGiftShop: false,
   selectedTags: [],
   availableTags: [],
   searchBySlot: {},
@@ -90,8 +99,6 @@ const els = {
   clearBtn: document.getElementById('clearBtn'),
   previewGrid: document.getElementById('previewGrid'),
   locationInfo: document.getElementById('locationInfo'),
-  onlyBuyable: document.getElementById('onlyBuyable'),
-  onlyGiftShop: document.getElementById('onlyGiftShop'),
 };
 
 init();
@@ -135,6 +142,7 @@ async function loadMasterData() {
     throw new Error('Master dataset loaded but contains no valid cosmetic items.');
   }
 
+  await loadCosmeticMetaData();
   await loadMarketData();
   state.items = normalizedItems
     .map((item) => ({ ...item, market: buildMarketInfo(item) }))
@@ -207,8 +215,19 @@ function deriveDisplayTags(item) {
   if (existing.includes('PvE Reward') || availability.includes('pve reward') || vanityDetails.some((d) => /pve|quest/.test(d))) tags.add('PvE Reward');
   if (existing.includes('Seasonal') || availability.includes('seasonal')) tags.add('Seasonal');
   if (existing.includes('Limited') || availability.includes('limited')) tags.add('Limited');
-  if (existing.includes('Event Only') || existing.includes('Event') || availability.includes('event only')) tags.add('Event Only');
+  if (existing.includes('Event Only') || existing.includes('Event') || availability.includes('event only')) {
+    tags.add('Event Only');
+    tags.add('Event');
+  }
   if (existing.includes('CO')) tags.add('CO');
+
+  const ids = [item.itemId, ...arr(item.itemIds)]
+    .map((idValue) => Number(idValue))
+    .filter((idValue) => Number.isFinite(idValue) && idValue > 0);
+  for (const idValue of ids) {
+    const metaTags = arr(state.cosmeticMetaByItemId[idValue]?.tags);
+    for (const tag of metaTags) tags.add(tag);
+  }
 
   return Array.from(tags);
 }
@@ -234,20 +253,6 @@ function setupControls() {
 function bindGlobal() {
   els.gender.addEventListener('change', () => {
     state.gender = els.gender.value;
-    renderAll();
-    persist();
-  });
-
-  els.onlyBuyable.addEventListener('change', () => {
-    state.onlyBuyable = Boolean(els.onlyBuyable.checked);
-    dropUnavailableSelections();
-    renderAll();
-    persist();
-  });
-
-  els.onlyGiftShop.addEventListener('change', () => {
-    state.onlyGiftShop = Boolean(els.onlyGiftShop.checked);
-    dropUnavailableSelections();
     renderAll();
     persist();
   });
@@ -379,7 +384,6 @@ function renderVirtualRows(slotEl, slot) {
   const topPad = start * VIRTUAL_ROW_HEIGHT;
   const bottomPad = (items.length - end) * VIRTUAL_ROW_HEIGHT;
   const slotNum = SLOT_TO_NUM[slot] || 0;
-  const iconSlotNum = getIconSlotNum(slot, slotNum);
 
   const rows = items.slice(start, end).map((item) => {
     const selected = Number(state.selected[slotNum] || 0) === Number(item.itemId || 0) ? ' selected' : '';
@@ -388,12 +392,10 @@ function renderVirtualRows(slotEl, slot) {
       return `<button class="item-row${selected}" data-item-id="0" style="height:${VIRTUAL_ROW_HEIGHT}px"><span class="item-name">--- none ---</span></button>`;
     }
 
-    const icon = getItemIconUrl(iconSlotNum, item.itemId);
     const marketText = formatMarketShort(item.market);
     const tagText = formatTagShort(item.tags);
     return `
       <button class="item-row${selected}" data-item-id="${item.itemId}" title="${escapeHTML(item.name)}" style="height:${VIRTUAL_ROW_HEIGHT}px">
-        <span class="item-icon"><img src="${icon}" alt="icon" loading="lazy" /></span>
         <span>
           <span class="item-name">${escapeHTML(item.name)}</span>
           <span class="item-meta">${escapeHTML(marketText)}</span>
@@ -411,11 +413,7 @@ function renderVirtualRows(slotEl, slot) {
 }
 
 function renderAll() {
-  dropUnavailableSelections();
-
   els.gender.value = state.gender;
-  els.onlyBuyable.checked = state.onlyBuyable;
-  els.onlyGiftShop.checked = state.onlyGiftShop;
   renderTagFilterChips();
   if (els.toggleAllBtn) {
     els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? 'Open all' : 'Close all';
@@ -466,24 +464,34 @@ function renderSlotIcon(slotEl, slot) {
   }
 
   const slotNum = SLOT_TO_NUM[slot] || 0;
-  const iconSlotNum = getIconSlotNum(slot, slotNum);
-  const itemId = Number(state.selected[slotNum] || 0);
+  const itemId = Number(DEFAULT_CLOTHES[slotNum] || 0);
   const img = icon.querySelector('img');
+  const categoryIcon = CATEGORY_ICON_URLS[slot] || '';
+
+  if (categoryIcon) {
+    img.style.display = 'block';
+    img.classList.add('category-icon');
+    img.src = categoryIcon;
+    return;
+  }
 
   if (!slotNum || !itemId) {
     img.src = '';
+    img.classList.remove('category-icon');
     img.style.display = 'none';
     return;
   }
 
   img.style.display = 'block';
-  img.src = getItemIconUrl(iconSlotNum, itemId);
+  img.classList.remove('category-icon');
+  img.src = getItemIconUrl(slotNum, itemId);
 }
 
 function clearSlotHeadIcon(slotEl) {
   const icon = slotEl.querySelector('.icon-crop img');
   if (!icon) return;
   icon.src = '';
+  icon.classList.remove('category-icon');
   icon.style.display = 'none';
 }
 
@@ -520,17 +528,8 @@ function renderLocationInfo() {
     const vanityEntries = arr(item.sources?.vanityIndex);
     const market = item.market || null;
 
-    if (!locationEntries.length && !vanityEntries.length) {
-      return `
-        <div class="location-item">
-          <div class="name">${escapeHTML(item.name)}</div>
-          <div class="missing">No known shop locations.</div>
-        </div>
-      `;
-    }
-
     let lines = '';
-    if (!locationEntries.length) {
+    if (!locationEntries.length && vanityEntries.length) {
       lines += `<div class="missing">No known shop locations.</div>`;
     }
 
@@ -599,18 +598,10 @@ function renderDataHealth() {
 function getFilteredSlotItems(slot, query = '') {
   let list = state.bySlot[slot] || [];
 
-  if (state.onlyBuyable) {
-    list = list.filter((item) => isBuyable(item));
-  }
-
-  if (state.onlyGiftShop) {
-    list = list.filter((item) => isGiftShop(item));
-  }
-
   if (state.selectedTags.length) {
     list = list.filter((item) => {
       const tags = arr(item.tags);
-      return state.selectedTags.every((tag) => tags.includes(tag));
+      return state.selectedTags.every((tag) => itemMatchesTagFilter(tags, tag));
     });
   }
 
@@ -622,46 +613,9 @@ function getFilteredSlotItems(slot, query = '') {
   return list;
 }
 
-function isBuyable(item) {
-  return Boolean(item?.buyable?.isBuyable) && !isGiftShop(item);
-}
-
-function isGiftShop(item) {
-  const hasShopLocations = arr(item?.buyable?.locations).length > 0;
-  if (hasShopLocations) return false;
-  return Boolean(item?.giftShop?.isGiftShop || item?.tags?.includes('Gift Shop'));
-}
-
 function updateSlotCount(slotEl, count) {
   const countEl = slotEl.querySelector('.slot-count');
   if (countEl) countEl.textContent = `${count} items`;
-}
-
-function dropUnavailableSelections() {
-  if (!state.onlyBuyable && !state.onlyGiftShop) return;
-
-  for (const slot of Object.keys(state.bySlot)) {
-    const slotNum = SLOT_TO_NUM[slot] || 0;
-    if (!slotNum) continue;
-
-    const selectedItemId = Number(state.selected[slotNum] || 0);
-    if (!selectedItemId) continue;
-
-    const selectedItem = state.itemByItemId[selectedItemId];
-    if (!selectedItem) {
-      state.selected[slotNum] = 0;
-      continue;
-    }
-
-    if (state.onlyBuyable && !isBuyable(selectedItem)) {
-      state.selected[slotNum] = 0;
-      continue;
-    }
-
-    if (state.onlyGiftShop && !isGiftShop(selectedItem)) {
-      state.selected[slotNum] = 0;
-    }
-  }
 }
 
 function randomizeSelection() {
@@ -702,10 +656,6 @@ function getItemIconUrl(slotNum, itemId) {
   return buildAvatarUrl(sceneKey, solo);
 }
 
-function getIconSlotNum(slot, slotNum) {
-  return slotNum;
-}
-
 function buildAvatarUrl(sceneKey, clothes) {
   return `https://apis.fiereu.de/pokemmoclothes/v1/${sceneKey}/2/1/${clothes[6]}/${clothes[12]}/${clothes[4]}/${clothes[5]}/${clothes[8]}/${clothes[3]}/${clothes[2]}/${clothes[10]}/${clothes[9]}/${clothes[7]}.png`;
 }
@@ -714,8 +664,6 @@ function persist() {
   localStorage.setItem('clean_cosmetics_master_state', JSON.stringify({
     selected: state.selected,
     gender: state.gender,
-    onlyBuyable: state.onlyBuyable,
-    onlyGiftShop: state.onlyGiftShop,
     selectedTags: state.selectedTags,
     searchBySlot: state.searchBySlot,
     collapsedBySlot: state.collapsedBySlot,
@@ -732,9 +680,7 @@ function restore() {
 
     if (parsed.selected) state.selected = { ...state.selected, ...parsed.selected };
     if (GENDERS.includes(parsed.gender)) state.gender = parsed.gender;
-    state.onlyBuyable = Boolean(parsed.onlyBuyable);
-    state.onlyGiftShop = Boolean(parsed.onlyGiftShop);
-    state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags : [];
+    state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags.map(toFilterTag).filter(Boolean) : [];
     state.searchBySlot = typeof parsed.searchBySlot === 'object' && parsed.searchBySlot ? parsed.searchBySlot : {};
     state.collapsedBySlot = typeof parsed.collapsedBySlot === 'object' && parsed.collapsedBySlot ? parsed.collapsedBySlot : {};
   } catch {
@@ -843,6 +789,40 @@ async function loadMarketData() {
   }
 }
 
+async function loadCosmeticMetaData() {
+  const url = 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item-cosmetic.json';
+  try {
+    const response = await fetch(url, { cache: 'no-store' });
+    if (!response.ok) return;
+    const data = await response.json();
+    if (!Array.isArray(data)) return;
+
+    const byItemId = {};
+    for (const row of data) {
+      const itemId = Number(row?.item_id);
+      if (!itemId) continue;
+      if (!byItemId[itemId]) byItemId[itemId] = { tags: new Set() };
+
+      const limitation = Number(row?.limitation || 0);
+      const festival = Number(row?.festival || 0);
+      const target = byItemId[itemId].tags;
+
+      if ((limitation & 1) === 1) target.add('Limited');
+      if ((limitation & 8) === 8) target.add('Seasonal');
+      if ((limitation & 4) === 4 || festival !== 0) {
+        target.add('Event Only');
+        target.add('Event');
+      }
+    }
+
+    state.cosmeticMetaByItemId = Object.fromEntries(
+      Object.entries(byItemId).map(([key, value]) => [key, { tags: Array.from(value.tags) }])
+    );
+  } catch {
+    state.cosmeticMetaByItemId = {};
+  }
+}
+
 function buildMarketInfo(item) {
   const ids = [item.itemId, ...arr(item.itemIds)]
     .map((value) => Number(value))
@@ -915,6 +895,7 @@ function tagClassName(tag) {
     'gift shop': 'tag-gift',
     seasonal: 'tag-seasonal',
     'event only': 'tag-event',
+    event: 'tag-event',
     limited: 'tag-limited',
     'pve reward': 'tag-pve',
   };
@@ -923,11 +904,26 @@ function tagClassName(tag) {
 
 function renderTagFilterChips() {
   if (!els.tagFilterChips) return;
-  const chips = state.availableTags.map((tag) => {
+  const filterTags = Array.from(new Set(state.availableTags.map((tag) => toFilterTag(tag)).filter(Boolean))).sort((a, b) => a.localeCompare(b));
+  const chips = filterTags.map((tag) => {
     const selected = state.selectedTags.includes(tag) ? ' selected' : '';
     return `<button type="button" class="tag-chip ${tagClassName(tag)}${selected}" data-tag="${escapeHTML(tag)}">${escapeHTML(tag)}</button>`;
   }).join('');
   els.tagFilterChips.innerHTML = chips || '<span class="item-meta">No tags available.</span>';
+}
+
+function toFilterTag(tag) {
+  const value = String(tag || '');
+  if (!value) return '';
+  if (value === 'Event Only') return 'Event';
+  return value;
+}
+
+function itemMatchesTagFilter(tags, filterTag) {
+  if (filterTag === 'Event') {
+    return tags.includes('Event') || tags.includes('Event Only');
+  }
+  return tags.includes(filterTag);
 }
 
 

@@ -31,80 +31,84 @@ body {
 }
 
 .hero {
-  padding: 14px;
+  padding: 16px 16px 12px;
   margin-bottom: 14px;
 }
 
 .hero-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 16px;
 }
 
 .hero h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 1.1;
+  letter-spacing: 0.01em;
 }
 
 .hero p {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .hero-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 10px;
 }
 
 .hero-links a {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  color: #d5e8fb;
+  gap: 6px;
+  color: #bcd6ef;
   text-decoration: none;
-  font-size: 0.78rem;
-  border: 1px solid #355a80;
-  border-radius: 999px;
-  background: #112942;
-  padding: 4px 10px;
+  font-size: 0.8rem;
+  border: none;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  padding: 2px 0;
+  opacity: 0.9;
 }
 
 .hero-links a:hover {
-  border-color: #3a9df0;
+  border-bottom-color: #3a9df0;
   color: #ffffff;
+  opacity: 1;
 }
 
 .link-icon {
   display: inline-grid;
   place-items: center;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: #1d466e;
-  border: 1px solid #3f78ad;
+  background: #173957;
+  border: 1px solid #2f5e8a;
   color: #ffffff;
-  font-size: 0.57rem;
+  font-size: 0.52rem;
   font-weight: 700;
   line-height: 1;
 }
 
 .status {
-  margin-top: 10px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 0.86rem;
   color: #b3d7fb;
 }
 .status.error { color: #ff8f8f; }
 .status.warn { color: #efb170; }
 .health {
-  margin-top: 9px;
+  margin-top: 7px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px 12px;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--muted);
 }
 .health strong {
@@ -127,7 +131,7 @@ body {
 
 .toolbar {
   display: grid;
-  grid-template-columns: 170px auto auto auto;
+  grid-template-columns: 170px 1fr;
   gap: 10px;
   margin-bottom: 12px;
   align-items: end;
@@ -257,6 +261,8 @@ select {
 .toolbar-actions {
   display: flex;
   gap: 8px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -453,6 +459,15 @@ select {
   height: 68px;
   margin-left: -18px;
   margin-top: -7px;
+}
+
+.icon-crop img.category-icon {
+  width: 100%;
+  height: 100%;
+  margin-left: 0;
+  margin-top: 0;
+  object-fit: contain;
+  padding: 3px;
 }
 
 .preview-grid {
