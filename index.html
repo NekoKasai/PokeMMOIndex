@@ -1,0 +1,71 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PokeMMO Cosmetics - Clean Full Version</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero panel">
+      <div class="hero-top">
+        <div>
+          <h1>Cosmetics Helper</h1>
+          <p>Clean rebuild with deterministic IDs, unified matching, and data health reporting.</p>
+        </div>
+        <div class="hero-links">
+          <a href="https://pokemmohub.com/" target="_blank" rel="noopener noreferrer"><span class="link-icon">PH</span>Source: PokeMMOHub</a>
+          <a href="https://github.com/PokeMMO-Tools/pokemmo-hub" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub: pokemmo-hub</a>
+        </div>
+      </div>
+      <div id="status" class="status">Loading data...</div>
+      <div id="health" class="health"></div>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls">
+        <div class="toolbar">
+          <div class="toolbar-group">
+            <label for="gender">Gender</label>
+            <select id="gender"></select>
+          </div>
+          <label class="check check-toggle">
+            <span class="check-title">Filter</span>
+            <span class="check-text">Only buyable cosmetics</span>
+            <input id="onlyBuyable" type="checkbox" />
+            <span class="toggle-ui" aria-hidden="true"></span>
+          </label>
+          <label class="check check-toggle">
+            <span class="check-title">Filter</span>
+            <span class="check-text">Only Gift Shop cosmetics</span>
+            <input id="onlyGiftShop" type="checkbox" />
+            <span class="toggle-ui" aria-hidden="true"></span>
+          </label>
+          <div class="toolbar-actions">
+            <button id="randomizeBtn" class="btn warning">Randomize</button>
+            <button id="clearBtn" class="btn danger">Clear</button>
+          </div>
+        </div>
+
+        <div id="slots" class="slot-grid"></div>
+      </section>
+
+      <aside class="panel preview-panel">
+        <h2>Preview</h2>
+        <div id="previewGrid" class="preview-grid"></div>
+        <div class="location-panel">
+          <h3>Where to get selected cosmetics</h3>
+          <div id="locationInfo" class="location-info"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="data-utils.js"></script>
+  <script src="cosmetics.master.js"></script>
+  <script src="build-report.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+
