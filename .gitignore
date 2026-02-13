@@ -1,0 +1,7 @@
+dist/
+
+# generated data
+*.master.json
+*.master.js
+build-report.json
+build-report.js

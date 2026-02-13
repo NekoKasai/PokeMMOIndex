@@ -5,26 +5,14 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PAGE_DIR = path.resolve(__dirname, "..");
+export const PAGE_DIR = path.resolve(__dirname, "..");
 
-const INPUTS = {
-  vanity: path.join(PAGE_DIR, "buyable-from-vanity-index.json"),
-  locations: path.join(PAGE_DIR, "cosmetic-locations.json"),
-};
-
-const OUTPUTS = {
-  master: path.join(PAGE_DIR, "cosmetics.master.json"),
-  report: path.join(PAGE_DIR, "build-report.json"),
-  masterJs: path.join(PAGE_DIR, "cosmetics.master.js"),
-  reportJs: path.join(PAGE_DIR, "build-report.js"),
-};
-
-const SOURCES = {
+export const DEFAULT_SOURCE_URLS = {
   items: "https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item.json",
   cosmetics: "https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item-cosmetic.json",
 };
 
-const SLOT_BY_NUM = {
+export const SLOT_BY_NUM = {
   1: "forehead",
   2: "hat",
   3: "hair",
@@ -53,13 +41,13 @@ const FESTIVAL_MAP = {
   10: "PokeMMO Anniversary",
 };
 
-function normalizeName(name) {
+export function normalizeName(name) {
   const input = String(name || "").trim().toLowerCase();
   if (!input) return "";
 
   return input
     .normalize("NFKD")
-    .replace(/[\u2019\u00B4`]/g, "'")
+    .replace(/[’´`]/g, "'")
     .replace(/'/g, "")
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9 ]+/g, " ")
@@ -67,12 +55,12 @@ function normalizeName(name) {
     .trim();
 }
 
-function toCosmeticId(name) {
+export function toCosmeticId(name) {
   const normalized = normalizeName(name);
   return normalized ? normalized.replace(/ /g, "_") : "";
 }
 
-function normalizeSlot(slot) {
+export function normalizeSlot(slot) {
   const s = normalizeName(slot);
   const map = {
     forehead: "forehead",
@@ -99,6 +87,11 @@ function normalizeSlot(slot) {
   return map[s] || "other";
 }
 
+function arr(v) {
+  if (v == null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
 function dedupeLocations(locations) {
   const seen = new Set();
   const out = [];
@@ -109,11 +102,6 @@ function dedupeLocations(locations) {
     out.push(loc);
   }
   return out;
-}
-
-function arr(v) {
-  if (v == null) return [];
-  return Array.isArray(v) ? v : [v];
 }
 
 function hasLimitationBit(limitationValues, bit) {
@@ -128,24 +116,22 @@ function toWindowData(varName, data) {
   return `window.${varName} = ${JSON.stringify(data, null, 2)};\n`;
 }
 
-async function readJson(filePath) {
+export async function readJson(filePath) {
   const raw = await fs.readFile(filePath, "utf8");
   return JSON.parse(raw);
 }
 
-async function readRemoteJson(url) {
-  const res = await fetch(url);
+export async function readRemoteJson(url) {
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`Fetch failed ${url}: ${res.status}`);
   return res.json();
 }
 
-async function main() {
-  const [items, cosmetics, vanity, locations] = await Promise.all([
-    readRemoteJson(SOURCES.items),
-    readRemoteJson(SOURCES.cosmetics),
-    readJson(INPUTS.vanity),
-    readJson(INPUTS.locations),
-  ]);
+export function buildMaster(inputs) {
+  const items = arr(inputs?.items);
+  const cosmetics = arr(inputs?.cosmetics);
+  const vanity = inputs?.vanity || {};
+  const locations = inputs?.locations || {};
 
   const itemNameById = new Map();
   for (const item of items) {
@@ -241,15 +227,12 @@ async function main() {
     row.sources.findingGuide = dedupeLocations(row.sources.findingGuide);
     row.buyable.locations = row.sources.findingGuide;
 
-    const isMartByVanityDetail = row.sources.vanityIndex.some((v) =>
-      /pokemart|mart|pokeyen|shop price/i.test(String(v.detail || ""))
-    );
     const isGiftShopBySource = row.sources.vanityIndex.some((v) =>
       /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
     );
     const isGiftShopByLimitation = row._limitation.includes(0);
-    const isMartByLocation = row.buyable.locations.length > 0;
-    const isMart = isMartByLocation || (isMartByVanityDetail && !isGiftShopBySource);
+
+    const isBuyable = row.buyable.locations.length > 0;
     const isGiftShop = isGiftShopBySource || isGiftShopByLimitation;
 
     const isPvpReward =
@@ -269,10 +252,10 @@ async function main() {
       ),
     };
 
-    row.buyable.isBuyable = isMart;
+    row.buyable.isBuyable = isBuyable;
 
     const availability = new Set();
-    if (isMart) availability.add("Mart Items");
+    if (isBuyable) availability.add("Mart Items");
     if (isGiftShop) availability.add("Gift Shop");
     if (isPvpReward) availability.add("PvP Reward");
     if (isPveReward) availability.add("PvE Reward");
@@ -285,10 +268,13 @@ async function main() {
     row.availability = Array.from(availability);
 
     const tags = new Set();
-    if (isMart) tags.add("Mart Items");
+    if (isBuyable) tags.add("Mart Items");
     if (isGiftShop) tags.add("Gift Shop");
     if (isSeasonal) tags.add("Seasonal");
-    if (isEventOnly) tags.add("Event Only");
+    if (isEventOnly) {
+      tags.add("Event Only");
+      tags.add("Event");
+    }
     if (isLimited) tags.add("Limited");
     if (isPvpReward) tags.add("PvP Reward");
     if (isPveReward) tags.add("PvE Reward");
@@ -319,23 +305,59 @@ async function main() {
     missingSlot,
   };
 
-  await fs.writeFile(OUTPUTS.master, JSON.stringify(master, null, 2));
-  await fs.writeFile(OUTPUTS.report, JSON.stringify(report, null, 2));
-  await fs.writeFile(OUTPUTS.masterJs, toWindowData("COSMETICS_MASTER", master));
-  await fs.writeFile(OUTPUTS.reportJs, toWindowData("BUILD_REPORT", report));
+  const summary = {
+    items: master.items.length,
+    unmatchedLocations: report.unmatchedInLocations.length,
+    unmatchedVanity: report.unmatchedInVanityIndex.length,
+    duplicates: report.duplicatesById.length,
+    missingSlot: report.missingSlot.length,
+  };
 
-  const shouldFail = report.missingSlot.length > 0 || report.duplicatesById.length > 0;
-  if (shouldFail) {
-    console.error(`Build failed: duplicatesById=${report.duplicatesById.length}, missingSlot=${report.missingSlot.length}`);
-    process.exit(2);
-  }
-
-  console.log(
-    `Build done: items=${master.items.length}, unmatchedLocations=${report.unmatchedInLocations.length}, unmatchedVanity=${report.unmatchedInVanityIndex.length}`
-  );
+  return { master, report, summary };
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+export async function writeOutputs(data, outputDir, options = {}) {
+  const { writeWrappers = true } = options;
+  await fs.mkdir(outputDir, { recursive: true });
+
+  const masterPath = path.join(outputDir, "cosmetics.master.json");
+  const reportPath = path.join(outputDir, "build-report.json");
+
+  await fs.writeFile(masterPath, JSON.stringify(data.master, null, 2));
+  await fs.writeFile(reportPath, JSON.stringify(data.report, null, 2));
+
+  if (writeWrappers) {
+    await fs.writeFile(path.join(outputDir, "cosmetics.master.js"), toWindowData("COSMETICS_MASTER", data.master));
+    await fs.writeFile(path.join(outputDir, "build-report.js"), toWindowData("BUILD_REPORT", data.report));
+  }
+
+  return { masterPath, reportPath };
+}
+
+async function cli() {
+  const inputs = {
+    items: await readRemoteJson(DEFAULT_SOURCE_URLS.items),
+    cosmetics: await readRemoteJson(DEFAULT_SOURCE_URLS.cosmetics),
+    vanity: await readJson(path.join(PAGE_DIR, "buyable-from-vanity-index.json")),
+    locations: await readJson(path.join(PAGE_DIR, "cosmetic-locations.json")),
+  };
+
+  const data = buildMaster(inputs);
+  const outDir = path.join(PAGE_DIR, "dist", "data");
+  await writeOutputs(data, outDir, { writeWrappers: true });
+
+  const shouldFail = data.summary.duplicates > 0 || data.summary.missingSlot > 0;
+  const prefix = shouldFail ? "Build failed" : "Build done";
+  console.log(
+    `${prefix}: items=${data.summary.items}, unmatchedLocations=${data.summary.unmatchedLocations}, unmatchedVanity=${data.summary.unmatchedVanity}, duplicates=${data.summary.duplicates}, missingSlot=${data.summary.missingSlot}`
+  );
+
+  if (shouldFail) process.exit(2);
+}
+
+if (path.resolve(process.argv[1] || "") === __filename) {
+  cli().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
