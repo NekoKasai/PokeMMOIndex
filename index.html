@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -91,6 +91,42 @@
         }
 
         .header-menu a.active {
+            color: #e8f6ff;
+            border-color: rgba(126, 191, 235, 0.55);
+            background: rgba(74, 126, 167, 0.28);
+        }
+
+        .header-lang-group {
+            display: inline-flex;
+            gap: 0.35rem;
+        }
+
+        .header-lang-btn {
+            min-height: 34px;
+            padding: 0.4rem 0.7rem;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.28);
+            border-radius: 0.5rem;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header-lang-btn:hover {
+            color: var(--primary);
+            border-color: rgba(255, 107, 107, 0.3);
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .header-lang-btn:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.14);
+        }
+
+        .header-lang-btn.active {
             color: #e8f6ff;
             border-color: rgba(126, 191, 235, 0.55);
             background: rgba(74, 126, 167, 0.28);
@@ -348,77 +384,170 @@
         <div class="container">
             <div class="logo">🎮 PokeMMOIndex</div>
             <div class="header-menu">
-                <a class="active" href="index.html">Home</a>
-                <a href="cosmetics.html">Cosmetics</a>
-                <a href="calendar.html">Kalender</a>
-                <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a id="menuHome" class="active" href="index.html">Home</a>
+                <a id="menuCosmetics" href="cosmetics.html">Cosmetics</a>
+                <a id="menuCalendar" href="calendar.html">Calendar</a>
+                <a id="menuGuides" href="guides.html">Guides</a>
+                <a id="menuGitHub" href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <div class="header-lang-group" aria-label="Language">
+                    <button type="button" class="header-lang-btn" data-lang="de">DE</button>
+                    <button type="button" class="header-lang-btn" data-lang="en">EN</button>
+                </div>
             </div>
         </div>
     </header>
 
     <section class="hero">
-        <h1>PokeMMOIndex</h1>
-        <p>Eine Sammlung von Tools und Utilities für PokeMMO. Saubere, wartbare Projekte mit deterministischen IDs und vereinheitlichter Datenverarbeitung.</p>
+        <h1 id="heroTitle">PokeMMOIndex</h1>
+        <p id="heroSubtitle">A collection of tools and utilities for PokeMMO. Clean, maintainable projects with deterministic IDs and unified data processing.</p>
         <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">Erkunde Projekte</a>
-            <a href="https://github.com/NekoKasai/PokeMMOIndex" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a id="heroExploreBtn" href="#projects" class="btn btn-primary">Explore Projects</a>
+            <a id="heroGitHubBtn" href="https://github.com/NekoKasai/PokeMMOIndex" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
     </section>
 
     <section class="projects-section" id="projects">
-        <h2 class="section-title">Projekte</h2>
+        <h2 id="projectsTitle" class="section-title">Projects</h2>
         <div class="projects-grid">
             <div class="project-card" onclick="window.location.href='cosmetics.html'">
                 <div class="project-badge active">
-                    <span class="status-dot active"></span>Aktiv
+                    <span class="status-dot active"></span><span id="cosmeticsBadgeText">Active</span>
                 </div>
-                <h3 class="project-title">Cosmetics Helper</h3>
-                <p class="project-description">
-                    Ein umfassendes Tool zur Verwaltung von Kosmetika in PokeMMO. Mit deterministischen IDs, vereinheitlichter Abfrage und vollständiger Datengesundheitsprüfung.
+                <h3 id="cosmeticsTitle" class="project-title">Cosmetics Helper</h3>
+                <p id="cosmeticsDesc" class="project-description">
+                    Find your favorite cosmetics faster, try combinations, and keep your outfits organized in one place.
                 </p>
                 <div class="project-links">
-                    <a href="cosmetics.html" class="project-link">→ Zum Tool</a>
-                    <a href="https://github.com/NekoKasai/PokeMMOIndex" class="project-link" target="_blank" rel="noopener noreferrer">→ GitHub</a>
+                    <a id="cosmeticsToolLink" href="cosmetics.html" class="project-link">→ Open Tool</a>
+                    <a id="cosmeticsGitLink" href="https://github.com/NekoKasai/PokeMMOIndex" class="project-link" target="_blank" rel="noopener noreferrer">→ GitHub</a>
                 </div>
             </div>
 
             <div class="project-card" onclick="window.location.href='calendar.html'">
                 <div class="project-badge active">
-                    <span class="status-dot active"></span>Aktiv
+                    <span class="status-dot active"></span><span id="calendarBadgeText">Active</span>
                 </div>
-                <h3 class="project-title">Kalender</h3>
-                <p class="project-description">
-                    Roaming-Legendaries-Kalender für alle Monate inklusive visueller Übersicht im PokeMMOIndex-Style.
+                <h3 id="calendarTitle" class="project-title">Roaming Calendar</h3>
+                <p id="calendarDesc" class="project-description">
+                    Monthly roaming-legendaries calendar with an at-a-glance overview in the PokeMMOIndex style.
                 </p>
                 <div class="project-links">
-                    <a href="calendar.html" class="project-link">→ Zum Kalender</a>
+                    <a id="calendarLink" href="calendar.html" class="project-link">→ Open Calendar</a>
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-badge planned">
-                    <span class="status-dot planned"></span>Geplant
+            <div class="project-card" onclick="window.location.href='guides.html'">
+                <div class="project-badge active">
+                    <span class="status-dot active"></span><span id="project3BadgeText">Active</span>
                 </div>
-                <h3 class="project-title">Projekt 3</h3>
-                <p class="project-description">
-                    Beschreibung für dein drittes Projekt. Diese Vorlage kann leicht kopiert und angepasst werden.
+                <h3 id="project3Title" class="project-title">Guides</h3>
+                <p id="project3Desc" class="project-description">
+                    A tab-based guide page where multiple guides can be viewed on one screen.
                 </p>
                 <div class="project-links">
-                    <a href="#" class="project-link">→ Demnächst verfügbar</a>
+                    <a id="project3Link" href="guides.html" class="project-link">→ Open Guides</a>
                 </div>
             </div>
         </div>
     </section>
 
     <footer id="contact">
-        <p>© 2026 PokeMMOIndex. Alle Rechte vorbehalten.</p>
-        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
-            Diese Tools sind nicht offiziell mit PokeMMO verbunden.
+        <p id="footerCopy">© 2026 PokeMMOIndex. All rights reserved.</p>
+        <p id="footerDisclaimer" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            These tools are not officially affiliated with PokeMMO.
         </p>
         <div class="social-links">
             <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://pokemmohub.com/" target="_blank" rel="noopener noreferrer">PokeMMOHub</a>
         </div>
     </footer>
+    <script>
+        (() => {
+            const LANG_KEY = "site_lang";
+            const VALID_LANGS = ["de", "en"];
+            const I18N = {
+                de: {
+                    menuHome: "Startseite",
+                    menuCosmetics: "Cosmetics",
+                    menuCalendar: "Kalender",
+                    menuGuides: "Guides",
+                    menuGitHub: "GitHub",
+                    heroSubtitle: "Eine Sammlung von Tools und Utilities für PokeMMO. Saubere, wartbare Projekte mit deterministischen IDs und vereinheitlichter Datenverarbeitung.",
+                    heroExploreBtn: "Projekte entdecken",
+                    projectsTitle: "Projekte",
+                    cosmeticsBadgeText: "Aktiv",
+                    cosmeticsTitle: "Cosmetics Helper",
+                    cosmeticsDesc: "Finde deine Lieblings-Kosmetika schneller, probiere Kombinationen aus und verwalte deine Outfits an einem Ort.",
+                    cosmeticsToolLink: "→ Zum Tool",
+                    calendarBadgeText: "Aktiv",
+                    calendarTitle: "Kalender",
+                    calendarDesc: "Roaming-Legendaries-Kalender für alle Monate inklusive visueller Übersicht im PokeMMOIndex-Style.",
+                    calendarLink: "→ Zum Kalender",
+                    project3BadgeText: "Aktiv",
+                    project3Title: "Guides",
+                    project3Desc: "Eine tab-basierte Guide-Seite, auf der mehrere Guides auf derselben Seite angezeigt werden.",
+                    project3Link: "→ Guides öffnen",
+                    footerCopy: "© 2026 PokeMMOIndex. Alle Rechte vorbehalten.",
+                    footerDisclaimer: "Diese Tools sind nicht offiziell mit PokeMMO verbunden."
+                },
+                en: {
+                    menuHome: "Home",
+                    menuCosmetics: "Cosmetics",
+                    menuCalendar: "Calendar",
+                    menuGuides: "Guides",
+                    menuGitHub: "GitHub",
+                    heroSubtitle: "A collection of tools and utilities for PokeMMO. Clean, maintainable projects with deterministic IDs and unified data processing.",
+                    heroExploreBtn: "Explore Projects",
+                    projectsTitle: "Projects",
+                    cosmeticsBadgeText: "Active",
+                    cosmeticsTitle: "Cosmetics Helper",
+                    cosmeticsDesc: "Find your favorite cosmetics faster, try combinations, and keep your outfits organized in one place.",
+                    cosmeticsToolLink: "→ Open Tool",
+                    calendarBadgeText: "Active",
+                    calendarTitle: "Roaming Calendar",
+                    calendarDesc: "Monthly roaming-legendaries calendar with an at-a-glance overview in the PokeMMOIndex style.",
+                    calendarLink: "→ Open Calendar",
+                    project3BadgeText: "Active",
+                    project3Title: "Guides",
+                    project3Desc: "A tab-based guide page where multiple guides can be viewed on one screen.",
+                    project3Link: "→ Open Guides",
+                    footerCopy: "© 2026 PokeMMOIndex. All rights reserved.",
+                    footerDisclaimer: "These tools are not officially affiliated with PokeMMO."
+                }
+            };
+
+            const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "en");
+            const headerLangButtons = document.querySelectorAll(".header-lang-btn[data-lang]");
+            const setActiveLangButton = (lang) => {
+                headerLangButtons.forEach((btn) => {
+                    btn.classList.toggle("active", btn.dataset.lang === lang);
+                });
+            };
+
+            const applyLanguage = (lang) => {
+                const next = normalizeLang(lang);
+                const t = I18N[next];
+                document.documentElement.lang = next;
+                setActiveLangButton(next);
+                Object.keys(t).forEach((id) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.textContent = t[id];
+                    }
+                });
+            };
+
+            const savedLang = normalizeLang(localStorage.getItem(LANG_KEY));
+            applyLanguage(savedLang);
+
+            headerLangButtons.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const next = normalizeLang(btn.dataset.lang);
+                    localStorage.setItem(LANG_KEY, next);
+                    applyLanguage(next);
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

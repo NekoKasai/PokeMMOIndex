@@ -15,10 +15,15 @@
           <p id="headerSubtitle">Finde Cosmetics schneller mit Vorschau, Tags und Fundorten auf einen Blick.</p>
         </div>
         <div class="header-menu">
-          <a href="index.html"><span class="link-icon">H</span>Startseite</a>
+          <a href="index.html"><span class="link-icon">H</span>Home</a>
           <a class="active" href="cosmetics.html"><span class="link-icon">C</span>Cosmetics</a>
-          <a href="calendar.html"><span class="link-icon">K</span>Kalender</a>
+          <a href="calendar.html"><span class="link-icon">K</span>Calendar</a>
+          <a href="guides.html"><span class="link-icon">G</span>Guides</a>
           <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub</a>
+          <div class="header-lang-group" aria-label="Language">
+            <button type="button" class="header-lang-btn" data-lang="de">DE</button>
+            <button type="button" class="header-lang-btn" data-lang="en">EN</button>
+          </div>
         </div>
       </div>
       <details class="health-toggle">
@@ -102,6 +107,52 @@
     </div>
   </footer>
 
+  <script>
+    (() => {
+      const LANG_KEY = "site_lang";
+      const VALID_LANGS = ["de", "en"];
+      const headerLangButtons = document.querySelectorAll(".header-lang-btn[data-lang]");
+      const pageLangSelect = document.getElementById("languageSelect");
+
+      const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "en");
+      const getSavedLang = () => normalizeLang(localStorage.getItem(LANG_KEY));
+      const setActiveLangButton = (lang) => {
+        headerLangButtons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.lang === lang);
+        });
+      };
+      const applyLang = (lang) => {
+        const next = normalizeLang(lang);
+        document.documentElement.lang = next;
+        setActiveLangButton(next);
+        if (pageLangSelect && pageLangSelect.value !== next) {
+          pageLangSelect.value = next;
+          pageLangSelect.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      };
+
+      headerLangButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const next = normalizeLang(btn.dataset.lang);
+          localStorage.setItem(LANG_KEY, next);
+          applyLang(next);
+        });
+      });
+
+      if (pageLangSelect) {
+        pageLangSelect.addEventListener("change", () => {
+          const next = normalizeLang(pageLangSelect.value);
+          localStorage.setItem(LANG_KEY, next);
+          setActiveLangButton(next);
+          document.documentElement.lang = next;
+        });
+      }
+
+      window.addEventListener("load", () => {
+        applyLang(getSavedLang());
+      });
+    })();
+  </script>
   <script src="data-utils.js"></script>
   <script src="app.js"></script>
 </body>

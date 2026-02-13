@@ -162,6 +162,42 @@ header.hero {
   background: rgba(74, 126, 167, 0.28);
 }
 
+.header-lang-group {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.header-lang-btn {
+  min-height: 34px;
+  padding: 0.4rem 0.7rem;
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid rgba(78, 205, 196, 0.28);
+  border-radius: 0.5rem;
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.header-lang-btn:hover {
+  color: var(--primary);
+  border-color: rgba(255, 107, 107, 0.3);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.header-lang-btn:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.14);
+}
+
+.header-lang-btn.active {
+  color: #e8f6ff;
+  border-color: rgba(126, 191, 235, 0.55);
+  background: rgba(74, 126, 167, 0.28);
+}
+
 .link-icon {
   display: inline-flex;
   align-items: center;
@@ -938,6 +974,33 @@ select:focus-visible,
   color: var(--text-secondary);
 }
 
+.calendar-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendar-lang label {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.calendar-lang select {
+  min-height: 34px;
+  padding: 0.4rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  color: var(--text-primary);
+  font-size: 0.84rem;
+}
+
+.calendar-lang select:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.15);
+}
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1089,6 +1152,230 @@ select:focus-visible,
   margin: 0 0 0.55rem;
 }
 
+.guides-page .hero {
+  background: rgba(14, 22, 32, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.guides-shell {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto 1rem;
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+.guides-head {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.guides-head h2 {
+  font-size: 1.15rem;
+}
+
+.guides-head p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+}
+
+.guides-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: 0.9rem;
+}
+
+.guides-tab-btn {
+  border: 1px solid rgba(78, 205, 196, 0.25);
+  border-radius: 0.55rem;
+  background: rgba(78, 205, 196, 0.08);
+  color: var(--secondary);
+  padding: 0.45rem 0.8rem;
+  font-size: 0.84rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.guides-tab-btn:hover {
+  color: var(--primary);
+  border-color: rgba(255, 107, 107, 0.35);
+  background: rgba(255, 107, 107, 0.08);
+}
+
+.guides-tab-btn.active {
+  color: #e8f6ff;
+  border-color: rgba(126, 191, 235, 0.55);
+  background: rgba(74, 126, 167, 0.28);
+}
+
+.guide-panel {
+  display: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  padding: 0.75rem;
+}
+
+.guide-panel.active {
+  display: block;
+}
+
+.guide-panel h3 {
+  margin-bottom: 0.25rem;
+}
+
+.guide-panel p {
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
+
+.guide-icon-wrap {
+  margin: 0.35rem 0 0.9rem;
+}
+
+.guide-icon {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  border: 1px solid rgba(78, 205, 196, 0.25);
+  border-radius: 0.65rem;
+  background: rgba(78, 205, 196, 0.06);
+  padding: 0.45rem;
+}
+
+.guide-accordion .health-toggle {
+  margin: 0 0 0.6rem;
+}
+
+.guide-accordion .health-toggle:last-child {
+  margin-bottom: 0;
+}
+
+.guide-accordion .health-toggle summary {
+  width: 100%;
+}
+
+.guide-list {
+  padding-left: 1.1rem;
+}
+
+.guide-list li {
+  margin-bottom: 0.35rem;
+}
+
+.guide-panel table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.4rem 0 0.8rem;
+  background: rgba(78, 205, 196, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 0.45rem;
+  overflow: hidden;
+}
+
+.guide-panel th,
+.guide-panel td {
+  padding: 0.38rem 0.56rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 0.86rem;
+  line-height: 1.2;
+}
+
+.guide-panel th {
+  color: #d8edf2;
+  background: rgba(78, 205, 196, 0.1);
+  font-weight: 600;
+}
+
+.guide-panel tr:last-child td {
+  border-bottom: none;
+}
+
+.nature-block {
+  margin: 0;
+  padding: 0.46rem 0.56rem 0.2rem;
+  border: 1px solid rgba(78, 205, 196, 0.18);
+  border-radius: 0.45rem;
+  background: rgba(78, 205, 196, 0.03);
+}
+
+.nature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.55rem;
+}
+
+.nature-grid .nature-block:nth-child(4) {
+  grid-column: 1;
+}
+
+.nature-grid .nature-block:nth-child(5) {
+  grid-column: 2;
+}
+
+.nature-grid .nature-block:nth-child(6) {
+  grid-column: 3;
+}
+
+.nature-table-wrap {
+  overflow-x: auto;
+}
+
+.nature-table {
+  min-width: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.nature-block p {
+  margin: 0 0 0.28rem;
+  font-size: 1.08rem;
+}
+
+.nature-neutral-block {
+  padding: 0.46rem 0.56rem 0.2rem;
+}
+
+.nature-neutral-table {
+  min-width: 0;
+}
+
+.nature-table th,
+.nature-table td {
+  white-space: nowrap;
+}
+
+.nature-table th + th,
+.nature-table td + td {
+  border-left: 1px solid var(--border);
+}
+
+.nature-table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@media (max-width: 1120px) {
+  .nature-grid {
+    grid-template-columns: repeat(2, minmax(240px, 1fr));
+  }
+
+  .nature-grid .nature-block:nth-child(4),
+  .nature-grid .nature-block:nth-child(5),
+  .nature-grid .nature-block:nth-child(6) {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .nature-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -1152,8 +1439,21 @@ select:focus-visible,
     gap: 0.4rem;
   }
 
+  .calendar-lang {
+    width: 100%;
+  }
+
+  .calendar-lang select {
+    width: 100%;
+  }
+
   .calendar-details,
   .calendar-faq {
+    margin: 0 1rem 1rem;
+    padding: 0.9rem;
+  }
+
+  .guides-shell {
     margin: 0 1rem 1rem;
     padding: 0.9rem;
   }

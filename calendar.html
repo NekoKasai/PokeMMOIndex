@@ -11,102 +11,109 @@
     <header class="hero panel">
       <div class="hero-top">
         <div>
-          <h1>Roaming-Legendaries-Kalender</h1>
-          <p>Hier findest du eine Übersicht, welche roamenden Legendären Pokémon (Romer) in welchem Monat in PokeMMO verfügbar sind.</p>
+          <h1 id="calendarTitle">Roaming-Legendaries-Kalender</h1>
+          <p id="calendarSubtitle">Hier findest du eine Übersicht, welche roamenden Legendären Pokémon (Romer) in welchem Monat in PokeMMO verfügbar sind.</p>
         </div>
         <div class="header-menu">
-          <a href="index.html"><span class="link-icon">H</span>Startseite</a>
+          <a href="index.html"><span class="link-icon">H</span>Home</a>
           <a href="cosmetics.html"><span class="link-icon">C</span>Cosmetics</a>
-          <a class="active" href="calendar.html"><span class="link-icon">K</span>Kalender</a>
+          <a class="active" href="calendar.html"><span class="link-icon">K</span>Calendar</a>
+          <a href="guides.html"><span class="link-icon">G</span>Guides</a>
           <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub</a>
+          <div class="header-lang-group" aria-label="Language">
+            <button type="button" class="header-lang-btn" data-lang="de">DE</button>
+            <button type="button" class="header-lang-btn" data-lang="en">EN</button>
+          </div>
         </div>
       </div>
     </header>
 
     <section class="calendar-shell panel">
       <div class="calendar-shell-head">
-        <h2>Monatsrotation</h2>
-        <p>Jeder Monat enthält 1 Kanto-Vogel und 1 Johto-Raubtier.</p>
+        <div>
+          <h2 id="rotationTitle">Monatsrotation</h2>
+          <p id="rotationSubtitle">Jeder Monat enthält 1 Kanto-Vogel und 1 Johto-Raubtier.</p>
+        </div>
       </div>
 
       <div class="calendar-grid">
         <article class="roam-card" data-month="0">
-          <div class="roam-card-head"><span class="month-pill">01</span><h3>January</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span>Zapdos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span>Entei</span></div>
+          <div class="roam-card-head"><span class="month-pill">01</span><h3 data-month-de="Januar" data-month-en="January">Januar</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span class="pokemon-name" data-name-de="Zapdos" data-name-en="Zapdos">Zapdos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span class="pokemon-name" data-name-de="Entei" data-name-en="Entei">Entei</span></div>
         </article>
 
         <article class="roam-card" data-month="1">
-          <div class="roam-card-head"><span class="month-pill">02</span><h3>February</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span>Lavados</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span>Suicune</span></div>
+          <div class="roam-card-head"><span class="month-pill">02</span><h3 data-month-de="Februar" data-month-en="February">Februar</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span class="pokemon-name" data-name-de="Lavados" data-name-en="Moltres">Lavados</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span class="pokemon-name" data-name-de="Suicune" data-name-en="Suicune">Suicune</span></div>
         </article>
 
         <article class="roam-card" data-month="2">
-          <div class="roam-card-head"><span class="month-pill">03</span><h3>March</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span>Arktos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span>Raikou</span></div>
+          <div class="roam-card-head"><span class="month-pill">03</span><h3 data-month-de="März" data-month-en="March">März</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span class="pokemon-name" data-name-de="Arktos" data-name-en="Articuno">Arktos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span class="pokemon-name" data-name-de="Raikou" data-name-en="Raikou">Raikou</span></div>
         </article>
 
         <article class="roam-card" data-month="3">
-          <div class="roam-card-head"><span class="month-pill">04</span><h3>April</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span>Zapdos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span>Entei</span></div>
+          <div class="roam-card-head"><span class="month-pill">04</span><h3 data-month-de="April" data-month-en="April">April</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span class="pokemon-name" data-name-de="Zapdos" data-name-en="Zapdos">Zapdos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span class="pokemon-name" data-name-de="Entei" data-name-en="Entei">Entei</span></div>
         </article>
 
         <article class="roam-card" data-month="4">
-          <div class="roam-card-head"><span class="month-pill">05</span><h3>May</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span>Lavados</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span>Suicune</span></div>
+          <div class="roam-card-head"><span class="month-pill">05</span><h3 data-month-de="Mai" data-month-en="May">Mai</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span class="pokemon-name" data-name-de="Lavados" data-name-en="Moltres">Lavados</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span class="pokemon-name" data-name-de="Suicune" data-name-en="Suicune">Suicune</span></div>
         </article>
 
         <article class="roam-card" data-month="5">
-          <div class="roam-card-head"><span class="month-pill">06</span><h3>June</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span>Arktos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span>Raikou</span></div>
+          <div class="roam-card-head"><span class="month-pill">06</span><h3 data-month-de="Juni" data-month-en="June">Juni</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span class="pokemon-name" data-name-de="Arktos" data-name-en="Articuno">Arktos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span class="pokemon-name" data-name-de="Raikou" data-name-en="Raikou">Raikou</span></div>
         </article>
 
         <article class="roam-card" data-month="6">
-          <div class="roam-card-head"><span class="month-pill">07</span><h3>July</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span>Zapdos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span>Entei</span></div>
+          <div class="roam-card-head"><span class="month-pill">07</span><h3 data-month-de="Juli" data-month-en="July">Juli</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span class="pokemon-name" data-name-de="Zapdos" data-name-en="Zapdos">Zapdos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span class="pokemon-name" data-name-de="Entei" data-name-en="Entei">Entei</span></div>
         </article>
 
         <article class="roam-card" data-month="7">
-          <div class="roam-card-head"><span class="month-pill">08</span><h3>August</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span>Lavados</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span>Suicune</span></div>
+          <div class="roam-card-head"><span class="month-pill">08</span><h3 data-month-de="August" data-month-en="August">August</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span class="pokemon-name" data-name-de="Lavados" data-name-en="Moltres">Lavados</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span class="pokemon-name" data-name-de="Suicune" data-name-en="Suicune">Suicune</span></div>
         </article>
 
         <article class="roam-card" data-month="8">
-          <div class="roam-card-head"><span class="month-pill">09</span><h3>September</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span>Arktos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span>Raikou</span></div>
+          <div class="roam-card-head"><span class="month-pill">09</span><h3 data-month-de="September" data-month-en="September">September</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span class="pokemon-name" data-name-de="Arktos" data-name-en="Articuno">Arktos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span class="pokemon-name" data-name-de="Raikou" data-name-en="Raikou">Raikou</span></div>
         </article>
 
         <article class="roam-card" data-month="9">
-          <div class="roam-card-head"><span class="month-pill">10</span><h3>October</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span>Zapdos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span>Entei</span></div>
+          <div class="roam-card-head"><span class="month-pill">10</span><h3 data-month-de="Oktober" data-month-en="October">Oktober</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Zapdos.png" alt="Zapdos" /><span class="pokemon-name" data-name-de="Zapdos" data-name-en="Zapdos">Zapdos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Entei.png" alt="Entei" /><span class="pokemon-name" data-name-de="Entei" data-name-en="Entei">Entei</span></div>
         </article>
 
         <article class="roam-card" data-month="10">
-          <div class="roam-card-head"><span class="month-pill">11</span><h3>November</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span>Lavados</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span>Suicune</span></div>
+          <div class="roam-card-head"><span class="month-pill">11</span><h3 data-month-de="November" data-month-en="November">November</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Lavados.png" alt="Lavados" /><span class="pokemon-name" data-name-de="Lavados" data-name-en="Moltres">Lavados</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Suicune.png" alt="Suicune" /><span class="pokemon-name" data-name-de="Suicune" data-name-en="Suicune">Suicune</span></div>
         </article>
 
         <article class="roam-card" data-month="11">
-          <div class="roam-card-head"><span class="month-pill">12</span><h3>December</h3></div>
-          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span>Arktos</span></div>
-          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span>Raikou</span></div>
+          <div class="roam-card-head"><span class="month-pill">12</span><h3 data-month-de="Dezember" data-month-en="December">Dezember</h3></div>
+          <div class="roam-line"><span class="roam-type kanto">Kanto</span><img src="assets/Arktos.png" alt="Arktos" /><span class="pokemon-name" data-name-de="Arktos" data-name-en="Articuno">Arktos</span></div>
+          <div class="roam-line"><span class="roam-type johto">Johto</span><img src="assets/Raikou.png" alt="Raikou" /><span class="pokemon-name" data-name-de="Raikou" data-name-en="Raikou">Raikou</span></div>
         </article>
       </div>
     </section>
 
     <details class="panel health-toggle calendar-details">
-      <summary>Allgemeine Infos anzeigen</summary>
-      <div class="calendar-detail-body">
+      <summary id="generalInfoSummary">Allgemeine Infos anzeigen</summary>
+      <div id="generalInfoBody" class="calendar-detail-body">
         <p>Du kannst jeden Monat 2 Legendäre Pokémon fangen - jeweils:</p>
         <p>1 aus Johto (die legendären Raubtiere)</p>
         <p>1 aus Kanto (die legendären Vögel)</p>
@@ -124,11 +131,11 @@
     </details>
 
     <section class="panel calendar-faq">
-      <h2>FAQ</h2>
+      <h2 id="faqTitle">FAQ</h2>
 
       <details class="health-toggle">
-        <summary>Q: Wie begegne ich einem roamenden Legendären?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ1">Q: Wie begegne ich einem roamenden Legendären?</summary>
+        <div id="faqA1" class="calendar-detail-body">
           <p><strong>Legendäre Raubtiere (Johto):</strong></p>
           <p>Besiege den Ho-Oh-Bosskampf während der Johto-Story.</p>
           <p>Danach erscheint das aktuelle Monats-Pokémon.</p>
@@ -148,16 +155,16 @@
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Was passiert, wenn ich es besiege oder fliehe?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ2">Q: Was passiert, wenn ich es besiege oder fliehe?</summary>
+        <div id="faqA2" class="calendar-detail-body">
           <p>Du kannst ihm erneut begegnen.</p>
           <p>Die Spawnchance erhöht sich deutlich, wenn du es beim ersten Mal nicht fängst.</p>
         </div>
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Können sie Shiny sein?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ3">Q: Können sie Shiny sein?</summary>
+        <div id="faqA3" class="calendar-detail-body">
           <p>Ja.</p>
           <p>Der Shiny-Status wird bei der ersten Begegnung festgelegt und bleibt danach fix.</p>
           <p>Klassisches "Shiny Hunting" durch Resetten ist nicht möglich.</p>
@@ -165,8 +172,8 @@
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Wie viele kann ich fangen?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ4">Q: Wie viele kann ich fangen?</summary>
+        <div id="faqA4" class="calendar-detail-body">
           <p>1 pro Charakter.</p>
           <p>Pro Region.</p>
           <p>Pro Monatsrotation.</p>
@@ -176,8 +183,8 @@
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Muss ich Suicune fangen, um Raikou zu bekommen?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ5">Q: Muss ich Suicune fangen, um Raikou zu bekommen?</summary>
+        <div id="faqA5" class="calendar-detail-body">
           <p>Nein.</p>
           <p>Alle drei sind unabhängig voneinander.</p>
           <p>Du kannst alle fangen - sogar Duplikate, sobald die nächste Rotation beginnt.</p>
@@ -185,8 +192,8 @@
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Kann ich IVs oder Wesen ändern?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ6">Q: Kann ich IVs oder Wesen ändern?</summary>
+        <div id="faqA6" class="calendar-detail-body">
           <p>Ja.</p>
           <p>Raubtiere: Anpassung über Rainbow Quills.</p>
           <p>Vögel: Anpassung über Elemental Orbs.</p>
@@ -195,8 +202,8 @@
       </details>
 
       <details class="health-toggle">
-        <summary>Q: Wie erhalte ich diese Items?</summary>
-        <div class="calendar-detail-body">
+        <summary id="faqQ7">Q: Wie erhalte ich diese Items?</summary>
+        <div id="faqA7" class="calendar-detail-body">
           <p>Rainbow Quills erhältst du beim Fang eines Raubtiers (20 Stück garantiert).</p>
           <p>Weitere durch Pickup-Fähigkeit in Johto.</p>
           <p>Nature Herbs droppen zufällig beim Ernten von Gracidea-Pflanzen.</p>
@@ -214,18 +221,216 @@
     </div>
   </footer>
   <script>
+    const textMap = {
+      de: {
+        calendarTitle: "Roaming-Legendaries-Kalender",
+        calendarSubtitle: "Hier findest du eine Übersicht, welche roamenden Legendären Pokémon (Romer) in welchem Monat in PokeMMO verfügbar sind.",
+        rotationTitle: "Monatsrotation",
+        rotationSubtitle: "Jeder Monat enthält 1 Kanto-Vogel und 1 Johto-Raubtier.",
+        generalInfoSummary: "Allgemeine Infos anzeigen",
+        faqTitle: "FAQ",
+        currentBadge: "Aktuell",
+        generalInfoBody: `
+          <p>Du kannst jeden Monat 2 Legendäre Pokémon fangen - jeweils:</p>
+          <p>1 aus Johto (die legendären Raubtiere)</p>
+          <p>1 aus Kanto (die legendären Vögel)</p>
+          <p>Romer sind:</p>
+          <p>Die drei Raubtiere aus Johto</p>
+          <p>Die drei Vögel aus Kanto</p>
+          <p>Um sie fangen zu können, musst du die Pokémon-Liga der jeweiligen Region abgeschlossen haben.</p>
+          <p>Spawn-Mechanik:</p>
+          <p>Sie erscheinen als zufällige Wild-Begegnung (Random Encounter).</p>
+          <p>Nur in Außenbereichen mit Gras.</p>
+          <p>Nicht in Höhlen.</p>
+          <p>Nicht in Wäldern.</p>
+          <p>Nicht beim Angeln.</p>
+        `,
+        faqQuestions: [
+          "Q: Wie begegne ich einem roamenden Legendären?",
+          "Q: Was passiert, wenn ich es besiege oder fliehe?",
+          "Q: Können sie Shiny sein?",
+          "Q: Wie viele kann ich fangen?",
+          "Q: Muss ich Suicune fangen, um Raikou zu bekommen?",
+          "Q: Kann ich IVs oder Wesen ändern?",
+          "Q: Wie erhalte ich diese Items?"
+        ],
+        faqAnswers: [
+          `<p><strong>Legendäre Raubtiere (Johto):</strong></p>
+          <p>Besiege den Ho-Oh-Bosskampf während der Johto-Story.</p>
+          <p>Danach erscheint das aktuelle Monats-Pokémon.</p>
+          <p>In allen Außen-Grasflächen in Johto (außer Safari-Zone).</p>
+          <p>Suicune kann zusätzlich beim Surfen erscheinen.</p>
+          <p>Begegnungsrate: extrem gering (&lt;0,1%).</p>
+          <p><strong>Legendäre Vögel (Kanto):</strong></p>
+          <p>Sammle 8 Orden in Kanto.</p>
+          <p>Danach erscheint das Monats-Pokémon.</p>
+          <p>In allen Außenbereichen in Kanto (inkl. Sevii-Inseln).</p>
+          <p><strong>Wichtig:</strong></p>
+          <p>Lockparfums erhöhen nicht die Spawnchance.</p>
+          <p>Kein Repel-Trick möglich.</p>
+          <p>Fähigkeiten wie Bedroher/Druck helfen nicht.</p>
+          <p>Sie ersetzen eine normale Begegnung.</p>`,
+          `<p>Du kannst ihm erneut begegnen.</p>
+          <p>Die Spawnchance erhöht sich deutlich, wenn du es beim ersten Mal nicht fängst.</p>`,
+          `<p>Ja.</p>
+          <p>Der Shiny-Status wird bei der ersten Begegnung festgelegt und bleibt danach fix.</p>
+          <p>Klassisches "Shiny Hunting" durch Resetten ist nicht möglich.</p>`,
+          `<p>1 pro Charakter.</p>
+          <p>Pro Region.</p>
+          <p>Pro Monatsrotation.</p>
+          <p>Beispiel: Wenn du Suicune im August fängst, kannst du im November erneut eines fangen.</p>
+          <p>Johto- und Kanto-Legendäre sind unabhängig voneinander.</p>`,
+          `<p>Nein.</p>
+          <p>Alle drei sind unabhängig voneinander.</p>
+          <p>Du kannst alle fangen - sogar Duplikate, sobald die nächste Rotation beginnt.</p>`,
+          `<p>Ja.</p>
+          <p>Raubtiere: Anpassung über Rainbow Quills.</p>
+          <p>Vögel: Anpassung über Elemental Orbs.</p>
+          <p>Wesen: Änderung über Nature Herbs.</p>`,
+          `<p>Rainbow Quills erhältst du beim Fang eines Raubtiers (20 Stück garantiert).</p>
+          <p>Weitere durch Pickup-Fähigkeit in Johto.</p>
+          <p>Nature Herbs droppen zufällig beim Ernten von Gracidea-Pflanzen.</p>
+          <p>Elemental Orbs droppen zufällig beim Besiegen wilder Pokémon mit Attacken des passenden Elements.</p>`
+        ]
+      },
+      en: {
+        calendarTitle: "Roaming Legendaries Calendar",
+        calendarSubtitle: "Here you can see which roaming Legendary Pokémon are available each month in PokeMMO.",
+        rotationTitle: "Monthly Rotation",
+        rotationSubtitle: "Each month includes 1 Kanto bird and 1 Johto beast.",
+        generalInfoSummary: "Show general info",
+        faqTitle: "FAQ",
+        currentBadge: "Current",
+        generalInfoBody: `
+          <p>You can catch 2 Legendary Pokémon every month:</p>
+          <p>1 from Johto (the Legendary Beasts)</p>
+          <p>1 from Kanto (the Legendary Birds)</p>
+          <p>Roamers are:</p>
+          <p>The three beasts from Johto</p>
+          <p>The three birds from Kanto</p>
+          <p>To catch them, you must complete the Pokémon League in the respective region.</p>
+          <p>Spawn mechanics:</p>
+          <p>They appear as random wild encounters.</p>
+          <p>Only in outdoor grass areas.</p>
+          <p>Not in caves.</p>
+          <p>Not in forests.</p>
+          <p>Not while fishing.</p>
+        `,
+        faqQuestions: [
+          "Q: How do I encounter a roaming Legendary?",
+          "Q: What happens if I defeat it or run away?",
+          "Q: Can they be shiny?",
+          "Q: How many can I catch?",
+          "Q: Do I need to catch Suicune to get Raikou?",
+          "Q: Can I change IVs or nature?",
+          "Q: How do I get these items?"
+        ],
+        faqAnswers: [
+          `<p><strong>Legendary Beasts (Johto):</strong></p>
+          <p>Defeat the Ho-Oh boss battle during the Johto story.</p>
+          <p>After that, the current monthly Pokémon can appear.</p>
+          <p>It can spawn in all outdoor grass areas in Johto (except the Safari Zone).</p>
+          <p>Suicune can also appear while surfing.</p>
+          <p>Encounter rate is extremely low (&lt;0.1%).</p>
+          <p><strong>Legendary Birds (Kanto):</strong></p>
+          <p>Collect 8 badges in Kanto.</p>
+          <p>After that, the monthly Pokémon can appear.</p>
+          <p>It can spawn in all outdoor areas in Kanto (including Sevii Islands).</p>
+          <p><strong>Important:</strong></p>
+          <p>Lure perfumes do not increase spawn chance.</p>
+          <p>No repel trick is possible.</p>
+          <p>Abilities like Intimidate/Pressure do not help.</p>
+          <p>They replace a normal encounter.</p>`,
+          `<p>You can encounter it again.</p>
+          <p>The spawn chance increases significantly if you do not catch it on the first encounter.</p>`,
+          `<p>Yes.</p>
+          <p>Shiny status is determined on the first encounter and then stays fixed.</p>
+          <p>Classic reset-based shiny hunting is not possible.</p>`,
+          `<p>1 per character.</p>
+          <p>Per region.</p>
+          <p>Per monthly rotation.</p>
+          <p>Example: if you catch Suicune in August, you can catch another one again in November.</p>
+          <p>Johto and Kanto legendaries are independent from each other.</p>`,
+          `<p>No.</p>
+          <p>All three are independent from each other.</p>
+          <p>You can catch all of them, including duplicates, once the next rotation begins.</p>`,
+          `<p>Yes.</p>
+          <p>Beasts: adjustment via Rainbow Quills.</p>
+          <p>Birds: adjustment via Elemental Orbs.</p>
+          <p>Nature: change via Nature Herbs.</p>`,
+          `<p>Rainbow Quills are obtained when catching a beast (20 guaranteed).</p>
+          <p>Additional ones can drop via Pickup in Johto.</p>
+          <p>Nature Herbs can drop randomly when harvesting Gracidea plants.</p>
+          <p>Elemental Orbs can drop randomly when defeating wild Pokémon with moves of the matching element.</p>`
+        ]
+      }
+    };
+
     const currentMonth = new Date().getMonth();
     const currentCard = document.querySelector(`.roam-card[data-month="${currentMonth}"]`);
     if (currentCard) {
       currentCard.classList.add("current-month");
       const head = currentCard.querySelector(".roam-card-head");
-      if (head) {
+      if (head && !head.querySelector(".current-badge")) {
         const badge = document.createElement("span");
         badge.className = "current-badge";
-        badge.textContent = "Aktuell";
         head.appendChild(badge);
       }
     }
+
+    const applyLanguage = (lang) => {
+      const t = textMap[lang] || textMap.de;
+      document.getElementById("calendarTitle").textContent = t.calendarTitle;
+      document.getElementById("calendarSubtitle").textContent = t.calendarSubtitle;
+      document.getElementById("rotationTitle").textContent = t.rotationTitle;
+      document.getElementById("rotationSubtitle").textContent = t.rotationSubtitle;
+      document.getElementById("generalInfoSummary").textContent = t.generalInfoSummary;
+      document.getElementById("faqTitle").textContent = t.faqTitle;
+
+      document.querySelectorAll(".roam-card-head h3[data-month-de][data-month-en]").forEach((el) => {
+        el.textContent = lang === "en" ? el.dataset.monthEn : el.dataset.monthDe;
+      });
+      document.querySelectorAll(".pokemon-name[data-name-de][data-name-en]").forEach((el) => {
+        el.textContent = lang === "en" ? el.dataset.nameEn : el.dataset.nameDe;
+      });
+
+      const currentBadge = document.querySelector(".current-badge");
+      if (currentBadge) {
+        currentBadge.textContent = t.currentBadge;
+      }
+
+      document.getElementById("generalInfoBody").innerHTML = t.generalInfoBody;
+      t.faqQuestions.forEach((question, index) => {
+        const q = document.getElementById(`faqQ${index + 1}`);
+        const a = document.getElementById(`faqA${index + 1}`);
+        if (q) q.textContent = question;
+        if (a) a.innerHTML = t.faqAnswers[index];
+      });
+    };
+
+    const LANG_KEY = "site_lang";
+    const validLang = ["de", "en"];
+    const langButtons = document.querySelectorAll(".header-lang-btn[data-lang]");
+    const setActiveLangButton = (lang) => {
+      langButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === lang);
+      });
+    };
+    const savedLang = localStorage.getItem(LANG_KEY);
+    const initialLang = validLang.includes(savedLang) ? savedLang : "en";
+    document.documentElement.lang = initialLang;
+    setActiveLangButton(initialLang);
+    applyLanguage(initialLang);
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const next = validLang.includes(btn.dataset.lang) ? btn.dataset.lang : "en";
+        localStorage.setItem(LANG_KEY, next);
+        document.documentElement.lang = next;
+        setActiveLangButton(next);
+        applyLanguage(next);
+      });
+    });
   </script>
 </body>
 </html>

@@ -3,6 +3,7 @@ const VIRTUAL_BUFFER_ROWS = 6;
 const SEARCH_DEBOUNCE_MS = 180;
 const FETCH_TIMEOUT_MS = 10000;
 const LANGUAGES = ['de', 'en'];
+const GLOBAL_LANG_KEY = 'site_lang';
 const I18N = {
   de: {
     headerTitle: 'PokeMMOIndex Cosmetics',
@@ -1212,6 +1213,7 @@ function persist() {
     collapsedBySlot: state.collapsedBySlot,
     collapsedLocationById: state.collapsedLocationById,
   }));
+  localStorage.setItem(GLOBAL_LANG_KEY, state.language);
 }
 
 function restore() {
@@ -1224,6 +1226,8 @@ function restore() {
 
     if (parsed.selected) state.selected = { ...state.selected, ...parsed.selected };
     if (LANGUAGES.includes(parsed.language)) state.language = parsed.language;
+    const globalLang = localStorage.getItem(GLOBAL_LANG_KEY);
+    if (LANGUAGES.includes(globalLang)) state.language = globalLang;
     if (GENDERS.includes(parsed.gender)) state.gender = parsed.gender;
     state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags.map(toFilterTag).filter(Boolean) : [];
     state.globalSearch = String(parsed.globalSearch || '');
