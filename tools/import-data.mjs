@@ -16,6 +16,7 @@ const __filename = fileURLToPath(import.meta.url);
 const DIST_DIR = path.join(PAGE_DIR, "dist");
 const DIST_DATA_DIR = path.join(DIST_DIR, "data");
 const SOURCES_DIR = path.join(PAGE_DIR, "sources");
+const ALLOW_PARTIAL = process.argv.includes("--allow-partial");
 
 const SOURCE_URLS = {
   items: DEFAULT_SOURCE_URLS.items,
@@ -29,21 +30,30 @@ const LOCAL_FALLBACKS = {
   locations: path.join(SOURCES_DIR, "locations.json"),
 };
 
-const STATIC_FILES = ["index.html", "app.js", "styles.css", "data-utils.js", "README.md", "LICENSE"];
+const STATIC_FILES = ["index.html", "app.js", "styles.css", "data-utils.js"];
+const STATIC_DIRS = ["assets"];
 
 async function fetchWithOptionalLocalFallback(url, fallbackPath, label) {
+  const errors = [];
   if (url) {
     try {
       return await readRemoteJson(url);
-    } catch {
+    } catch (error) {
+      errors.push(`remote ${url} (${error.message})`);
     }
   }
   try {
     return await readJson(fallbackPath);
-  } catch {
-    console.warn(`[import] ${label}: no source URL or local fallback found, using empty dataset`);
-    return {};
+  } catch (error) {
+    errors.push(`local ${fallbackPath} (${error.message})`);
   }
+
+  const message = `[import] ${label}: source unavailable -> ${errors.join("; ")}`;
+  if (!ALLOW_PARTIAL) {
+    throw new Error(`${message}. Use --allow-partial to continue.`);
+  }
+  console.warn(`${message}. Continuing with empty dataset (--allow-partial).`);
+  return {};
 }
 
 async function copyStaticFilesToDist() {
@@ -53,6 +63,13 @@ async function copyStaticFilesToDist() {
       const from = path.join(PAGE_DIR, fileName);
       const to = path.join(DIST_DIR, fileName);
       await fs.copyFile(from, to);
+    })
+  );
+  await Promise.all(
+    STATIC_DIRS.map(async (dirName) => {
+      const from = path.join(PAGE_DIR, dirName);
+      const to = path.join(DIST_DIR, dirName);
+      await fs.cp(from, to, { recursive: true, force: true });
     })
   );
 }

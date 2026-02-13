@@ -30,6 +30,29 @@
             <label for="gender">Gender</label>
             <select id="gender"></select>
           </div>
+          <div class="toolbar-group">
+            <label for="globalSearch">Global Search</label>
+            <input id="globalSearch" class="search" type="text" placeholder="Search all slots" />
+          </div>
+          <div class="toolbar-group favorites-group">
+            <label for="favoriteSelect">Favorites</label>
+            <div class="inline-row no-wrap">
+              <select id="favoriteSelect"></select>
+              <button id="saveFavoriteBtn" class="btn mini" type="button">Save</button>
+            </div>
+            <div class="inline-row top-gap">
+              <button id="loadFavoriteBtn" class="btn mini" type="button">Load</button>
+              <button id="deleteFavoriteBtn" class="btn mini danger" type="button">Delete</button>
+            </div>
+          </div>
+          <div class="toolbar-group share-group">
+            <label for="shareCodeInput">Outfit Share Code</label>
+            <div class="inline-row no-wrap">
+              <input id="shareCodeInput" class="search" type="text" placeholder="Paste code" />
+              <button id="copyShareBtn" class="btn mini" type="button">Copy</button>
+              <button id="applyShareBtn" class="btn mini" type="button">Apply</button>
+            </div>
+          </div>
           <div class="toolbar-actions">
             <button id="toggleAllBtn" class="btn secondary">Open all</button>
             <button id="randomizeBtn" class="btn warning">Randomize</button>

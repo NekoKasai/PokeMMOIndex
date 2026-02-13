@@ -104,6 +104,50 @@ function dedupeLocations(locations) {
   return out;
 }
 
+function buildIdIndex(items) {
+  const out = {};
+  items.forEach((item, index) => {
+    out[item.id] = index;
+  });
+  return out;
+}
+
+function buildSlotIndex(items) {
+  const out = {};
+  for (const item of items) {
+    const slot = normalizeSlot(item.slot);
+    if (!out[slot]) out[slot] = [];
+    out[slot].push(item.id);
+  }
+  return out;
+}
+
+function similarity(a, b) {
+  const aa = normalizeName(a);
+  const bb = normalizeName(b);
+  if (!aa || !bb) return 0;
+  if (aa === bb) return 1;
+  if (aa.includes(bb) || bb.includes(aa)) return 0.92;
+  const aSet = new Set(aa.split(" "));
+  const bSet = new Set(bb.split(" "));
+  const inter = Array.from(aSet).filter((x) => bSet.has(x)).length;
+  return inter / Math.max(aSet.size, bSet.size, 1);
+}
+
+function findBestSuggestion(name, candidatesById) {
+  let bestId = "";
+  let bestScore = 0;
+  for (const [id, row] of candidatesById.entries()) {
+    const score = similarity(name, row.name || id);
+    if (score > bestScore) {
+      bestScore = score;
+      bestId = id;
+    }
+  }
+  if (bestScore < 0.7) return null;
+  return { id: bestId, score: Number(bestScore.toFixed(3)) };
+}
+
 function hasLimitationBit(limitationValues, bit) {
   for (const value of limitationValues) {
     const limitation = Number(value || 0);
@@ -185,6 +229,8 @@ export function buildMaster(inputs) {
   }
 
   const unmatchedInLocations = [];
+  const unmatchedSpellingLikely = [];
+  const unmatchedNotWearable = [];
   for (const [key, entriesRaw] of Object.entries(locations || {})) {
     const id = toCosmeticId(key);
     const entries = arr(entriesRaw).map((entry) => ({
@@ -197,6 +243,12 @@ export function buildMaster(inputs) {
     const row = byId.get(id);
     if (!row) {
       unmatchedInLocations.push({ key, id });
+      const suggestion = findBestSuggestion(key, byId);
+      if (suggestion) {
+        unmatchedSpellingLikely.push({ source: "locations", key, id, suggestedMatch: suggestion.id, score: suggestion.score });
+      } else {
+        unmatchedNotWearable.push({ source: "locations", key, id });
+      }
       continue;
     }
     row.sources.findingGuide.push(...entries);
@@ -213,6 +265,12 @@ export function buildMaster(inputs) {
     const row = byId.get(id);
     if (!row) {
       unmatchedInVanityIndex.push({ key, id });
+      const suggestion = findBestSuggestion(key, byId);
+      if (suggestion) {
+        unmatchedSpellingLikely.push({ source: "vanity", key, id, suggestedMatch: suggestion.id, score: suggestion.score });
+      } else {
+        unmatchedNotWearable.push({ source: "vanity", key, id });
+      }
       continue;
     }
     row.sources.vanityIndex.push(...entries);
@@ -231,9 +289,10 @@ export function buildMaster(inputs) {
       /gift\s*shop|reward\s*points/i.test(String(v.detail || ""))
     );
     const isGiftShopByLimitation = row._limitation.includes(0);
+    const hasVanityRows = row.sources.vanityIndex.length > 0;
 
     const isBuyable = row.buyable.locations.length > 0;
-    const isGiftShop = isGiftShopBySource || isGiftShopByLimitation;
+    const isGiftShop = isGiftShopBySource || (isGiftShopByLimitation && hasVanityRows);
 
     const isPvpReward =
       hasLimitationBit(row._limitation, 2) ||
@@ -285,6 +344,10 @@ export function buildMaster(inputs) {
       missingSlot.push({ id: row.id, name: row.name, itemId: row.itemId });
     }
 
+    if (!row.sources.vanityIndex.length && !row.sources.findingGuide.length) {
+      delete row.sources;
+    }
+
     delete row._limitation;
     delete row._festival;
     delete row._attribute;
@@ -296,11 +359,17 @@ export function buildMaster(inputs) {
     version: 1,
     generatedAt: new Date().toISOString(),
     items: itemsOut,
+    index: {
+      byId: buildIdIndex(itemsOut),
+      bySlot: buildSlotIndex(itemsOut),
+    },
   };
 
   const report = {
     unmatchedInLocations,
     unmatchedInVanityIndex,
+    unmatchedSpellingLikely,
+    unmatchedNotWearable,
     duplicatesById,
     missingSlot,
   };
@@ -335,19 +404,27 @@ export async function writeOutputs(data, outputDir, options = {}) {
 }
 
 async function cli() {
+  const allowPartial = process.argv.includes("--allow-partial");
   const vanityPath = process.env.SOURCE_VANITY_FILE || path.join(PAGE_DIR, "sources", "vanity.json");
   const locationsPath = process.env.SOURCE_LOCATIONS_FILE || path.join(PAGE_DIR, "sources", "locations.json");
   let vanity = {};
   let locations = {};
+  let missingSourceError = "";
   try {
     vanity = await readJson(vanityPath);
-  } catch {
-    console.warn(`[build] vanity source missing (${vanityPath}), using empty dataset`);
+  } catch (error) {
+    missingSourceError += ` vanity(${vanityPath}): ${error.message};`;
+    console.warn(`[build] vanity source missing (${vanityPath})`);
   }
   try {
     locations = await readJson(locationsPath);
-  } catch {
-    console.warn(`[build] locations source missing (${locationsPath}), using empty dataset`);
+  } catch (error) {
+    missingSourceError += ` locations(${locationsPath}): ${error.message};`;
+    console.warn(`[build] locations source missing (${locationsPath})`);
+  }
+
+  if (missingSourceError && !allowPartial) {
+    throw new Error(`[build] missing source data.${missingSourceError} Use --allow-partial to continue.`);
   }
 
   const inputs = {

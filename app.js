@@ -59,41 +59,29 @@ const SCENES = [
 
 const GENDERS = ['female', 'male'];
 const CATEGORY_ICON_URLS = {
-  back: 'https://images.shoutwiki.com/pokemmo/2/21/Vanity_Back_Grey.png',
-  top: 'https://images.shoutwiki.com/pokemmo/9/94/Vanity_Top_Red.png',
-  hat: 'https://images.shoutwiki.com/pokemmo/b/bd/Vanity_Hat_Grey.png',
-  bicycle: 'https://images.shoutwiki.com/pokemmo/2/25/Vanity_Bicycle_Yellow.png',
-  gloves: 'https://images.shoutwiki.com/pokemmo/e/eb/Vanity_Gloves_Grey.png',
-  face: 'https://images.shoutwiki.com/pokemmo/3/34/Vanity_Face_Grey.png',
-  hair: 'https://images.shoutwiki.com/pokemmo/f/f2/Vanity_Hair_Grey.png',
-  eyes: 'https://images.shoutwiki.com/pokemmo/c/c4/Vanity_Eyes_Grey.png',
+  forehead: './assets/ears.png',
+  hat: './assets/head.png',
+  hair: './assets/hair.png',
+  eyes: './assets/eyes.png',
+  face: './assets/masks.png',
+  back: './assets/back.png',
+  top: './assets/top.png',
+  gloves: './assets/gloves.png',
+  shoes: './assets/shoes.png',
+  legs: './assets/bottoms.png',
+  rod: './assets/accessories.png',
+  bicycle: './assets/particles.png',
 };
 const LOCAL_MASTER_JSON_PATHS = ['./data/cosmetics.master.json', './dist/data/cosmetics.master.json'];
 const LOCAL_REPORT_JSON_PATHS = ['./data/build-report.json', './dist/data/build-report.json'];
-const REMOTE_MASTER_JSON_PATHS = [
-  'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/cosmetics.master.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/main/dist/data/cosmetics.master.json',
-];
-const REMOTE_REPORT_JSON_PATHS = [
-  'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/build-report.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/main/dist/data/build-report.json',
-];
-const REMOTE_MASTER_JS_PATHS = [
-  'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.js',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/cosmetics.master.js',
-];
-const REMOTE_REPORT_JS_PATHS = [
-  'https://nekokasai.github.io/PokeMMOIndex/data/build-report.js',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/build-report.js',
-];
-const RUNTIME_SOURCE_URLS = {
-  items: 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item.json',
-  cosmetics: 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item-cosmetic.json',
-  vanity: '',
-  locations: '',
-};
+const LOCAL_MASTER_WRAPPER_PATHS = ['./data/cosmetics.master.js', './dist/data/cosmetics.master.js'];
+const LOCAL_REPORT_WRAPPER_PATHS = ['./data/build-report.js', './dist/data/build-report.js'];
+const REMOTE_MASTER_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.json';
+const REMOTE_REPORT_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json';
+const REMOTE_MASTER_WRAPPER = 'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.js';
+const REMOTE_REPORT_WRAPPER = 'https://nekokasai.github.io/PokeMMOIndex/data/build-report.js';
+const BASE_SOURCE_ITEMS = 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item.json';
+const BASE_SOURCE_COSMETICS = 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item-cosmetic.json';
 const SLOT_BY_NUM = {
   1: 'forehead',
   2: 'hat',
@@ -108,18 +96,8 @@ const SLOT_BY_NUM = {
   11: 'rod',
   12: 'bicycle',
 };
-const FESTIVAL_MAP = {
-  1: 'Halloween',
-  2: 'Thanksgiving',
-  3: 'Xmas',
-  4: 'Lunar New Year',
-  5: "Valentine's Day",
-  6: "AprilFool's Day",
-  7: 'Easter',
-  8: "St Patrick's Day",
-  9: 'USA Independence Day',
-  10: 'PokeMMO Anniversary',
-};
+const DEV_REMOTE_MASTER_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.json';
+const DEV_REMOTE_REPORT_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json';
 
 const state = {
   master: null,
@@ -135,8 +113,10 @@ const state = {
   gender: 'male',
   selectedTags: [],
   availableTags: [],
+  globalSearch: '',
   searchBySlot: {},
   collapsedBySlot: {},
+  favorites: [],
 };
 
 const els = {
@@ -144,6 +124,14 @@ const els = {
   health: document.getElementById('health'),
   slots: document.getElementById('slots'),
   gender: document.getElementById('gender'),
+  globalSearch: document.getElementById('globalSearch'),
+  favoriteSelect: document.getElementById('favoriteSelect'),
+  saveFavoriteBtn: document.getElementById('saveFavoriteBtn'),
+  loadFavoriteBtn: document.getElementById('loadFavoriteBtn'),
+  deleteFavoriteBtn: document.getElementById('deleteFavoriteBtn'),
+  shareCodeInput: document.getElementById('shareCodeInput'),
+  copyShareBtn: document.getElementById('copyShareBtn'),
+  applyShareBtn: document.getElementById('applyShareBtn'),
   toggleAllBtn: document.getElementById('toggleAllBtn'),
   clearTagsBtn: document.getElementById('clearTagsBtn'),
   tagFilterChips: document.getElementById('tagFilterChips'),
@@ -176,30 +164,40 @@ async function init() {
 async function loadMasterData() {
   state.master = await loadFirstAvailableJson(LOCAL_MASTER_JSON_PATHS);
   if (!state.master) state.master = globalThis.COSMETICS_MASTER || null;
-  if (!state.master) state.master = await loadFirstAvailableJson(REMOTE_MASTER_JSON_PATHS);
   if (!state.master) {
-    await loadFirstAvailableScript(REMOTE_MASTER_JS_PATHS);
+    await loadFirstAvailableScript(LOCAL_MASTER_WRAPPER_PATHS);
     state.master = globalThis.COSMETICS_MASTER || null;
   }
+  if (!state.master) state.master = await loadLocalJson(REMOTE_MASTER_JSON);
+  if (!state.master) {
+    await loadScript(REMOTE_MASTER_WRAPPER);
+    state.master = globalThis.COSMETICS_MASTER || null;
+  }
+  if (!state.master && isDevMode()) state.master = await loadLocalJson(DEV_REMOTE_MASTER_JSON);
 
   state.report = await loadFirstAvailableJson(LOCAL_REPORT_JSON_PATHS);
   if (!state.report) state.report = globalThis.BUILD_REPORT || null;
-  if (!state.report) state.report = await loadFirstAvailableJson(REMOTE_REPORT_JSON_PATHS);
   if (!state.report) {
-    await loadFirstAvailableScript(REMOTE_REPORT_JS_PATHS);
+    await loadFirstAvailableScript(LOCAL_REPORT_WRAPPER_PATHS);
     state.report = globalThis.BUILD_REPORT || null;
   }
+  if (!state.report) state.report = await loadLocalJson(REMOTE_REPORT_JSON);
+  if (!state.report) {
+    await loadScript(REMOTE_REPORT_WRAPPER);
+    state.report = globalThis.BUILD_REPORT || null;
+  }
+  if (!state.report && isDevMode()) state.report = await loadLocalJson(DEV_REMOTE_REPORT_JSON);
 
   if (!state.master) {
-    const runtimeBuilt = await buildMasterFromRuntimeSources();
-    if (runtimeBuilt) {
-      state.master = runtimeBuilt.master;
-      if (!state.report) state.report = runtimeBuilt.report;
+    const runtimeData = await buildBaseMasterRuntime();
+    if (runtimeData) {
+      state.master = runtimeData.master;
+      if (!state.report) state.report = runtimeData.report;
     }
   }
 
   if (!state.master || !Array.isArray(state.master.items)) {
-    throw new Error('No valid master dataset found locally or remotely. Check internet connection or open the GitHub Pages URL.');
+    throw new Error('No valid master dataset found (local/remote/runtime). Check network access to raw.githubusercontent.com.');
   }
 
   const rawItems = arr(state.master.items);
@@ -221,8 +219,8 @@ async function loadMasterData() {
       state.items.flatMap((item) => arr(item.tags).filter(Boolean))
     )
   ).sort((a, b) => a.localeCompare(b));
-  state.bySlot = groupBySlot(state.items);
   state.itemById = Object.fromEntries(state.items.map((item) => [item.id, item]));
+  state.bySlot = buildSlotState(state.master?.index?.bySlot, state.itemById, state.items);
 
   const byItemId = {};
   for (const item of state.items) {
@@ -314,8 +312,23 @@ function groupBySlot(items) {
   return grouped;
 }
 
+function buildSlotState(slotIndex, itemById, items) {
+  if (slotIndex && typeof slotIndex === 'object') {
+    const out = {};
+    for (const [slot, ids] of Object.entries(slotIndex)) {
+      out[slot] = arr(ids)
+        .map((id) => itemById[id])
+        .filter(Boolean)
+        .sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (Object.keys(out).length) return out;
+  }
+  return groupBySlot(items);
+}
+
 function setupControls() {
   els.gender.innerHTML = GENDERS.map((g) => `<option value="${g}">${capitalize(g)}</option>`).join('');
+  renderFavorites();
   renderTagFilterChips();
 }
 
@@ -325,6 +338,14 @@ function bindGlobal() {
     renderAll();
     persist();
   });
+  if (els.globalSearch) {
+    const onGlobalSearch = debounce(() => {
+      state.globalSearch = String(els.globalSearch.value || '').trim();
+      renderAll();
+      persist();
+    }, SEARCH_DEBOUNCE_MS);
+    els.globalSearch.addEventListener('input', onGlobalSearch);
+  }
 
   els.randomizeBtn.addEventListener('click', randomizeSelection);
   els.clearBtn.addEventListener('click', clearSelection);
@@ -347,6 +368,23 @@ function bindGlobal() {
     renderAll();
     persist();
   });
+  els.locationInfo.addEventListener('click', async (event) => {
+    const btn = event.target.closest('button[data-route]');
+    if (!btn) return;
+    const route = String(btn.dataset.route || '');
+    if (!route) return;
+    try {
+      await navigator.clipboard.writeText(route);
+      setStatus('Route copied.');
+    } catch {
+      setStatus('Could not copy route.', 'warning');
+    }
+  });
+  if (els.saveFavoriteBtn) els.saveFavoriteBtn.addEventListener('click', saveFavorite);
+  if (els.loadFavoriteBtn) els.loadFavoriteBtn.addEventListener('click', loadFavorite);
+  if (els.deleteFavoriteBtn) els.deleteFavoriteBtn.addEventListener('click', deleteFavorite);
+  if (els.copyShareBtn) els.copyShareBtn.addEventListener('click', copyShareCode);
+  if (els.applyShareBtn) els.applyShareBtn.addEventListener('click', applyShareCode);
 }
 
 function renderSlots() {
@@ -483,6 +521,8 @@ function renderVirtualRows(slotEl, slot) {
 
 function renderAll() {
   els.gender.value = state.gender;
+  if (els.globalSearch) els.globalSearch.value = state.globalSearch;
+  renderFavorites();
   renderTagFilterChips();
   if (els.toggleAllBtn) {
     els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? 'Open all' : 'Close all';
@@ -603,7 +643,7 @@ function renderLocationInfo() {
     }
 
     for (const entry of locationEntries) {
-      lines += `<div class="entry">${escapeHTML(entry.region || 'Unknown')} - ${escapeHTML(entry.city || 'Unknown')} - ${escapeHTML(entry.price || 'Unknown')}</div>`;
+      lines += renderLocationEntry(entry);
     }
 
     for (const entry of vanityEntries) {
@@ -638,6 +678,15 @@ function renderLocationInfo() {
   els.locationInfo.innerHTML = rows || '<div class="location-item"><div class="missing">Select a cosmetic to see where to get it.</div></div>';
 }
 
+function renderLocationEntry(entry) {
+  const region = String(entry?.region || 'Unknown');
+  const city = String(entry?.city || 'Unknown');
+  const price = String(entry?.price || 'Unknown');
+  const routeText = `${region} - ${city}`;
+  const mapQuery = encodeURIComponent(`PokeMMO ${region} ${city}`);
+  return `<div class="entry">${escapeHTML(region)} - ${escapeHTML(city)} - ${escapeHTML(price)} <a href="https://www.google.com/search?q=${mapQuery}" target="_blank" rel="noopener noreferrer">Route</a> <button type="button" class="btn mini" data-route="${escapeHTML(routeText)}">Copy</button></div>`;
+}
+
 function renderDataHealth() {
   if (!els.health) return;
 
@@ -646,6 +695,8 @@ function renderDataHealth() {
   const unmatchedVanity = arr(report.unmatchedInVanityIndex).length;
   const duplicates = arr(report.duplicatesById).length;
   const missingSlot = arr(report.missingSlot).length;
+  const likelySpelling = arr(report.unmatchedSpellingLikely).length;
+  const notWearable = arr(report.unmatchedNotWearable).length;
 
   const hasIssues = duplicates > 0 || missingSlot > 0;
   els.health.classList.toggle('warn', hasIssues);
@@ -655,6 +706,8 @@ function renderDataHealth() {
     <span>Items: ${state.items.length}</span>
     <span>Unmatched locations: ${unmatchedLocations}</span>
     <span>Unmatched vanity: ${unmatchedVanity}</span>
+    <span>Likely spelling: ${likelySpelling}</span>
+    <span>Not wearable: ${notWearable}</span>
     <span>Duplicates: ${duplicates}</span>
     <span>Missing slot: ${missingSlot}</span>
   `;
@@ -677,6 +730,11 @@ function getFilteredSlotItems(slot, query = '') {
   const q = normalizeName(query || '');
   if (q) {
     list = list.filter((item) => item.searchName.includes(q));
+  }
+
+  const globalQ = normalizeName(state.globalSearch || '');
+  if (globalQ) {
+    list = list.filter((item) => item.searchName.includes(globalQ));
   }
 
   return list;
@@ -709,6 +767,80 @@ function clearSelection() {
   persist();
 }
 
+function renderFavorites() {
+  if (!els.favoriteSelect) return;
+  const options = ['<option value="">Favorites</option>'];
+  for (const favorite of state.favorites) {
+    options.push(`<option value="${escapeHTML(favorite.id)}">${escapeHTML(favorite.name)}</option>`);
+  }
+  els.favoriteSelect.innerHTML = options.join('');
+}
+
+function saveFavorite() {
+  const name = window.prompt('Favorite name');
+  if (!name) return;
+  const trimmed = String(name).trim().slice(0, 40);
+  if (!trimmed) return;
+
+  const favorite = {
+    id: `${Date.now()}`,
+    name: trimmed,
+    gender: state.gender,
+    selected: { ...state.selected },
+  };
+  state.favorites = [favorite, ...state.favorites].slice(0, 30);
+  renderFavorites();
+  persist();
+}
+
+function loadFavorite() {
+  const id = String(els.favoriteSelect?.value || '');
+  if (!id) return;
+  const favorite = state.favorites.find((item) => item.id === id);
+  if (!favorite) return;
+  state.gender = favorite.gender;
+  state.selected = { ...DEFAULT_CLOTHES, ...favorite.selected };
+  renderAll();
+  persist();
+}
+
+function deleteFavorite() {
+  const id = String(els.favoriteSelect?.value || '');
+  if (!id) return;
+  state.favorites = state.favorites.filter((item) => item.id !== id);
+  renderFavorites();
+  persist();
+}
+
+function buildShareCode() {
+  return btoa(JSON.stringify({ g: state.gender, s: state.selected }));
+}
+
+async function copyShareCode() {
+  const code = buildShareCode();
+  if (els.shareCodeInput) els.shareCodeInput.value = code;
+  try {
+    await navigator.clipboard.writeText(code);
+    setStatus('Outfit code copied.');
+  } catch {
+    setStatus('Outfit code ready in input.');
+  }
+}
+
+function applyShareCode() {
+  const raw = String(els.shareCodeInput?.value || '').trim();
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(atob(raw));
+    if (GENDERS.includes(parsed.g)) state.gender = parsed.g;
+    if (parsed.s && typeof parsed.s === 'object') state.selected = { ...DEFAULT_CLOTHES, ...parsed.s };
+    renderAll();
+    persist();
+  } catch {
+    setStatus('Invalid outfit code.', 'error');
+  }
+}
+
 function toggleAllSlots() {
   const collapseAll = !areAllSlotsCollapsed();
   for (const slot of Object.keys(state.bySlot)) {
@@ -734,6 +866,8 @@ function persist() {
     selected: state.selected,
     gender: state.gender,
     selectedTags: state.selectedTags,
+    globalSearch: state.globalSearch,
+    favorites: state.favorites,
     searchBySlot: state.searchBySlot,
     collapsedBySlot: state.collapsedBySlot,
   }));
@@ -750,6 +884,8 @@ function restore() {
     if (parsed.selected) state.selected = { ...state.selected, ...parsed.selected };
     if (GENDERS.includes(parsed.gender)) state.gender = parsed.gender;
     state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags.map(toFilterTag).filter(Boolean) : [];
+    state.globalSearch = String(parsed.globalSearch || '');
+    state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites.filter(isValidFavorite).slice(0, 30) : [];
     state.searchBySlot = typeof parsed.searchBySlot === 'object' && parsed.searchBySlot ? parsed.searchBySlot : {};
     state.collapsedBySlot = typeof parsed.collapsedBySlot === 'object' && parsed.collapsedBySlot ? parsed.collapsedBySlot : {};
   } catch {
@@ -799,178 +935,100 @@ function loadScript(src) {
   });
 }
 
-async function buildMasterFromRuntimeSources() {
+async function buildBaseMasterRuntime() {
   try {
-    const [items, cosmetics] = await Promise.all([
-      loadLocalJson(RUNTIME_SOURCE_URLS.items),
-      loadLocalJson(RUNTIME_SOURCE_URLS.cosmetics),
+    const [itemsRaw, cosmeticsRaw] = await Promise.all([
+      loadLocalJson(BASE_SOURCE_ITEMS),
+      loadLocalJson(BASE_SOURCE_COSMETICS),
     ]);
-    const vanity = RUNTIME_SOURCE_URLS.vanity ? (await loadLocalJson(RUNTIME_SOURCE_URLS.vanity)) || {} : {};
-    const locations = RUNTIME_SOURCE_URLS.locations ? (await loadLocalJson(RUNTIME_SOURCE_URLS.locations)) || {} : {};
-    if (!Array.isArray(items) || !Array.isArray(cosmetics)) return null;
-    return buildMasterRuntime(items, cosmetics, vanity, locations);
+    if (!Array.isArray(itemsRaw) || !Array.isArray(cosmeticsRaw)) return null;
+
+    const itemNameById = new Map();
+    for (const item of itemsRaw) {
+      const id = Number(item?.id);
+      if (!id) continue;
+      itemNameById.set(id, String(item?.en_name || item?.name || `Item ${id}`));
+    }
+
+    const byId = new Map();
+    for (const row of cosmeticsRaw) {
+      const itemId = Number(row?.item_id);
+      const name = itemNameById.get(itemId);
+      if (!name) continue;
+
+      const id = toCosmeticId(name);
+      if (!id) continue;
+      const slot = normalizeSlot(SLOT_BY_NUM[Number(row?.slot)] || 'other');
+
+      if (!byId.has(id)) {
+        byId.set(id, {
+          id,
+          name,
+          slot,
+          itemId,
+          itemIds: [itemId],
+          availability: [],
+          tags: [],
+          buyable: { isBuyable: false, locations: [] },
+          giftShop: { isGiftShop: false, details: [] },
+        });
+      } else {
+        const existing = byId.get(id);
+        if (!existing.itemIds.includes(itemId)) existing.itemIds.push(itemId);
+      }
+
+      const item = byId.get(id);
+      const limitation = Number(row?.limitation || 0);
+      const festival = Number(row?.festival || 0);
+      const attribute = Number(row?.attribute || 0);
+
+      if (limitation === 0) item.tags.push('Gift Shop');
+      if ((limitation & 1) === 1) item.tags.push('Limited');
+      if ((limitation & 2) === 2) item.tags.push('PvP Reward');
+      if ((limitation & 4) === 4 || festival !== 0) {
+        item.tags.push('Event');
+        item.tags.push('Event Only');
+      }
+      if ((limitation & 8) === 8) item.tags.push('Seasonal');
+      if ((limitation & 32) === 32) item.tags.push('PvE Reward');
+      if ((attribute & 8) === 8) item.tags.push('CO');
+    }
+
+    const out = Array.from(byId.values())
+      .map((item) => ({
+        ...item,
+        tags: Array.from(new Set(arr(item.tags))),
+        availability: Array.from(new Set(arr(item.availability))),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    return {
+      master: {
+        version: 1,
+        generatedAt: new Date().toISOString(),
+        items: out,
+      },
+      report: {
+        unmatchedInLocations: [],
+        unmatchedInVanityIndex: [],
+        unmatchedSpellingLikely: [],
+        unmatchedNotWearable: [],
+        duplicatesById: [],
+        missingSlot: [],
+      },
+    };
   } catch {
     return null;
   }
 }
 
-function buildMasterRuntime(items, cosmetics, vanity, locations) {
-  const itemNameById = new Map();
-  for (const item of items) {
-    itemNameById.set(Number(item.id), item.en_name || item.name || `Item ${item.id}`);
+function isDevMode() {
+  try {
+    const params = new URLSearchParams(window.location.search || '');
+    return params.get('dev') === '1';
+  } catch {
+    return false;
   }
-
-  const byId = new Map();
-  const duplicatesById = [];
-
-  for (const cosmetic of cosmetics) {
-    const itemId = Number(cosmetic.item_id);
-    if (!itemNameById.has(itemId)) continue;
-    const name = itemNameById.get(itemId);
-    const id = toCosmeticId(name);
-    if (!id) continue;
-    const slot = normalizeSlot(SLOT_BY_NUM[Number(cosmetic.slot)] || 'other');
-
-    if (!byId.has(id)) {
-      byId.set(id, {
-        id,
-        name,
-        slot,
-        itemId,
-        itemIds: [itemId],
-        availability: [],
-        tags: [],
-        giftShop: { isGiftShop: false, details: [] },
-        buyable: { isBuyable: false, locations: [] },
-        sources: { vanityIndex: [], findingGuide: [] },
-        _limitation: [],
-        _festival: [],
-        _attribute: [],
-      });
-    } else {
-      const row = byId.get(id);
-      if (!row.itemIds.includes(itemId)) row.itemIds.push(itemId);
-      if (row.slot !== slot) {
-        duplicatesById.push({ id, reason: 'slot_conflict', slots: [row.slot, slot], itemId });
-        row.slot = 'other';
-      }
-    }
-
-    const row = byId.get(id);
-    row._limitation.push(Number(cosmetic.limitation || 0));
-    row._festival.push(Number(cosmetic.festival || 0));
-    row._attribute.push(Number(cosmetic.attribute || 0));
-  }
-
-  const unmatchedInLocations = [];
-  for (const [key, entriesRaw] of Object.entries(locations || {})) {
-    const row = byId.get(toCosmeticId(key));
-    const entries = arr(entriesRaw).map((entry) => ({
-      region: entry.region || 'Unknown',
-      city: entry.city || 'Unknown',
-      price: entry.price || 'Unknown',
-      source: entry.source || '',
-    }));
-    if (!row) {
-      unmatchedInLocations.push({ key, id: toCosmeticId(key) });
-      continue;
-    }
-    row.sources.findingGuide.push(...entries);
-  }
-
-  const unmatchedInVanityIndex = [];
-  for (const [key, entriesRaw] of Object.entries(vanity || {})) {
-    const row = byId.get(toCosmeticId(key));
-    const entries = arr(entriesRaw).map((entry) => ({
-      detail: entry.detail || '',
-      source: entry.source || '',
-    }));
-    if (!row) {
-      unmatchedInVanityIndex.push({ key, id: toCosmeticId(key) });
-      continue;
-    }
-    row.sources.vanityIndex.push(...entries);
-  }
-
-  const missingSlot = [];
-  const itemsOut = [];
-  for (const id of Array.from(byId.keys()).sort()) {
-    const row = byId.get(id);
-    row.sources.findingGuide = dedupeByLocation(row.sources.findingGuide);
-    row.buyable.locations = row.sources.findingGuide;
-
-    const isGiftShop = row._limitation.includes(0) || row.sources.vanityIndex.some((v) => /gift\s*shop|reward\s*points/i.test(String(v.detail || '')));
-    const isBuyable = row.buyable.locations.length > 0;
-    const isPvpReward = hasLimitationBit(row._limitation, 2) || row.sources.vanityIndex.some((v) => /pvp|mystery\s*box/i.test(String(v.detail || '')));
-    const isPveReward = hasLimitationBit(row._limitation, 32) || row.sources.vanityIndex.some((v) => /pve|quest/i.test(String(v.detail || '')));
-    const isEventOnly = hasLimitationBit(row._limitation, 4) || row._festival.some((f) => Number(f || 0) !== 0);
-    const isSeasonal = hasLimitationBit(row._limitation, 8);
-    const isLimited = hasLimitationBit(row._limitation, 1);
-
-    row.buyable.isBuyable = isBuyable;
-    row.giftShop = {
-      isGiftShop,
-      details: row.sources.vanityIndex.filter((v) => /gift\s*shop|reward\s*points/i.test(String(v.detail || ''))),
-    };
-
-    const availability = new Set();
-    if (isBuyable) availability.add('Mart Items');
-    if (isGiftShop) availability.add('Gift Shop');
-    if (isPvpReward) availability.add('PvP Reward');
-    if (isPveReward) availability.add('PvE Reward');
-    if (isSeasonal) availability.add('Seasonal');
-    if (isEventOnly) availability.add('Event Only');
-    if (isLimited) availability.add('Limited');
-    for (const fes of new Set(row._festival)) {
-      if (fes !== 0 && FESTIVAL_MAP[fes]) availability.add(FESTIVAL_MAP[fes]);
-    }
-    row.availability = Array.from(availability);
-
-    const tags = new Set();
-    if (isBuyable) tags.add('Mart Items');
-    if (isGiftShop) tags.add('Gift Shop');
-    if (isSeasonal) tags.add('Seasonal');
-    if (isEventOnly) {
-      tags.add('Event Only');
-      tags.add('Event');
-    }
-    if (isLimited) tags.add('Limited');
-    if (isPvpReward) tags.add('PvP Reward');
-    if (isPveReward) tags.add('PvE Reward');
-    if (row._attribute.some((a) => (a & 8) !== 0)) tags.add('CO');
-    row.tags = Array.from(tags);
-
-    if (row.slot === 'other') missingSlot.push({ id: row.id, name: row.name, itemId: row.itemId });
-    delete row._limitation;
-    delete row._festival;
-    delete row._attribute;
-    itemsOut.push(row);
-  }
-
-  return {
-    master: { version: 1, generatedAt: new Date().toISOString(), items: itemsOut },
-    report: { unmatchedInLocations, unmatchedInVanityIndex, duplicatesById, missingSlot },
-  };
-}
-
-function hasLimitationBit(values, bit) {
-  for (const value of arr(values)) {
-    const limitation = Number(value || 0);
-    if (limitation !== 0 && (limitation & bit) === bit) return true;
-  }
-  return false;
-}
-
-function dedupeByLocation(locations) {
-  const out = [];
-  const seen = new Set();
-  for (const loc of arr(locations)) {
-    const key = [normalizeName(loc.region), normalizeName(loc.city), normalizeName(loc.price)].join('|');
-    if (seen.has(key)) continue;
-    seen.add(key);
-    out.push(loc);
-  }
-  return out;
 }
 
 function debounce(fn, delay) {
@@ -984,6 +1042,10 @@ function debounce(fn, delay) {
 function arr(value) {
   if (value == null) return [];
   return Array.isArray(value) ? value : [value];
+}
+
+function isValidFavorite(value) {
+  return value && typeof value === 'object' && typeof value.id === 'string' && typeof value.name === 'string' && typeof value.selected === 'object';
 }
 
 function capitalize(value) {

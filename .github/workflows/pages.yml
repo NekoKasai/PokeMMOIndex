@@ -33,7 +33,7 @@ jobs:
         env:
           SOURCE_VANITY_URL: ${{ vars.SOURCE_VANITY_URL }}
           SOURCE_LOCATIONS_URL: ${{ vars.SOURCE_LOCATIONS_URL }}
-        run: node tools/import-data.mjs
+        run: node tools/import-data.mjs --allow-partial
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

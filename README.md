@@ -46,7 +46,15 @@ node tools/import-data.mjs
 Source loading order for vanity/location metadata:
 1. `SOURCE_VANITY_URL` / `SOURCE_LOCATIONS_URL` (if set)
 2. local `sources/vanity.json` / `sources/locations.json` (gitignored)
-3. empty metadata fallback (build still succeeds)
+3. fail with clear error if missing
+
+Optional partial mode:
+
+```bash
+node tools/import-data.mjs --allow-partial
+```
+
+Partial mode continues with empty vanity/location metadata.
 
 Required public base sources (always fetched):
 - `item.json` from pokemmo-hub
@@ -70,13 +78,13 @@ Open `http://localhost:8080`.
 
 Workflow: `.github/workflows/pages.yml`
 
-- Runs `node tools/import-data.mjs`
+- Runs `node tools/import-data.mjs --allow-partial`
 - Uploads `dist/` as pages artifact
 - Optional repo vars:
   - `SOURCE_VANITY_URL`
   - `SOURCE_LOCATIONS_URL`
 
-If those vars are not configured, deploy uses empty vanity/location metadata.
+If those vars are not configured, deploy still succeeds because workflow explicitly uses `--allow-partial`.
 
 ---
 

@@ -131,10 +131,62 @@ body {
 
 .toolbar {
   display: grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: minmax(170px, 1fr) minmax(170px, 1fr) minmax(220px, 1.25fr) minmax(260px, 1.5fr);
   gap: 10px;
   margin-bottom: 12px;
   align-items: end;
+}
+
+.toolbar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inline-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.inline-row.no-wrap {
+  flex-wrap: nowrap;
+}
+
+.inline-row.top-gap {
+  margin-top: 6px;
+}
+
+.inline-row .search,
+.inline-row select {
+  min-width: 0;
+  flex: 1;
+}
+
+.inline-row .btn.mini {
+  flex: 0 0 auto;
+  min-width: 64px;
+}
+
+.favorites-group .inline-row.no-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.favorites-group .inline-row.top-gap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.favorites-group .inline-row.top-gap .btn {
+  width: 100%;
+}
+
+.share-group .inline-row.no-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
 }
 
 .panel-soft {
@@ -241,6 +293,11 @@ body {
 .toolbar-group input,
 .toolbar-group select {
   width: 100%;
+  min-height: 38px;
+}
+
+#favoriteSelect {
+  min-width: 120px;
 }
 
 input,
@@ -259,10 +316,20 @@ select {
 }
 
 .toolbar-actions {
+  grid-column: 1 / -1;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
   flex-wrap: wrap;
+  margin-top: 2px;
+}
+
+.toolbar-actions .btn {
+  min-width: 112px;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn {
@@ -278,10 +345,15 @@ select {
 .btn.warning { background: linear-gradient(135deg, #b98927, var(--yellow)); }
 .btn.danger { background: linear-gradient(135deg, #b94949, var(--red)); }
 .btn.mini {
-  padding: 4px 8px;
+  min-height: 34px;
+  padding: 0 12px;
   border-color: #35597f;
   background: #10283f;
   font-size: 0.74rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .slot-grid {
@@ -580,6 +652,15 @@ select {
   .toolbar {
     grid-template-columns: 1fr;
     gap: 8px;
+    align-items: stretch;
+  }
+  .inline-row {
+    flex-wrap: wrap;
+  }
+  .favorites-group .inline-row.no-wrap,
+  .favorites-group .inline-row.top-gap,
+  .share-group .inline-row.no-wrap {
+    grid-template-columns: 1fr;
   }
   .toolbar-actions {
     justify-content: flex-start;
