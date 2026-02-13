@@ -15,11 +15,11 @@
           <p id="calendarSubtitle">Hier findest du eine Übersicht, welche roamenden Legendären Pokémon (Romer) in welchem Monat in PokeMMO verfügbar sind.</p>
         </div>
         <div class="header-menu">
-          <a href="index.html"><span class="link-icon">H</span>Home</a>
-          <a href="cosmetics.html"><span class="link-icon">C</span>Cosmetics</a>
-          <a class="active" href="calendar.html"><span class="link-icon">K</span>Calendar</a>
-          <a href="guides.html"><span class="link-icon">G</span>Guides</a>
-          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub</a>
+          <a href="index.html"><span class="link-icon">H</span><span id="menuHome">Startseite</span></a>
+          <a href="cosmetics.html"><span class="link-icon">C</span><span id="menuCosmetics">Kosmetik</span></a>
+          <a class="active" href="calendar.html"><span class="link-icon">K</span><span id="menuCalendar">Kalender</span></a>
+          <a href="guides.html"><span class="link-icon">G</span><span id="menuGuides">Anleitungen</span></a>
+          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span><span id="menuGitHub">GitHub</span></a>
           <div class="header-lang-group" aria-label="Language">
             <button type="button" class="header-lang-btn" data-lang="de">DE</button>
             <button type="button" class="header-lang-btn" data-lang="en">EN</button>
@@ -224,6 +224,11 @@
     const textMap = {
       de: {
         calendarTitle: "Roaming-Legendaries-Kalender",
+        menuHome: "Startseite",
+        menuCosmetics: "Kosmetik",
+        menuCalendar: "Kalender",
+        menuGuides: "Anleitungen",
+        menuGitHub: "GitHub",
         calendarSubtitle: "Hier findest du eine Übersicht, welche roamenden Legendären Pokémon (Romer) in welchem Monat in PokeMMO verfügbar sind.",
         rotationTitle: "Monatsrotation",
         rotationSubtitle: "Jeder Monat enthält 1 Kanto-Vogel und 1 Johto-Raubtier.",
@@ -295,6 +300,11 @@
       },
       en: {
         calendarTitle: "Roaming Legendaries Calendar",
+        menuHome: "Home",
+        menuCosmetics: "Cosmetics",
+        menuCalendar: "Calendar",
+        menuGuides: "Guides",
+        menuGitHub: "GitHub",
         calendarSubtitle: "Here you can see which roaming Legendary Pokémon are available each month in PokeMMO.",
         rotationTitle: "Monthly Rotation",
         rotationSubtitle: "Each month includes 1 Kanto bird and 1 Johto beast.",
@@ -381,6 +391,11 @@
     const applyLanguage = (lang) => {
       const t = textMap[lang] || textMap.de;
       document.getElementById("calendarTitle").textContent = t.calendarTitle;
+      document.getElementById("menuHome").textContent = t.menuHome;
+      document.getElementById("menuCosmetics").textContent = t.menuCosmetics;
+      document.getElementById("menuCalendar").textContent = t.menuCalendar;
+      document.getElementById("menuGuides").textContent = t.menuGuides;
+      document.getElementById("menuGitHub").textContent = t.menuGitHub;
       document.getElementById("calendarSubtitle").textContent = t.calendarSubtitle;
       document.getElementById("rotationTitle").textContent = t.rotationTitle;
       document.getElementById("rotationSubtitle").textContent = t.rotationSubtitle;

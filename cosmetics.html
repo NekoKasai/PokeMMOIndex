@@ -15,11 +15,11 @@
           <p id="headerSubtitle">Finde Cosmetics schneller mit Vorschau, Tags und Fundorten auf einen Blick.</p>
         </div>
         <div class="header-menu">
-          <a href="index.html"><span class="link-icon">H</span>Home</a>
-          <a class="active" href="cosmetics.html"><span class="link-icon">C</span>Cosmetics</a>
-          <a href="calendar.html"><span class="link-icon">K</span>Calendar</a>
-          <a href="guides.html"><span class="link-icon">G</span>Guides</a>
-          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub</a>
+          <a href="index.html"><span class="link-icon">H</span><span id="menuHome">Startseite</span></a>
+          <a class="active" href="cosmetics.html"><span class="link-icon">C</span><span id="menuCosmetics">Kosmetik</span></a>
+          <a href="calendar.html"><span class="link-icon">K</span><span id="menuCalendar">Kalender</span></a>
+          <a href="guides.html"><span class="link-icon">G</span><span id="menuGuides">Anleitungen</span></a>
+          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span><span id="menuGitHub">GitHub</span></a>
           <div class="header-lang-group" aria-label="Language">
             <button type="button" class="header-lang-btn" data-lang="de">DE</button>
             <button type="button" class="header-lang-btn" data-lang="en">EN</button>
@@ -121,10 +121,32 @@
           btn.classList.toggle("active", btn.dataset.lang === lang);
         });
       };
+      const updateHeaderMenu = (lang) => {
+        const labels = lang === "de"
+          ? {
+              menuHome: "Startseite",
+              menuCosmetics: "Kosmetik",
+              menuCalendar: "Kalender",
+              menuGuides: "Anleitungen",
+              menuGitHub: "GitHub"
+            }
+          : {
+              menuHome: "Home",
+              menuCosmetics: "Cosmetics",
+              menuCalendar: "Calendar",
+              menuGuides: "Guides",
+              menuGitHub: "GitHub"
+            };
+        Object.keys(labels).forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = labels[id];
+        });
+      };
       const applyLang = (lang) => {
         const next = normalizeLang(lang);
         document.documentElement.lang = next;
         setActiveLangButton(next);
+        updateHeaderMenu(next);
         if (pageLangSelect && pageLangSelect.value !== next) {
           pageLangSelect.value = next;
           pageLangSelect.dispatchEvent(new Event("change", { bubbles: true }));

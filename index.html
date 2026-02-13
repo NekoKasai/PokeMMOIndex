@@ -228,6 +228,8 @@
             padding: 2rem;
             transition: all 0.3s ease;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -275,6 +277,8 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            margin-top: auto;
+            padding-top: 0.5rem;
         }
 
         .project-link {
@@ -399,7 +403,7 @@
 
     <section class="hero">
         <h1 id="heroTitle">PokeMMOIndex</h1>
-        <p id="heroSubtitle">A collection of tools and utilities for PokeMMO. Clean, maintainable projects with deterministic IDs and unified data processing.</p>
+        <p id="heroSubtitle">Hilfreiche PokeMMO-Tools an einem Ort – einfach zu nutzen, klar aufgebaut und für den Alltag im Spiel gemacht.</p>
         <div class="hero-buttons">
             <a id="heroExploreBtn" href="#projects" class="btn btn-primary">Explore Projects</a>
             <a id="heroGitHubBtn" href="https://github.com/NekoKasai/PokeMMOIndex" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -413,13 +417,12 @@
                 <div class="project-badge active">
                     <span class="status-dot active"></span><span id="cosmeticsBadgeText">Active</span>
                 </div>
-                <h3 id="cosmeticsTitle" class="project-title">Cosmetics Helper</h3>
+                <h3 id="cosmeticsTitle" class="project-title">Cosmetics</h3>
                 <p id="cosmeticsDesc" class="project-description">
                     Find your favorite cosmetics faster, try combinations, and keep your outfits organized in one place.
                 </p>
                 <div class="project-links">
                     <a id="cosmeticsToolLink" href="cosmetics.html" class="project-link">→ Open Tool</a>
-                    <a id="cosmeticsGitLink" href="https://github.com/NekoKasai/PokeMMOIndex" class="project-link" target="_blank" rel="noopener noreferrer">→ GitHub</a>
                 </div>
             </div>
 
@@ -429,7 +432,7 @@
                 </div>
                 <h3 id="calendarTitle" class="project-title">Roaming Calendar</h3>
                 <p id="calendarDesc" class="project-description">
-                    Monthly roaming-legendaries calendar with an at-a-glance overview in the PokeMMOIndex style.
+                    See at a glance which roaming legendaries are available each month.
                 </p>
                 <div class="project-links">
                     <a id="calendarLink" href="calendar.html" class="project-link">→ Open Calendar</a>
@@ -442,7 +445,7 @@
                 </div>
                 <h3 id="project3Title" class="project-title">Guides</h3>
                 <p id="project3Desc" class="project-description">
-                    A tab-based guide page where multiple guides can be viewed on one screen.
+                    Helpful game guides in one place, easy to switch and quick to read.
                 </p>
                 <div class="project-links">
                     <a id="project3Link" href="guides.html" class="project-link">→ Open Guides</a>
@@ -468,24 +471,24 @@
             const I18N = {
                 de: {
                     menuHome: "Startseite",
-                    menuCosmetics: "Cosmetics",
+                    menuCosmetics: "Kosmetik",
                     menuCalendar: "Kalender",
-                    menuGuides: "Guides",
+                    menuGuides: "Anleitungen",
                     menuGitHub: "GitHub",
-                    heroSubtitle: "Eine Sammlung von Tools und Utilities für PokeMMO. Saubere, wartbare Projekte mit deterministischen IDs und vereinheitlichter Datenverarbeitung.",
+                    heroSubtitle: "Hilfreiche PokeMMO-Tools an einem Ort – einfach zu nutzen, klar aufgebaut und für den Alltag im Spiel gemacht.",
                     heroExploreBtn: "Projekte entdecken",
                     projectsTitle: "Projekte",
                     cosmeticsBadgeText: "Aktiv",
-                    cosmeticsTitle: "Cosmetics Helper",
+                    cosmeticsTitle: "Cosmetics",
                     cosmeticsDesc: "Finde deine Lieblings-Kosmetika schneller, probiere Kombinationen aus und verwalte deine Outfits an einem Ort.",
                     cosmeticsToolLink: "→ Zum Tool",
                     calendarBadgeText: "Aktiv",
                     calendarTitle: "Kalender",
-                    calendarDesc: "Roaming-Legendaries-Kalender für alle Monate inklusive visueller Übersicht im PokeMMOIndex-Style.",
+                    calendarDesc: "Sieh auf einen Blick, welche roamenden Legendären in welchem Monat verfügbar sind.",
                     calendarLink: "→ Zum Kalender",
                     project3BadgeText: "Aktiv",
                     project3Title: "Guides",
-                    project3Desc: "Eine tab-basierte Guide-Seite, auf der mehrere Guides auf derselben Seite angezeigt werden.",
+                    project3Desc: "Hilfreiche Spiel-Guides an einem Ort, schnell wechselbar und leicht zu lesen.",
                     project3Link: "→ Guides öffnen",
                     footerCopy: "© 2026 PokeMMOIndex. Alle Rechte vorbehalten.",
                     footerDisclaimer: "Diese Tools sind nicht offiziell mit PokeMMO verbunden."
@@ -496,20 +499,20 @@
                     menuCalendar: "Calendar",
                     menuGuides: "Guides",
                     menuGitHub: "GitHub",
-                    heroSubtitle: "A collection of tools and utilities for PokeMMO. Clean, maintainable projects with deterministic IDs and unified data processing.",
+                    heroSubtitle: "Useful PokeMMO tools in one place, built to be simple, clear, and practical for everyday gameplay.",
                     heroExploreBtn: "Explore Projects",
                     projectsTitle: "Projects",
                     cosmeticsBadgeText: "Active",
-                    cosmeticsTitle: "Cosmetics Helper",
+                    cosmeticsTitle: "Cosmetics",
                     cosmeticsDesc: "Find your favorite cosmetics faster, try combinations, and keep your outfits organized in one place.",
                     cosmeticsToolLink: "→ Open Tool",
                     calendarBadgeText: "Active",
                     calendarTitle: "Roaming Calendar",
-                    calendarDesc: "Monthly roaming-legendaries calendar with an at-a-glance overview in the PokeMMOIndex style.",
+                    calendarDesc: "See at a glance which roaming legendaries are available each month.",
                     calendarLink: "→ Open Calendar",
                     project3BadgeText: "Active",
                     project3Title: "Guides",
-                    project3Desc: "A tab-based guide page where multiple guides can be viewed on one screen.",
+                    project3Desc: "Helpful game guides in one place, easy to switch and quick to read.",
                     project3Link: "→ Open Guides",
                     footerCopy: "© 2026 PokeMMOIndex. All rights reserved.",
                     footerDisclaimer: "These tools are not officially affiliated with PokeMMO."
