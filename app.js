@@ -1,6 +1,7 @@
 ﻿const VIRTUAL_ROW_HEIGHT = 70;
 const VIRTUAL_BUFFER_ROWS = 6;
 const SEARCH_DEBOUNCE_MS = 180;
+const FETCH_TIMEOUT_MS = 10000;
 
 const SLOT_ORDER = [
   'forehead',
@@ -98,6 +99,8 @@ const SLOT_BY_NUM = {
 };
 const DEV_REMOTE_MASTER_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.json';
 const DEV_REMOTE_REPORT_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json';
+const JSON_CACHE = new Map();
+const SCRIPT_LOAD_CACHE = new Set();
 
 const state = {
   master: null,
@@ -148,8 +151,8 @@ async function init() {
     setStatus('Loading cosmetics master dataset...');
     await loadMasterData();
     setupControls();
-    renderSlots();
     restore();
+    renderSlots();
     bindGlobal();
     renderAll();
     const marketPart = state.marketItemCount ? ` Market items: ${state.marketItemCount}.` : ' Market data unavailable.';
@@ -194,6 +197,10 @@ async function loadMasterData() {
       state.master = runtimeData.master;
       if (!state.report) state.report = runtimeData.report;
     }
+  }
+
+  if (Array.isArray(state.master)) {
+    state.master = { version: 1, generatedAt: new Date().toISOString(), items: state.master };
   }
 
   if (!state.master || !Array.isArray(state.master.items)) {
@@ -442,7 +449,7 @@ function renderSlots() {
     listEl.addEventListener('scroll', () => {
       if (isSlotCollapsed(slot)) return;
       renderVirtualRows(slotEl, slot);
-    });
+    }, { passive: true });
 
     const debouncedInput = debounce(() => {
       const query = String(filter.value || '').trim();
@@ -899,10 +906,18 @@ function setStatus(text, level = 'info') {
 }
 
 async function loadLocalJson(fileName) {
+  if (!fileName) return null;
+  if (JSON_CACHE.has(fileName)) return JSON_CACHE.get(fileName);
+
   try {
-    const res = await fetch(fileName, { cache: 'no-store' });
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    const res = await fetch(fileName, { cache: 'default', signal: controller.signal });
+    clearTimeout(timeoutId);
     if (!res.ok) return null;
-    return await res.json();
+    const json = await res.json();
+    JSON_CACHE.set(fileName, json);
+    return json;
   } catch {
     return null;
   }
@@ -925,11 +940,17 @@ async function loadFirstAvailableScript(paths) {
 }
 
 function loadScript(src) {
+  if (!src) return Promise.resolve(false);
+  if (SCRIPT_LOAD_CACHE.has(src)) return Promise.resolve(true);
+
   return new Promise((resolve) => {
     const script = document.createElement('script');
     script.src = src;
     script.async = true;
-    script.onload = () => resolve(true);
+    script.onload = () => {
+      SCRIPT_LOAD_CACHE.add(src);
+      resolve(true);
+    };
     script.onerror = () => resolve(false);
     document.head.appendChild(script);
   });

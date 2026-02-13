@@ -315,6 +315,15 @@ select {
   padding: 8px 9px;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+.tag-chip:focus-visible,
+.item-row:focus-visible {
+  outline: 2px solid #7fc1ff;
+  outline-offset: 2px;
+}
+
 .toolbar-actions {
   grid-column: 1 / -1;
   display: flex;
@@ -762,5 +771,14 @@ select {
   }
   .location-item .name {
     font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
