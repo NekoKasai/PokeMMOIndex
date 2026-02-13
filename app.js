@@ -2,6 +2,185 @@
 const VIRTUAL_BUFFER_ROWS = 6;
 const SEARCH_DEBOUNCE_MS = 180;
 const FETCH_TIMEOUT_MS = 10000;
+const LANGUAGES = ['de', 'en'];
+const I18N = {
+  de: {
+    headerTitle: 'PokeMMOIndex Cosmetics',
+    headerSubtitle: 'Sauberer Rebuild mit deterministischen IDs, einheitlichem Matching und Daten-Status.',
+    sourceHub: 'Quelle: PokeMMOHub',
+    sourceGit: 'GitHub: pokemmo-hub',
+    loadingDataset: 'Lade Cosmetics-Master-Dataset...',
+    loadFailed: 'Laden fehlgeschlagen: {message}',
+    loadedDataset: 'Geladen: {count} Cosmetics aus dem Master-Dataset.{marketPart}',
+    marketPartAvailable: ' Markt-Items: {count}.',
+    marketPartUnavailable: ' Marktdaten nicht verfügbar.',
+    noMasterFound: 'Kein gültiges Master-Dataset gefunden (lokal/remote/runtime). Prüfe den Zugriff auf raw.githubusercontent.com.',
+    noValidItems: 'Master-Dataset geladen, aber keine gültigen Cosmetics gefunden.',
+    genderFemale: 'Weiblich',
+    genderMale: 'Männlich',
+    labelLanguage: 'Sprache',
+    labelGender: 'Geschlecht',
+    labelGlobalSearch: 'Globale Suche',
+    labelFavorites: 'Favoriten',
+    labelShareCode: 'Outfit-Code',
+    placeholderGlobalSearch: 'In allen Slots suchen',
+    placeholderShareCode: 'Code einfügen',
+    btnSave: 'Speichern',
+    btnLoad: 'Laden',
+    btnDelete: 'Löschen',
+    btnGenerate: 'Erstellen',
+    btnApply: 'Anwenden',
+    btnRandomize: 'Zufällig',
+    btnClear: 'Zurücksetzen',
+    btnOpenAll: 'Alle öffnen',
+    btnCloseAll: 'Alle schließen',
+    btnClearTags: 'Tags löschen',
+    filterByTags: 'Nach Tags filtern',
+    preview: 'Vorschau',
+    whereToGet: 'Wo man die ausgewählten Cosmetics bekommt',
+    searchSlot: 'Suche {slot}',
+    noneOption: '--- keine ---',
+    filteredBy: 'Gefiltert nach "{query}" ({count})',
+    itemCount: '{count} Items',
+    expand: 'Ausklappen',
+    collapse: 'Einklappen',
+    noKnownShopLocations: 'Keine bekannten Shop-Standorte.',
+    marketLabel: 'Markt:',
+    marketNoData: 'Keine Marktdaten.',
+    tagsLabel: 'Tags:',
+    source: 'Quelle',
+    route: 'Route',
+    copy: 'Kopieren',
+    routeCopied: 'Route kopiert.',
+    routeCopyFail: 'Route konnte nicht kopiert werden.',
+    selectCosmeticHint: 'Wähle ein Cosmetic, um Fundorte zu sehen.',
+    dataHealth: 'Daten-Status',
+    healthItems: 'Items',
+    healthUnmatchedLocations: 'Unmatched Orte',
+    healthUnmatchedVanity: 'Unmatched Vanity',
+    healthLikelySpelling: 'Wahrsch. Schreibweise',
+    healthNotWearable: 'Nicht tragbar',
+    healthDuplicates: 'Duplikate',
+    healthMissingSlot: 'Fehlender Slot',
+    loadedWithWarnings: 'Geladen: {count} Cosmetics mit Warnungen: duplicates={duplicates}, missingSlot={missingSlot}.',
+    favoritePrompt: 'Name für Favorit',
+    favoritesSelect: 'Favoriten',
+    outfitCodeGenerated: 'Outfit-Code erstellt.',
+    outfitCodeApplied: 'Outfit-Code angewendet.',
+    invalidOutfitCode: 'Ungültiger Outfit-Code.',
+    tagMartItems: 'Markt-Items',
+    tagGiftShop: 'Gift Shop',
+    tagPvpReward: 'PvP-Belohnung',
+    tagPveReward: 'PvE-Belohnung',
+    tagSeasonal: 'Saisonal',
+    tagEvent: 'Event',
+    tagEventOnly: 'Nur Event',
+    tagLimited: 'Limitiert',
+    tagCO: 'CO',
+    marketShortNoData: 'Markt: keine Daten',
+    marketShortNotListed: 'Markt: nicht gelistet',
+    marketShortListed: 'Markt: {price} ({qty}x)',
+    marketLongNoData: 'Keine Daten',
+    marketLongNotListed: 'Aktuell nicht gelistet',
+    marketLongListed: 'Jetzt gelistet - {price} - Menge {qty} - Listings {listings}',
+    sceneBattle: 'Kampf',
+    sceneBack: 'Hinten',
+    sceneFront: 'Vorne',
+    sceneSide: 'Seite',
+    sceneFemale: 'Weiblich',
+    sceneMale: 'Männlich',
+    noTagsAvailable: 'Keine Tags verfügbar.',
+    noneLabel: 'Keine',
+  },
+  en: {
+    headerTitle: 'PokeMMOIndex Cosmetics',
+    headerSubtitle: 'Clean rebuild with deterministic IDs, unified matching, and data health reporting.',
+    sourceHub: 'Source: PokeMMOHub',
+    sourceGit: 'GitHub: pokemmo-hub',
+    loadingDataset: 'Loading cosmetics master dataset...',
+    loadFailed: 'Load failed: {message}',
+    loadedDataset: 'Loaded {count} cosmetics from master dataset.{marketPart}',
+    marketPartAvailable: ' Market items: {count}.',
+    marketPartUnavailable: ' Market data unavailable.',
+    noMasterFound: 'No valid master dataset found (local/remote/runtime). Check network access to raw.githubusercontent.com.',
+    noValidItems: 'Master dataset loaded but contains no valid cosmetic items.',
+    genderFemale: 'Female',
+    genderMale: 'Male',
+    labelLanguage: 'Language',
+    labelGender: 'Gender',
+    labelGlobalSearch: 'Global Search',
+    labelFavorites: 'Favorites',
+    labelShareCode: 'Outfit Share Code',
+    placeholderGlobalSearch: 'Search all slots',
+    placeholderShareCode: 'Paste code',
+    btnSave: 'Save',
+    btnLoad: 'Load',
+    btnDelete: 'Delete',
+    btnGenerate: 'Generate',
+    btnApply: 'Apply',
+    btnRandomize: 'Randomize',
+    btnClear: 'Clear',
+    btnOpenAll: 'Open all',
+    btnCloseAll: 'Close all',
+    btnClearTags: 'Clear tags',
+    filterByTags: 'Filter by tags',
+    preview: 'Preview',
+    whereToGet: 'Where to get selected cosmetics',
+    searchSlot: 'Search {slot}',
+    noneOption: '--- none ---',
+    filteredBy: 'Filtered by "{query}" ({count})',
+    itemCount: '{count} items',
+    expand: 'Expand',
+    collapse: 'Collapse',
+    noKnownShopLocations: 'No known shop locations.',
+    marketLabel: 'Market:',
+    marketNoData: 'No market data.',
+    tagsLabel: 'Tags:',
+    source: 'Source',
+    route: 'Route',
+    copy: 'Copy',
+    routeCopied: 'Route copied.',
+    routeCopyFail: 'Could not copy route.',
+    selectCosmeticHint: 'Select a cosmetic to see where to get it.',
+    dataHealth: 'Data Health',
+    healthItems: 'Items',
+    healthUnmatchedLocations: 'Unmatched locations',
+    healthUnmatchedVanity: 'Unmatched vanity',
+    healthLikelySpelling: 'Likely spelling',
+    healthNotWearable: 'Not wearable',
+    healthDuplicates: 'Duplicates',
+    healthMissingSlot: 'Missing slot',
+    loadedWithWarnings: 'Loaded {count} cosmetics with warnings: duplicates={duplicates}, missingSlot={missingSlot}.',
+    favoritePrompt: 'Favorite name',
+    favoritesSelect: 'Favorites',
+    outfitCodeGenerated: 'Outfit code generated.',
+    outfitCodeApplied: 'Outfit code applied.',
+    invalidOutfitCode: 'Invalid outfit code.',
+    tagMartItems: 'Mart Items',
+    tagGiftShop: 'Gift Shop',
+    tagPvpReward: 'PvP Reward',
+    tagPveReward: 'PvE Reward',
+    tagSeasonal: 'Seasonal',
+    tagEvent: 'Event',
+    tagEventOnly: 'Event Only',
+    tagLimited: 'Limited',
+    tagCO: 'CO',
+    marketShortNoData: 'Market: no data',
+    marketShortNotListed: 'Market: not listed',
+    marketShortListed: 'Market: {price} ({qty}x)',
+    marketLongNoData: 'No data',
+    marketLongNotListed: 'Not currently listed',
+    marketLongListed: 'Listed now - {price} - Qty {qty} - Listings {listings}',
+    sceneBattle: 'Battle',
+    sceneBack: 'Back',
+    sceneFront: 'Front',
+    sceneSide: 'Side',
+    sceneFemale: 'Female',
+    sceneMale: 'Male',
+    noTagsAvailable: 'No tags available.',
+    noneLabel: 'None',
+  },
+};
 
 const SLOT_ORDER = [
   'forehead',
@@ -50,12 +229,12 @@ const DEFAULT_CLOTHES = {
 };
 
 const SCENES = [
-  { key: 0, label: 'Battle' },
-  { key: 1, label: 'Back' },
-  { key: 2, label: 'Front' },
-  { key: 3, label: 'Side' },
-  { key: 4, label: 'Female', genderPose: 'female' },
-  { key: 5, label: 'Male', genderPose: 'male' },
+  { key: 0, labelKey: 'sceneBattle' },
+  { key: 1, labelKey: 'sceneBack' },
+  { key: 2, labelKey: 'sceneFront' },
+  { key: 3, labelKey: 'sceneSide' },
+  { key: 4, labelKey: 'sceneFemale', genderPose: 'female' },
+  { key: 5, labelKey: 'sceneMale', genderPose: 'male' },
 ];
 
 const GENDERS = ['female', 'male'];
@@ -101,6 +280,7 @@ const DEV_REMOTE_MASTER_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/co
 const DEV_REMOTE_REPORT_JSON = 'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json';
 const JSON_CACHE = new Map();
 const SCRIPT_LOAD_CACHE = new Set();
+const SHARE_CODE_PREFIX = 'PMI1:';
 
 const state = {
   master: null,
@@ -113,6 +293,7 @@ const state = {
   itemById: {},
   itemByItemId: {},
   selected: { ...DEFAULT_CLOTHES },
+  language: 'de',
   gender: 'male',
   selectedTags: [],
   availableTags: [],
@@ -126,6 +307,7 @@ const els = {
   status: document.getElementById('status'),
   health: document.getElementById('health'),
   slots: document.getElementById('slots'),
+  languageSelect: document.getElementById('languageSelect'),
   gender: document.getElementById('gender'),
   globalSearch: document.getElementById('globalSearch'),
   favoriteSelect: document.getElementById('favoriteSelect'),
@@ -148,19 +330,21 @@ init();
 
 async function init() {
   try {
-    setStatus('Loading cosmetics master dataset...');
+    setStatus(t('loadingDataset'));
     await loadMasterData();
     setupControls();
     restore();
     renderSlots();
     bindGlobal();
     renderAll();
-    const marketPart = state.marketItemCount ? ` Market items: ${state.marketItemCount}.` : ' Market data unavailable.';
-    setStatus(`Loaded ${state.items.length} cosmetics from master dataset.${marketPart}`);
+    const marketPart = state.marketItemCount
+      ? t('marketPartAvailable', { count: state.marketItemCount })
+      : t('marketPartUnavailable');
+    setStatus(t('loadedDataset', { count: state.items.length, marketPart }));
     renderDataHealth();
   } catch (error) {
     console.error(error);
-    setStatus(`Load failed: ${error.message}`, 'error');
+    setStatus(t('loadFailed', { message: error.message }), 'error');
   }
 }
 
@@ -204,7 +388,7 @@ async function loadMasterData() {
   }
 
   if (!state.master || !Array.isArray(state.master.items)) {
-    throw new Error('No valid master dataset found (local/remote/runtime). Check network access to raw.githubusercontent.com.');
+    throw new Error(t('noMasterFound'));
   }
 
   const rawItems = arr(state.master.items);
@@ -213,7 +397,7 @@ async function loadMasterData() {
     .filter((item) => item.id && item.name && item.itemId > 0);
 
   if (!normalizedItems.length) {
-    throw new Error('Master dataset loaded but contains no valid cosmetic items.');
+    throw new Error(t('noValidItems'));
   }
 
   await loadCosmeticMetaData();
@@ -334,12 +518,28 @@ function buildSlotState(slotIndex, itemById, items) {
 }
 
 function setupControls() {
-  els.gender.innerHTML = GENDERS.map((g) => `<option value="${g}">${capitalize(g)}</option>`).join('');
+  if (els.languageSelect) els.languageSelect.value = state.language;
+  els.gender.innerHTML = GENDERS.map((g) => {
+    const label = g === 'female' ? t('genderFemale') : t('genderMale');
+    return `<option value="${g}">${escapeHTML(label)}</option>`;
+  }).join('');
+  applyStaticTranslations();
   renderFavorites();
   renderTagFilterChips();
 }
 
 function bindGlobal() {
+  if (els.languageSelect) {
+    els.languageSelect.addEventListener('change', () => {
+      const next = String(els.languageSelect.value || 'de');
+      state.language = LANGUAGES.includes(next) ? next : 'de';
+      setupControls();
+      renderSlots();
+      renderAll();
+      persist();
+    });
+  }
+
   els.gender.addEventListener('change', () => {
     state.gender = els.gender.value;
     renderAll();
@@ -382,9 +582,9 @@ function bindGlobal() {
     if (!route) return;
     try {
       await navigator.clipboard.writeText(route);
-      setStatus('Route copied.');
+      setStatus(t('routeCopied'));
     } catch {
-      setStatus('Could not copy route.', 'warning');
+      setStatus(t('routeCopyFail'), 'warning');
     }
   });
   if (els.saveFavoriteBtn) els.saveFavoriteBtn.addEventListener('click', saveFavorite);
@@ -409,11 +609,11 @@ function renderSlots() {
     return `
       <section class="slot${isCollapsed ? ' collapsed' : ''}" data-slot="${escapeHTML(slot)}">
         <div class="slot-head">
-          <h3 class="slot-title">${escapeHTML(slot)}</h3>
-          <button class="slot-toggle" type="button" data-role="toggle" aria-expanded="${isCollapsed ? 'false' : 'true'}">${isCollapsed ? 'Expand' : 'Collapse'}</button>
-          <span class="slot-count">${list.length} items</span>
+          <h3 class="slot-title">${escapeHTML(localizeSlot(slot))}</h3>
+          <button class="slot-toggle" type="button" data-role="toggle" aria-expanded="${isCollapsed ? 'false' : 'true'}">${isCollapsed ? t('expand') : t('collapse')}</button>
+          <span class="slot-count">${t('itemCount', { count: list.length })}</span>
         </div>
-        <input class="search" type="text" placeholder="Search ${escapeHTML(slot)}" data-role="filter" value="${escapeHTML(state.searchBySlot[slot] || '')}" />
+        <input class="search" type="text" placeholder="${escapeHTML(t('searchSlot', { slot: localizeSlot(slot).toLowerCase() }))}" data-role="filter" value="${escapeHTML(state.searchBySlot[slot] || '')}" />
         <div class="list-info" data-role="info"></div>
         <div class="item-list" data-role="list"></div>
       </section>
@@ -471,12 +671,12 @@ function renderSlots() {
 
 function renderSlotList(slotEl, slot, list, query) {
   const infoEl = slotEl.querySelector('div[data-role="info"]');
-  slotEl._virtualItems = [{ itemId: 0, name: '--- none ---', slot }, ...list];
+  slotEl._virtualItems = [{ itemId: 0, name: t('noneOption'), slot }, ...list];
 
   if (query) {
-    infoEl.textContent = `Filtered by "${query}" (${list.length})`;
+    infoEl.textContent = t('filteredBy', { query, count: list.length });
   } else {
-    infoEl.textContent = `${list.length} items`;
+    infoEl.textContent = t('itemCount', { count: list.length });
   }
 
   renderVirtualRows(slotEl, slot);
@@ -503,7 +703,7 @@ function renderVirtualRows(slotEl, slot) {
     const selected = Number(state.selected[slotNum] || 0) === Number(item.itemId || 0) ? ' selected' : '';
 
     if (!item.itemId) {
-      return `<button class="item-row${selected}" data-item-id="0" style="height:${VIRTUAL_ROW_HEIGHT}px"><span class="item-name">--- none ---</span></button>`;
+      return `<button class="item-row${selected}" data-item-id="0" style="height:${VIRTUAL_ROW_HEIGHT}px"><span class="item-name">${escapeHTML(t('noneOption'))}</span></button>`;
     }
 
     const marketText = formatMarketShort(item.market);
@@ -527,12 +727,14 @@ function renderVirtualRows(slotEl, slot) {
 }
 
 function renderAll() {
+  applyStaticTranslations();
   els.gender.value = state.gender;
+  if (els.languageSelect) els.languageSelect.value = state.language;
   if (els.globalSearch) els.globalSearch.value = state.globalSearch;
   renderFavorites();
   renderTagFilterChips();
   if (els.toggleAllBtn) {
-    els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? 'Open all' : 'Close all';
+    els.toggleAllBtn.textContent = areAllSlotsCollapsed() ? t('btnOpenAll') : t('btnCloseAll');
   }
 
   for (const slot of Object.keys(state.bySlot)) {
@@ -546,7 +748,7 @@ function renderAll() {
     slotEl.classList.toggle('collapsed', collapsed);
     const toggle = slotEl.querySelector('button[data-role="toggle"]');
     if (toggle) {
-      toggle.textContent = collapsed ? 'Expand' : 'Collapse';
+      toggle.textContent = collapsed ? t('expand') : t('collapse');
       toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
     }
 
@@ -615,13 +817,14 @@ function renderPreview() {
   const previewScenes = SCENES.filter((scene) => !scene.genderPose || scene.genderPose === state.gender);
 
   els.previewGrid.innerHTML = previewScenes.map((scene) => {
+    const label = t(scene.labelKey);
     const src = buildAvatarUrl(scene.key, state.selected);
     return `
       <article class="preview-card">
         <div class="preview-image-wrap">
-          <img class="main" src="${src}" alt="${escapeHTML(scene.label)} preview" />
+          <img class="main" src="${src}" alt="${escapeHTML(label)} preview" />
         </div>
-        <span class="preview-label">${escapeHTML(scene.label)}</span>
+        <span class="preview-label">${escapeHTML(label)}</span>
       </article>
     `;
   }).join('');
@@ -646,7 +849,7 @@ function renderLocationInfo() {
 
     let lines = '';
     if (!locationEntries.length && vanityEntries.length) {
-      lines += `<div class="missing">No known shop locations.</div>`;
+      lines += `<div class="missing">${escapeHTML(t('noKnownShopLocations'))}</div>`;
     }
 
     for (const entry of locationEntries) {
@@ -654,7 +857,7 @@ function renderLocationInfo() {
     }
 
     for (const entry of vanityEntries) {
-      lines += `<div class="entry">${escapeHTML(entry.detail || 'Buyable')}</div>`;
+      lines += `<div class="entry">${escapeHTML(entry.detail || t('tagMartItems'))}</div>`;
     }
 
     const sources = new Set();
@@ -662,14 +865,14 @@ function renderLocationInfo() {
     for (const entry of vanityEntries) if (entry.source) sources.add(entry.source);
 
     const sourceLinks = Array.from(sources)
-      .map((src) => `<a href="${escapeHTML(src)}" target="_blank" rel="noopener noreferrer">Source</a>`)
+      .map((src) => `<a href="${escapeHTML(src)}" target="_blank" rel="noopener noreferrer">${escapeHTML(t('source'))}</a>`)
       .join(' - ');
 
-    const marketSource = ' <a href="https://pokemmohub.com/items" target="_blank" rel="noopener noreferrer">Source</a>';
+    const marketSource = ` <a href="https://pokemmohub.com/items" target="_blank" rel="noopener noreferrer">${escapeHTML(t('source'))}</a>`;
     const marketLine = market
-      ? `<div class="entry"><strong>Market:</strong> ${escapeHTML(formatMarketLong(market))}${marketSource}</div>`
-      : `<div class="entry"><strong>Market:</strong> No market data.${marketSource}</div>`;
-    const tagsLine = `<div class="entry"><strong>Tags:</strong> ${renderTagChips(item.tags)}</div>`;
+      ? `<div class="entry"><strong>${escapeHTML(t('marketLabel'))}</strong> ${escapeHTML(formatMarketLong(market))}${marketSource}</div>`
+      : `<div class="entry"><strong>${escapeHTML(t('marketLabel'))}</strong> ${escapeHTML(t('marketNoData'))}${marketSource}</div>`;
+    const tagsLine = `<div class="entry"><strong>${escapeHTML(t('tagsLabel'))}</strong> ${renderTagChips(item.tags)}</div>`;
 
     return `
       <div class="location-item">
@@ -682,7 +885,7 @@ function renderLocationInfo() {
     `;
   }).join('');
 
-  els.locationInfo.innerHTML = rows || '<div class="location-item"><div class="missing">Select a cosmetic to see where to get it.</div></div>';
+  els.locationInfo.innerHTML = rows || `<div class="location-item"><div class="missing">${escapeHTML(t('selectCosmeticHint'))}</div></div>`;
 }
 
 function renderLocationEntry(entry) {
@@ -691,7 +894,7 @@ function renderLocationEntry(entry) {
   const price = String(entry?.price || 'Unknown');
   const routeText = `${region} - ${city}`;
   const mapQuery = encodeURIComponent(`PokeMMO ${region} ${city}`);
-  return `<div class="entry">${escapeHTML(region)} - ${escapeHTML(city)} - ${escapeHTML(price)} <a href="https://www.google.com/search?q=${mapQuery}" target="_blank" rel="noopener noreferrer">Route</a> <button type="button" class="btn mini" data-route="${escapeHTML(routeText)}">Copy</button></div>`;
+  return `<div class="entry">${escapeHTML(region)} - ${escapeHTML(city)} - ${escapeHTML(price)} <a href="https://www.google.com/search?q=${mapQuery}" target="_blank" rel="noopener noreferrer">${escapeHTML(t('route'))}</a> <button type="button" class="btn mini" data-route="${escapeHTML(routeText)}">${escapeHTML(t('copy'))}</button></div>`;
 }
 
 function renderDataHealth() {
@@ -709,18 +912,18 @@ function renderDataHealth() {
   els.health.classList.toggle('warn', hasIssues);
 
   els.health.innerHTML = `
-    <strong>Data Health</strong>
-    <span>Items: ${state.items.length}</span>
-    <span>Unmatched locations: ${unmatchedLocations}</span>
-    <span>Unmatched vanity: ${unmatchedVanity}</span>
-    <span>Likely spelling: ${likelySpelling}</span>
-    <span>Not wearable: ${notWearable}</span>
-    <span>Duplicates: ${duplicates}</span>
-    <span>Missing slot: ${missingSlot}</span>
+    <strong>${escapeHTML(t('dataHealth'))}</strong>
+    <span>${escapeHTML(t('healthItems'))}: ${state.items.length}</span>
+    <span>${escapeHTML(t('healthUnmatchedLocations'))}: ${unmatchedLocations}</span>
+    <span>${escapeHTML(t('healthUnmatchedVanity'))}: ${unmatchedVanity}</span>
+    <span>${escapeHTML(t('healthLikelySpelling'))}: ${likelySpelling}</span>
+    <span>${escapeHTML(t('healthNotWearable'))}: ${notWearable}</span>
+    <span>${escapeHTML(t('healthDuplicates'))}: ${duplicates}</span>
+    <span>${escapeHTML(t('healthMissingSlot'))}: ${missingSlot}</span>
   `;
 
   if (hasIssues) {
-    setStatus(`Loaded ${state.items.length} cosmetics with warnings: duplicates=${duplicates}, missingSlot=${missingSlot}.`, 'warning');
+    setStatus(t('loadedWithWarnings', { count: state.items.length, duplicates, missingSlot }), 'warning');
   }
 }
 
@@ -749,7 +952,7 @@ function getFilteredSlotItems(slot, query = '') {
 
 function updateSlotCount(slotEl, count) {
   const countEl = slotEl.querySelector('.slot-count');
-  if (countEl) countEl.textContent = `${count} items`;
+  if (countEl) countEl.textContent = t('itemCount', { count });
 }
 
 function randomizeSelection() {
@@ -776,7 +979,7 @@ function clearSelection() {
 
 function renderFavorites() {
   if (!els.favoriteSelect) return;
-  const options = ['<option value="">Favorites</option>'];
+  const options = [`<option value="">${escapeHTML(t('favoritesSelect'))}</option>`];
   for (const favorite of state.favorites) {
     options.push(`<option value="${escapeHTML(favorite.id)}">${escapeHTML(favorite.name)}</option>`);
   }
@@ -784,7 +987,7 @@ function renderFavorites() {
 }
 
 function saveFavorite() {
-  const name = window.prompt('Favorite name');
+  const name = window.prompt(t('favoritePrompt'));
   if (!name) return;
   const trimmed = String(name).trim().slice(0, 40);
   if (!trimmed) return;
@@ -820,31 +1023,87 @@ function deleteFavorite() {
 }
 
 function buildShareCode() {
-  return btoa(JSON.stringify({ g: state.gender, s: state.selected }));
+  const payload = {
+    v: 1,
+    g: state.gender,
+    s: sanitizeSelectedMap(state.selected),
+  };
+  return `${SHARE_CODE_PREFIX}${encodeBase64Url(JSON.stringify(payload))}`;
 }
 
 async function copyShareCode() {
   const code = buildShareCode();
   if (els.shareCodeInput) els.shareCodeInput.value = code;
-  try {
-    await navigator.clipboard.writeText(code);
-    setStatus('Outfit code copied.');
-  } catch {
-    setStatus('Outfit code ready in input.');
-  }
+  setStatus(t('outfitCodeGenerated'));
 }
 
 function applyShareCode() {
   const raw = String(els.shareCodeInput?.value || '').trim();
   if (!raw) return;
   try {
-    const parsed = JSON.parse(atob(raw));
+    const parsed = parseShareCode(raw);
     if (GENDERS.includes(parsed.g)) state.gender = parsed.g;
-    if (parsed.s && typeof parsed.s === 'object') state.selected = { ...DEFAULT_CLOTHES, ...parsed.s };
+    if (parsed.s && typeof parsed.s === 'object') {
+      state.selected = { ...DEFAULT_CLOTHES, ...sanitizeSelectedMap(parsed.s) };
+    }
+    if (els.shareCodeInput) els.shareCodeInput.value = buildShareCode();
     renderAll();
     persist();
+    setStatus(t('outfitCodeApplied'));
   } catch {
-    setStatus('Invalid outfit code.', 'error');
+    setStatus(t('invalidOutfitCode'), 'error');
+  }
+}
+
+function parseShareCode(code) {
+  const input = String(code || '').trim();
+  if (!input) throw new Error('empty');
+
+  if (input.startsWith(SHARE_CODE_PREFIX)) {
+    const payload = decodeBase64Url(input.slice(SHARE_CODE_PREFIX.length));
+    return JSON.parse(payload);
+  }
+
+  try {
+    return JSON.parse(decodeBase64Url(input));
+  } catch {
+    return JSON.parse(input);
+  }
+}
+
+function sanitizeSelectedMap(value) {
+  const src = value && typeof value === 'object' ? value : {};
+  const out = {};
+  for (const key of Object.keys(DEFAULT_CLOTHES)) {
+    const num = Number(src[key]);
+    out[key] = Number.isFinite(num) && num >= 0 ? Math.floor(num) : Number(DEFAULT_CLOTHES[key] || 0);
+  }
+  return out;
+}
+
+function encodeBase64Url(text) {
+  const value = String(text || '');
+  let base64 = '';
+  try {
+    const utf8 = new TextEncoder().encode(value);
+    let binary = '';
+    for (const b of utf8) binary += String.fromCharCode(b);
+    base64 = btoa(binary);
+  } catch {
+    base64 = btoa(unescape(encodeURIComponent(value)));
+  }
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function decodeBase64Url(encoded) {
+  const safe = String(encoded || '').replace(/-/g, '+').replace(/_/g, '/');
+  const pad = safe.length % 4 ? '='.repeat(4 - (safe.length % 4)) : '';
+  const binary = atob(safe + pad);
+  try {
+    const bytes = Uint8Array.from(binary, (ch) => ch.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  } catch {
+    return decodeURIComponent(escape(binary));
   }
 }
 
@@ -871,6 +1130,7 @@ function buildAvatarUrl(sceneKey, clothes) {
 function persist() {
   localStorage.setItem('clean_cosmetics_master_state', JSON.stringify({
     selected: state.selected,
+    language: state.language,
     gender: state.gender,
     selectedTags: state.selectedTags,
     globalSearch: state.globalSearch,
@@ -889,6 +1149,7 @@ function restore() {
     if (!parsed) return;
 
     if (parsed.selected) state.selected = { ...state.selected, ...parsed.selected };
+    if (LANGUAGES.includes(parsed.language)) state.language = parsed.language;
     if (GENDERS.includes(parsed.gender)) state.gender = parsed.gender;
     state.selectedTags = Array.isArray(parsed.selectedTags) ? parsed.selectedTags.map(toFilterTag).filter(Boolean) : [];
     state.globalSearch = String(parsed.globalSearch || '');
@@ -1052,6 +1313,89 @@ function isDevMode() {
   }
 }
 
+function t(key, vars = {}) {
+  const lang = LANGUAGES.includes(state.language) ? state.language : 'de';
+  const base = I18N[lang] || I18N.de;
+  const fallback = I18N.en || {};
+  const template = base[key] ?? fallback[key] ?? key;
+  return String(template).replace(/\{(\w+)\}/g, (_, name) => String(vars[name] ?? ''));
+}
+
+function localizeSlot(slot) {
+  const map = {
+    forehead: { de: 'Stirn', en: 'Forehead' },
+    hat: { de: 'Hut', en: 'Hat' },
+    hair: { de: 'Haare', en: 'Hair' },
+    eyes: { de: 'Augen', en: 'Eyes' },
+    face: { de: 'Gesicht', en: 'Face' },
+    back: { de: 'Rücken', en: 'Back' },
+    top: { de: 'Oberteil', en: 'Top' },
+    gloves: { de: 'Handschuhe', en: 'Gloves' },
+    shoes: { de: 'Schuhe', en: 'Shoes' },
+    legs: { de: 'Beine', en: 'Legs' },
+    rod: { de: 'Angel', en: 'Rod' },
+    bicycle: { de: 'Fahrrad', en: 'Bicycle' },
+    other: { de: 'Sonstiges', en: 'Other' },
+  };
+  const key = normalizeName(slot);
+  const entry = map[key];
+  if (!entry) return capitalize(String(slot || ''));
+  return entry[state.language] || entry.de;
+}
+
+function localizeTag(tag) {
+  const n = normalizeName(tag);
+  const map = {
+    'mart items': 'tagMartItems',
+    'gift shop': 'tagGiftShop',
+    'pvp reward': 'tagPvpReward',
+    'pve reward': 'tagPveReward',
+    seasonal: 'tagSeasonal',
+    event: 'tagEvent',
+    'event only': 'tagEventOnly',
+    limited: 'tagLimited',
+    co: 'tagCO',
+  };
+  const key = map[n];
+  return key ? t(key) : String(tag || '');
+}
+
+function applyStaticTranslations() {
+  const setText = (id, key) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t(key);
+  };
+  const setPlaceholder = (id, key) => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = t(key);
+  };
+
+  setText('headerTitle', 'headerTitle');
+  setText('headerSubtitle', 'headerSubtitle');
+  const sourceHub = document.getElementById('sourceHubLink');
+  if (sourceHub) sourceHub.innerHTML = `<span class="link-icon">PH</span>${escapeHTML(t('sourceHub'))}`;
+  const sourceGit = document.getElementById('sourceGitLink');
+  if (sourceGit) sourceGit.innerHTML = `<span class="link-icon">GH</span>${escapeHTML(t('sourceGit'))}`;
+  setText('labelLanguage', 'labelLanguage');
+  setText('labelGender', 'labelGender');
+  setText('labelGlobalSearch', 'labelGlobalSearch');
+  setText('labelFavorites', 'labelFavorites');
+  setText('labelShareCode', 'labelShareCode');
+  setText('saveFavoriteBtn', 'btnSave');
+  setText('loadFavoriteBtn', 'btnLoad');
+  setText('deleteFavoriteBtn', 'btnDelete');
+  setText('copyShareBtn', 'btnGenerate');
+  setText('applyShareBtn', 'btnApply');
+  setText('randomizeBtn', 'btnRandomize');
+  setText('clearBtn', 'btnClear');
+  setText('clearTagsBtn', 'btnClearTags');
+  setText('filterByTagsTitle', 'filterByTags');
+  setText('previewTitle', 'preview');
+  setText('locationTitle', 'whereToGet');
+  setPlaceholder('globalSearch', 'placeholderGlobalSearch');
+  setPlaceholder('shareCodeInput', 'placeholderShareCode');
+}
+
 function debounce(fn, delay) {
   let timer = null;
   return (...args) => {
@@ -1197,15 +1541,15 @@ function buildMarketInfo(item) {
 }
 
 function formatMarketShort(market) {
-  if (!market) return 'Market: no data';
-  if (!market.isListed) return 'Market: not listed';
-  return `Market: ${formatYen(market.price)} (${market.quantity}x)`;
+  if (!market) return t('marketShortNoData');
+  if (!market.isListed) return t('marketShortNotListed');
+  return t('marketShortListed', { price: formatYen(market.price), qty: market.quantity });
 }
 
 function formatMarketLong(market) {
-  if (!market) return 'No data';
-  if (!market.isListed) return 'Not currently listed';
-  return `Listed now - ${formatYen(market.price)} - Qty ${market.quantity} - Listings ${market.listings}`;
+  if (!market) return t('marketLongNoData');
+  if (!market.isListed) return t('marketLongNotListed');
+  return t('marketLongListed', { price: formatYen(market.price), qty: market.quantity, listings: market.listings });
 }
 
 function formatYen(value) {
@@ -1215,17 +1559,17 @@ function formatYen(value) {
 
 function formatTagShort(tags) {
   const all = arr(tags).filter(Boolean);
-  if (!all.length) return 'Tags: none';
-  const short = all.slice(0, 2).join(', ');
-  if (all.length <= 2) return `Tags: ${short}`;
-  return `Tags: ${short} +${all.length - 2}`;
+  if (!all.length) return `${t('tagsLabel')} ${t('noneLabel').toLowerCase()}`;
+  const short = all.slice(0, 2).map((tag) => localizeTag(tag)).join(', ');
+  if (all.length <= 2) return `${t('tagsLabel')} ${short}`;
+  return `${t('tagsLabel')} ${short} +${all.length - 2}`;
 }
 
 function renderTagChips(tags) {
   const all = arr(tags).filter(Boolean);
-  if (!all.length) return '<span class="tag-chip">None</span>';
+  if (!all.length) return `<span class="tag-chip">${escapeHTML(t('noneLabel'))}</span>`;
   return all
-    .map((tag) => `<span class="tag-chip ${tagClassName(tag)}">${escapeHTML(tag)}</span>`)
+    .map((tag) => `<span class="tag-chip ${tagClassName(tag)}">${escapeHTML(localizeTag(tag))}</span>`)
     .join(' ');
 }
 
@@ -1249,9 +1593,9 @@ function renderTagFilterChips() {
   const filterTags = Array.from(new Set(state.availableTags.map((tag) => toFilterTag(tag)).filter(Boolean))).sort((a, b) => a.localeCompare(b));
   const chips = filterTags.map((tag) => {
     const selected = state.selectedTags.includes(tag) ? ' selected' : '';
-    return `<button type="button" class="tag-chip ${tagClassName(tag)}${selected}" data-tag="${escapeHTML(tag)}">${escapeHTML(tag)}</button>`;
+    return `<button type="button" class="tag-chip ${tagClassName(tag)}${selected}" data-tag="${escapeHTML(tag)}">${escapeHTML(localizeTag(tag))}</button>`;
   }).join('');
-  els.tagFilterChips.innerHTML = chips || '<span class="item-meta">No tags available.</span>';
+  els.tagFilterChips.innerHTML = chips || `<span class="item-meta">${escapeHTML(t('noTagsAvailable'))}</span>`;
 }
 
 function toFilterTag(tag) {
