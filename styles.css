@@ -206,7 +206,8 @@ header.hero {
   position: absolute;
   left: 0;
   right: auto;
-  bottom: -0.35rem;
+  top: calc(100% + 0.15rem);
+  bottom: auto;
   z-index: 5;
   width: fit-content;
   max-width: 100%;
@@ -436,7 +437,7 @@ select:focus-visible,
   grid-row: 2;
   align-self: end;
   position: relative;
-  padding-bottom: 2.05rem;
+  padding-bottom: 0;
 }
 
 .share-row .inline-row {
