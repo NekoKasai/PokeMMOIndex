@@ -62,16 +62,38 @@
             letter-spacing: -1px;
         }
 
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s ease;
-            font-size: 0.95rem;
+        .header-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: flex-end;
         }
 
-        nav a:hover {
+        .header-menu a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            padding: 0.4rem 0.8rem;
+            background: rgba(78, 205, 196, 0.1);
+            border: 1px solid rgba(78, 205, 196, 0.2);
+            border-radius: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .header-menu a:hover {
             color: var(--primary);
+            border-color: rgba(255, 107, 107, 0.3);
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .header-menu a.active {
+            color: #e8f6ff;
+            border-color: rgba(126, 191, 235, 0.55);
+            background: rgba(74, 126, 167, 0.28);
         }
 
         .hero {
@@ -273,12 +295,8 @@
                 gap: 1.5rem;
             }
 
-            nav {
-                text-align: center;
-            }
-
-            nav a {
-                margin: 0 1rem;
+            .header-menu {
+                justify-content: center;
             }
 
             .hero {
@@ -329,11 +347,12 @@
     <header>
         <div class="container">
             <div class="logo">🎮 PokeMMOIndex</div>
-            <nav>
-                <a href="#projects">Projekte</a>
-                <a href="#about">Über</a>
-                <a href="#contact">Kontakt</a>
-            </nav>
+            <div class="header-menu">
+                <a class="active" href="index.html">Home</a>
+                <a href="cosmetics.html">Cosmetics</a>
+                <a href="calendar.html">Kalender</a>
+                <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
         </div>
     </header>
 
@@ -363,16 +382,16 @@
                 </div>
             </div>
 
-            <div class="project-card">
-                <div class="project-badge planned">
-                    <span class="status-dot planned"></span>Geplant
+            <div class="project-card" onclick="window.location.href='calendar.html'">
+                <div class="project-badge active">
+                    <span class="status-dot active"></span>Aktiv
                 </div>
-                <h3 class="project-title">Nächstes Projekt</h3>
+                <h3 class="project-title">Kalender</h3>
                 <p class="project-description">
-                    Platz für dein nächstes PokeMMO-Tool. Kopiere diese Karte und passe sie an deine Anforderungen an.
+                    Roaming-Legendaries-Kalender für alle Monate inklusive visueller Übersicht im PokeMMOIndex-Style.
                 </p>
                 <div class="project-links">
-                    <a href="#" class="project-link">→ Demnächst verfügbar</a>
+                    <a href="calendar.html" class="project-link">→ Zum Kalender</a>
                 </div>
             </div>
 
@@ -389,19 +408,6 @@
                 </div>
             </div>
         </div>
-    </section>
-
-    <section class="projects-section" id="about">
-        <h2 class="section-title">Über dieses Portfolio</h2>
-        <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 800px;">
-            PokeMMOIndex ist eine Sammlung von Webanwendungen und Utilities, die speziell für die PokeMMO-Community entwickelt wurden.
-            Jedes Projekt folgt denselben hohen Standards für Code-Qualität, Benutzerfreundlichkeit und Wartbarkeit.
-        </p>
-        <p style="color: var(--text-secondary); max-width: 800px;">
-            <strong>Quelle der Daten:</strong>
-            <a href="https://pokemmohub.com/" style="color: var(--secondary); text-decoration: none;" target="_blank" rel="noopener noreferrer">PokeMMOHub</a>
-            - Alle Tools nutzen verlässliche und aktuelle Daten aus dieser Community-Ressource.
-        </p>
     </section>
 
     <footer id="contact">
