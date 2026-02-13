@@ -27,7 +27,14 @@ body {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(1200px 520px at 80% -10%, rgba(78, 205, 196, 0.08), transparent 60%),
+    radial-gradient(900px 420px at -10% 20%, rgba(255, 107, 107, 0.08), transparent 55%),
+    linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--text-primary);
   line-height: 1.6;
   display: flex;
@@ -769,8 +776,27 @@ select:focus-visible,
 
 .location-panel h3 {
   font-size: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   color: var(--text-primary);
+}
+
+.location-headbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.55rem;
+  margin-bottom: 0.85rem;
+}
+
+.location-global-toggle {
+  min-height: 30px;
+  padding: 0.35rem 0.65rem;
+  font-size: 0.74rem;
+}
+
+.location-global-toggle:disabled {
+  opacity: 0.55;
+  cursor: default;
 }
 
 .location-info {
@@ -791,11 +817,34 @@ select:focus-visible,
 .location-item .name {
   color: var(--text-primary);
   font-weight: 700;
-  margin-bottom: 0.35rem;
 }
 
 .location-item .entry {
   margin-top: 0.3rem;
+}
+
+.location-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.location-head .name {
+  margin-bottom: 0;
+  flex: 1 1 auto;
+}
+
+.location-toggle-btn {
+  min-width: 92px;
+  justify-content: center;
+}
+
+.location-body {
+  margin-top: 0.35rem;
+}
+
+.location-item.collapsed .location-body {
+  display: none;
 }
 
 .location-item .missing {
@@ -940,6 +989,11 @@ select:focus-visible,
 
   .inline-row {
     flex-wrap: wrap;
+  }
+
+  .location-headbar {
+    flex-wrap: wrap;
+    align-items: flex-start;
   }
 }
 

@@ -304,6 +304,7 @@ const state = {
   globalSearch: '',
   searchBySlot: {},
   collapsedBySlot: {},
+  collapsedLocationById: {},
   favorites: [],
   lastOutfitSignature: '',
 };
@@ -329,6 +330,7 @@ const els = {
   clearBtn: document.getElementById('clearBtn'),
   previewGrid: document.getElementById('previewGrid'),
   locationInfo: document.getElementById('locationInfo'),
+  toggleLocationsBtn: document.getElementById('toggleLocationsBtn'),
 };
 
 init();
@@ -581,6 +583,16 @@ function bindGlobal() {
     persist();
   });
   els.locationInfo.addEventListener('click', async (event) => {
+    const locationToggle = event.target.closest('button[data-location-id]');
+    if (locationToggle) {
+      const locationId = String(locationToggle.dataset.locationId || '');
+      if (!locationId) return;
+      state.collapsedLocationById[locationId] = !Boolean(state.collapsedLocationById[locationId]);
+      renderLocationInfo();
+      persist();
+      return;
+    }
+
     const btn = event.target.closest('button[data-route]');
     if (!btn) return;
     const route = String(btn.dataset.route || '');
@@ -597,6 +609,7 @@ function bindGlobal() {
   if (els.deleteFavoriteBtn) els.deleteFavoriteBtn.addEventListener('click', deleteFavorite);
   if (els.copyShareBtn) els.copyShareBtn.addEventListener('click', copyShareCode);
   if (els.applyShareBtn) els.applyShareBtn.addEventListener('click', applyShareCode);
+  if (els.toggleLocationsBtn) els.toggleLocationsBtn.addEventListener('click', toggleAllLocationItems);
 }
 
 function renderSlots() {
@@ -837,18 +850,9 @@ function renderPreview() {
 }
 
 function renderLocationInfo() {
-  const selectedItems = Object.keys(state.selected)
-    .map((slotNum) => Number(state.selected[slotNum]))
-    .filter((itemId) => itemId > 0)
-    .map((itemId) => state.itemByItemId[itemId])
-    .filter(Boolean);
-
-  const dedup = new Map();
-  for (const item of selectedItems) {
-    if (!dedup.has(item.id)) dedup.set(item.id, item);
-  }
-
-  const rows = Array.from(dedup.values()).map((item) => {
+  const selectedItems = getSelectedLocationItems();
+  const rows = selectedItems.map((item) => {
+    const collapsed = Boolean(state.collapsedLocationById[item.id]);
     const locationEntries = arr(item.buyable?.locations);
     const vanityEntries = arr(item.sources?.vanityIndex);
     const market = item.market || null;
@@ -881,17 +885,59 @@ function renderLocationInfo() {
     const tagsLine = `<div class="entry"><strong>${escapeHTML(t('tagsLabel'))}</strong> ${renderTagChips(item.tags)}</div>`;
 
     return `
-      <div class="location-item">
-        <div class="name">${escapeHTML(item.name)}</div>
-        ${marketLine}
-        ${tagsLine}
-        ${lines}
-        ${sourceLinks ? `<div class="entry">${sourceLinks}</div>` : ''}
+      <div class="location-item${collapsed ? ' collapsed' : ''}">
+        <div class="location-head">
+          <div class="name">${escapeHTML(item.name)}</div>
+          <button type="button" class="location-toggle-btn btn mini" data-location-id="${escapeHTML(item.id)}">${collapsed ? escapeHTML(t('expand')) : escapeHTML(t('collapse'))}</button>
+        </div>
+        <div class="location-body">
+          ${marketLine}
+          ${tagsLine}
+          ${lines}
+          ${sourceLinks ? `<div class="entry">${sourceLinks}</div>` : ''}
+        </div>
       </div>
     `;
   }).join('');
 
   els.locationInfo.innerHTML = rows || `<div class="location-item"><div class="missing">${escapeHTML(t('selectCosmeticHint'))}</div></div>`;
+  updateLocationToggleButton(selectedItems);
+}
+
+function getSelectedLocationItems() {
+  const selectedItems = Object.keys(state.selected)
+    .map((slotNum) => Number(state.selected[slotNum]))
+    .filter((itemId) => itemId > 0)
+    .map((itemId) => state.itemByItemId[itemId])
+    .filter(Boolean);
+  const dedup = new Map();
+  for (const item of selectedItems) {
+    if (!dedup.has(item.id)) dedup.set(item.id, item);
+  }
+  return Array.from(dedup.values());
+}
+
+function areAllLocationItemsCollapsed(items = getSelectedLocationItems()) {
+  if (!items.length) return false;
+  return items.every((item) => Boolean(state.collapsedLocationById[item.id]));
+}
+
+function updateLocationToggleButton(items = getSelectedLocationItems()) {
+  if (!els.toggleLocationsBtn) return;
+  const hasItems = items.length > 0;
+  els.toggleLocationsBtn.disabled = !hasItems;
+  els.toggleLocationsBtn.textContent = areAllLocationItemsCollapsed(items) ? t('btnOpenAll') : t('btnCloseAll');
+}
+
+function toggleAllLocationItems() {
+  const items = getSelectedLocationItems();
+  if (!items.length) return;
+  const collapseAll = !areAllLocationItemsCollapsed(items);
+  for (const item of items) {
+    state.collapsedLocationById[item.id] = collapseAll;
+  }
+  renderLocationInfo();
+  persist();
 }
 
 function renderLocationEntry(entry) {
@@ -1164,6 +1210,7 @@ function persist() {
     favorites: state.favorites,
     searchBySlot: state.searchBySlot,
     collapsedBySlot: state.collapsedBySlot,
+    collapsedLocationById: state.collapsedLocationById,
   }));
 }
 
@@ -1183,6 +1230,7 @@ function restore() {
     state.favorites = Array.isArray(parsed.favorites) ? parsed.favorites.filter(isValidFavorite).slice(0, 30) : [];
     state.searchBySlot = typeof parsed.searchBySlot === 'object' && parsed.searchBySlot ? parsed.searchBySlot : {};
     state.collapsedBySlot = typeof parsed.collapsedBySlot === 'object' && parsed.collapsedBySlot ? parsed.collapsedBySlot : {};
+    state.collapsedLocationById = typeof parsed.collapsedLocationById === 'object' && parsed.collapsedLocationById ? parsed.collapsedLocationById : {};
   } catch {
   }
 }
