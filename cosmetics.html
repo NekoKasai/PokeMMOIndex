@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PokeMMOIndex</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero panel">
+      <div class="hero-top">
+        <div>
+          <h1 id="headerTitle">PokeMMOIndex Cosmetics</h1>
+          <p id="headerSubtitle">Finde Cosmetics schneller mit Vorschau, Tags und Fundorten auf einen Blick.</p>
+        </div>
+        <div class="hero-links">
+          <a class="hero-link-left" href="index.html"><span class="link-icon">←</span>Zur Startseite</a>
+          <a class="hero-link-right" href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">ME</span>GitHub: NekoKasai/PokeMMOIndex</a>
+        </div>
+      </div>
+      <details class="health-toggle">
+        <summary>Daten-Status anzeigen</summary>
+        <div id="status" class="status">Loading data...</div>
+        <div id="health" class="health"></div>
+      </details>
+    </header>
+
+    <section class="layout">
+      <section class="panel controls">
+        <div class="toolbar">
+          <div class="toolbar-group language-group">
+            <label for="languageSelect" id="labelLanguage">Sprache</label>
+            <select id="languageSelect">
+              <option value="de">Deutsch</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="toolbar-group gender-group">
+            <label for="gender" id="labelGender">Geschlecht</label>
+            <select id="gender"></select>
+          </div>
+          <div class="toolbar-group search-group">
+            <label for="globalSearch" id="labelGlobalSearch">Globale Suche</label>
+            <input id="globalSearch" class="search" type="text" placeholder="In allen Slots suchen" />
+          </div>
+          <div class="toolbar-group favorites-group">
+            <label for="favoriteSelect" id="labelFavorites">Favoriten</label>
+            <div class="inline-row no-wrap">
+              <select id="favoriteSelect"></select>
+              <button id="saveFavoriteBtn" class="btn mini" type="button">Speichern</button>
+            </div>
+            <div class="inline-row top-gap">
+              <button id="loadFavoriteBtn" class="btn mini" type="button">Laden</button>
+              <button id="deleteFavoriteBtn" class="btn mini danger" type="button">Löschen</button>
+            </div>
+          </div>
+          <div class="toolbar-group share-row">
+            <label for="shareCodeInput" id="labelShareCode">Outfit-Code</label>
+            <div class="inline-row">
+              <input id="shareCodeInput" class="search" type="text" placeholder="Code einfügen" />
+              <button id="copyShareBtn" class="btn mini" type="button">Erstellen</button>
+              <button id="applyShareBtn" class="btn mini" type="button">Anwenden</button>
+            </div>
+          </div>
+          <div class="toolbar-actions">
+            <button id="toggleAllBtn" class="btn secondary">Alle öffnen</button>
+            <button id="randomizeBtn" class="btn warning">Zufällig</button>
+            <button id="clearBtn" class="btn danger">Zurücksetzen</button>
+          </div>
+        </div>
+        <div class="tag-filter panel-soft">
+          <div class="tag-filter-head">
+            <span id="filterByTagsTitle">Nach Tags filtern</span>
+            <button id="clearTagsBtn" class="btn mini">Tags löschen</button>
+          </div>
+          <div id="tagFilterChips" class="tag-filter-chips"></div>
+        </div>
+
+        <div id="slots" class="slot-grid"></div>
+      </section>
+
+      <aside class="panel preview-panel">
+        <h2 id="previewTitle">Vorschau</h2>
+        <div id="previewGrid" class="preview-grid"></div>
+        <div class="location-panel">
+          <h3 id="locationTitle">Wo man die ausgewählten Cosmetics bekommt</h3>
+          <div id="locationInfo" class="location-info"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <footer class="page-footer">
+    <div class="page-footer-links">
+      <a id="sourceHubLink" href="https://pokemmohub.com/" target="_blank" rel="noopener noreferrer"><span class="link-icon">PH</span>Quelle: PokeMMOHub</a>
+      <a id="sourceGitLink" href="https://github.com/PokeMMO-Tools/pokemmo-hub" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub: pokemmo-hub</a>
+    </div>
+  </footer>
+
+  <script src="data-utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

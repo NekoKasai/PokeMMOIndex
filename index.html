@@ -1,96 +1,418 @@
-﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PokeMMO Cosmetics - Clean Full Version</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeMMOIndex - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ee5a52;
+            --secondary: #4ecdc4;
+            --background: #0f1419;
+            --surface: #1a1f2e;
+            --surface-alt: #252d3d;
+            --text-primary: #e8e8e8;
+            --text-secondary: #a8a8a8;
+            --border: #393f4d;
+            --accent: #ffd93d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, var(--background) 0%, var(--surface) 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(26, 31, 46, 0.95);
+        }
+
+        header .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--background);
+            transform: translateY(-2px);
+        }
+
+        .projects-section {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border);
+            display: inline-block;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-card {
+            background: var(--surface-alt);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .project-badge {
+            display: inline-block;
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .project-badge.active {
+            background: rgba(78, 205, 196, 0.2);
+            color: var(--secondary);
+        }
+
+        .project-badge.planned {
+            background: rgba(255, 217, 61, 0.2);
+            color: var(--accent);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: var(--primary);
+        }
+
+        footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            header .container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav {
+                text-align: center;
+            }
+
+            nav a {
+                margin: 0 1rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .status-dot.active {
+            background: #4ecdc4;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.planned {
+            background: #ffd93d;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(78, 205, 196, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(78, 205, 196, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(78, 205, 196, 0);
+            }
+        }
+    </style>
 </head>
 <body>
-  <main class="page">
-    <header class="hero panel">
-      <div class="hero-top">
-        <div>
-          <h1 id="headerTitle">PokeMMOIndex Cosmetics</h1>
-          <p id="headerSubtitle">Sauberer Rebuild mit deterministischen IDs, einheitlichem Matching und Daten-Status.</p>
+    <header>
+        <div class="container">
+            <div class="logo">🎮 PokeMMOIndex</div>
+            <nav>
+                <a href="#projects">Projekte</a>
+                <a href="#about">Über</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
         </div>
-        <div class="hero-links">
-          <a id="sourceHubLink" href="https://pokemmohub.com/" target="_blank" rel="noopener noreferrer"><span class="link-icon">PH</span>Quelle: PokeMMOHub</a>
-          <a id="sourceGitLink" href="https://github.com/PokeMMO-Tools/pokemmo-hub" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span>GitHub: pokemmo-hub</a>
-          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">ME</span>GitHub: NekoKasai/PokeMMOIndex</a>
-        </div>
-      </div>
-      <div id="status" class="status">Loading data...</div>
-      <div id="health" class="health"></div>
     </header>
 
-    <section class="layout">
-      <section class="panel controls">
-        <div class="toolbar">
-          <div class="toolbar-group">
-            <label for="languageSelect" id="labelLanguage">Sprache</label>
-            <select id="languageSelect">
-              <option value="de">Deutsch</option>
-              <option value="en">English</option>
-            </select>
-          </div>
-          <div class="toolbar-group">
-            <label for="gender" id="labelGender">Geschlecht</label>
-            <select id="gender"></select>
-          </div>
-          <div class="toolbar-group">
-            <label for="globalSearch" id="labelGlobalSearch">Globale Suche</label>
-            <input id="globalSearch" class="search" type="text" placeholder="In allen Slots suchen" />
-          </div>
-          <div class="toolbar-group favorites-group">
-            <label for="favoriteSelect" id="labelFavorites">Favoriten</label>
-            <div class="inline-row no-wrap">
-              <select id="favoriteSelect"></select>
-              <button id="saveFavoriteBtn" class="btn mini" type="button">Speichern</button>
-            </div>
-            <div class="inline-row top-gap">
-              <button id="loadFavoriteBtn" class="btn mini" type="button">Laden</button>
-              <button id="deleteFavoriteBtn" class="btn mini danger" type="button">Löschen</button>
-            </div>
-          </div>
-          <div class="toolbar-group share-row">
-            <label for="shareCodeInput" id="labelShareCode">Outfit-Code</label>
-            <div class="inline-row">
-              <input id="shareCodeInput" class="search" type="text" placeholder="Code einfügen" />
-              <button id="copyShareBtn" class="btn mini" type="button">Erstellen</button>
-              <button id="applyShareBtn" class="btn mini" type="button">Anwenden</button>
-            </div>
-          </div>
-          <div class="toolbar-actions">
-            <button id="toggleAllBtn" class="btn secondary">Alle öffnen</button>
-            <button id="randomizeBtn" class="btn warning">Zufällig</button>
-            <button id="clearBtn" class="btn danger">Zurücksetzen</button>
-          </div>
+    <section class="hero">
+        <h1>PokeMMOIndex</h1>
+        <p>Eine Sammlung von Tools und Utilities für PokeMMO. Saubere, wartbare Projekte mit deterministischen IDs und vereinheitlichter Datenverarbeitung.</p>
+        <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">Erkunde Projekte</a>
+            <a href="https://github.com/NekoKasai/PokeMMOIndex" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
-        <div class="tag-filter panel-soft">
-          <div class="tag-filter-head">
-            <span id="filterByTagsTitle">Nach Tags filtern</span>
-            <button id="clearTagsBtn" class="btn mini">Tags löschen</button>
-          </div>
-          <div id="tagFilterChips" class="tag-filter-chips"></div>
-        </div>
-
-        <div id="slots" class="slot-grid"></div>
-      </section>
-
-      <aside class="panel preview-panel">
-        <h2 id="previewTitle">Vorschau</h2>
-        <div id="previewGrid" class="preview-grid"></div>
-        <div class="location-panel">
-          <h3 id="locationTitle">Wo man die ausgewählten Cosmetics bekommt</h3>
-          <div id="locationInfo" class="location-info"></div>
-        </div>
-      </aside>
     </section>
-  </main>
 
-  <script src="data-utils.js"></script>
-  <script src="app.js"></script>
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">Projekte</h2>
+        <div class="projects-grid">
+            <div class="project-card" onclick="window.location.href='cosmetics.html'">
+                <div class="project-badge active">
+                    <span class="status-dot active"></span>Aktiv
+                </div>
+                <h3 class="project-title">Cosmetics Helper</h3>
+                <p class="project-description">
+                    Ein umfassendes Tool zur Verwaltung von Kosmetika in PokeMMO. Mit deterministischen IDs, vereinheitlichter Abfrage und vollständiger Datengesundheitsprüfung.
+                </p>
+                <div class="project-links">
+                    <a href="cosmetics.html" class="project-link">→ Zum Tool</a>
+                    <a href="https://github.com/NekoKasai/PokeMMOIndex" class="project-link" target="_blank" rel="noopener noreferrer">→ GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-badge planned">
+                    <span class="status-dot planned"></span>Geplant
+                </div>
+                <h3 class="project-title">Nächstes Projekt</h3>
+                <p class="project-description">
+                    Platz für dein nächstes PokeMMO-Tool. Kopiere diese Karte und passe sie an deine Anforderungen an.
+                </p>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ Demnächst verfügbar</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-badge planned">
+                    <span class="status-dot planned"></span>Geplant
+                </div>
+                <h3 class="project-title">Projekt 3</h3>
+                <p class="project-description">
+                    Beschreibung für dein drittes Projekt. Diese Vorlage kann leicht kopiert und angepasst werden.
+                </p>
+                <div class="project-links">
+                    <a href="#" class="project-link">→ Demnächst verfügbar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-section" id="about">
+        <h2 class="section-title">Über dieses Portfolio</h2>
+        <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 800px;">
+            PokeMMOIndex ist eine Sammlung von Webanwendungen und Utilities, die speziell für die PokeMMO-Community entwickelt wurden.
+            Jedes Projekt folgt denselben hohen Standards für Code-Qualität, Benutzerfreundlichkeit und Wartbarkeit.
+        </p>
+        <p style="color: var(--text-secondary); max-width: 800px;">
+            <strong>Quelle der Daten:</strong>
+            <a href="https://pokemmohub.com/" style="color: var(--secondary); text-decoration: none;" target="_blank" rel="noopener noreferrer">PokeMMOHub</a>
+            - Alle Tools nutzen verlässliche und aktuelle Daten aus dieser Community-Ressource.
+        </p>
+    </section>
+
+    <footer id="contact">
+        <p>© 2026 PokeMMOIndex. Alle Rechte vorbehalten.</p>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+            Diese Tools sind nicht offiziell mit PokeMMO verbunden.
+        </p>
+        <div class="social-links">
+            <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://pokemmohub.com/" target="_blank" rel="noopener noreferrer">PokeMMOHub</a>
+        </div>
+    </footer>
 </body>
 </html>
-

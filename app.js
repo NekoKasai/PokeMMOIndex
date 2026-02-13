@@ -6,7 +6,7 @@ const LANGUAGES = ['de', 'en'];
 const I18N = {
   de: {
     headerTitle: 'PokeMMOIndex Cosmetics',
-    headerSubtitle: 'Sauberer Rebuild mit deterministischen IDs, einheitlichem Matching und Daten-Status.',
+    headerSubtitle: 'Finde Cosmetics schneller mit Vorschau, Tags und Fundorten auf einen Blick.',
     sourceHub: 'Quelle: PokeMMOHub',
     sourceGit: 'GitHub: pokemmo-hub',
     loadingDataset: 'Lade Cosmetics-Master-Dataset...',
@@ -28,7 +28,7 @@ const I18N = {
     btnSave: 'Speichern',
     btnLoad: 'Laden',
     btnDelete: 'Löschen',
-    btnGenerate: 'Erstellen',
+    btnGenerate: 'Kopieren',
     btnApply: 'Anwenden',
     btnRandomize: 'Zufällig',
     btnClear: 'Zurücksetzen',
@@ -66,6 +66,8 @@ const I18N = {
     favoritePrompt: 'Name für Favorit',
     favoritesSelect: 'Favoriten',
     outfitCodeGenerated: 'Outfit-Code erstellt.',
+    outfitCodeCopied: 'Outfit-Code kopiert.',
+    outfitCodeCopyFailed: 'Outfit-Code konnte nicht kopiert werden.',
     outfitCodeApplied: 'Outfit-Code angewendet.',
     invalidOutfitCode: 'Ungültiger Outfit-Code.',
     tagMartItems: 'Markt-Items',
@@ -94,7 +96,7 @@ const I18N = {
   },
   en: {
     headerTitle: 'PokeMMOIndex Cosmetics',
-    headerSubtitle: 'Clean rebuild with deterministic IDs, unified matching, and data health reporting.',
+    headerSubtitle: 'Find cosmetics faster with preview, tags, and where-to-get info at a glance.',
     sourceHub: 'Source: PokeMMOHub',
     sourceGit: 'GitHub: pokemmo-hub',
     loadingDataset: 'Loading cosmetics master dataset...',
@@ -116,7 +118,7 @@ const I18N = {
     btnSave: 'Save',
     btnLoad: 'Load',
     btnDelete: 'Delete',
-    btnGenerate: 'Generate',
+    btnGenerate: 'Copy',
     btnApply: 'Apply',
     btnRandomize: 'Randomize',
     btnClear: 'Clear',
@@ -154,6 +156,8 @@ const I18N = {
     favoritePrompt: 'Favorite name',
     favoritesSelect: 'Favorites',
     outfitCodeGenerated: 'Outfit code generated.',
+    outfitCodeCopied: 'Outfit code copied.',
+    outfitCodeCopyFailed: 'Could not copy outfit code.',
     outfitCodeApplied: 'Outfit code applied.',
     invalidOutfitCode: 'Invalid outfit code.',
     tagMartItems: 'Mart Items',
@@ -301,6 +305,7 @@ const state = {
   searchBySlot: {},
   collapsedBySlot: {},
   favorites: [],
+  lastOutfitSignature: '',
 };
 
 const els = {
@@ -770,6 +775,7 @@ function renderAll() {
   renderPreview();
   renderLocationInfo();
   renderDataHealth();
+  refreshShareCodeFromOutfit();
 }
 
 function renderSlotIcon(slotEl, slot) {
@@ -1031,10 +1037,31 @@ function buildShareCode() {
   return `${SHARE_CODE_PREFIX}${encodeBase64Url(JSON.stringify(payload))}`;
 }
 
+function getOutfitSignature() {
+  return `${state.gender}|${JSON.stringify(sanitizeSelectedMap(state.selected))}`;
+}
+
+function refreshShareCodeFromOutfit(force = false) {
+  if (!els.shareCodeInput) return;
+  const signature = getOutfitSignature();
+  if (!force && signature === state.lastOutfitSignature) return;
+  state.lastOutfitSignature = signature;
+  els.shareCodeInput.value = buildShareCode();
+}
+
 async function copyShareCode() {
+  refreshShareCodeFromOutfit(true);
   const code = buildShareCode();
   if (els.shareCodeInput) els.shareCodeInput.value = code;
-  setStatus(t('outfitCodeGenerated'));
+  const shareRow = els.shareCodeInput ? els.shareCodeInput.closest('.share-row') : null;
+  try {
+    await navigator.clipboard.writeText(code);
+    setStatus(t('outfitCodeCopied'));
+    showQuickHint(t('outfitCodeCopied'), 'success', shareRow);
+  } catch {
+    setStatus(t('outfitCodeCopyFailed'), 'warning');
+    showQuickHint(t('outfitCodeCopyFailed'), 'warning', shareRow);
+  }
 }
 
 function applyShareCode() {
@@ -1164,6 +1191,36 @@ function setStatus(text, level = 'info') {
   els.status.textContent = text;
   els.status.classList.toggle('error', level === 'error');
   els.status.classList.toggle('warn', level === 'warning');
+}
+
+let quickHintTimer = null;
+function showQuickHint(text, level = 'info', anchorEl = null) {
+  if (!text) return;
+  const id = anchorEl ? 'quickHintShare' : 'quickHint';
+  let el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = id;
+    el.className = 'quick-hint';
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    if (anchorEl) {
+      el.classList.add('share-hint');
+      anchorEl.appendChild(el);
+    } else {
+      document.body.appendChild(el);
+    }
+  }
+
+  el.textContent = text;
+  el.classList.toggle('warning', level === 'warning');
+  el.classList.toggle('error', level === 'error');
+  el.classList.add('show');
+
+  if (quickHintTimer) clearTimeout(quickHintTimer);
+  quickHintTimer = setTimeout(() => {
+    el.classList.remove('show');
+  }, 1800);
 }
 
 async function loadLocalJson(fileName) {
