@@ -71,28 +71,28 @@ const CATEGORY_ICON_URLS = {
 const LOCAL_MASTER_JSON_PATHS = ['./data/cosmetics.master.json', './dist/data/cosmetics.master.json'];
 const LOCAL_REPORT_JSON_PATHS = ['./data/build-report.json', './dist/data/build-report.json'];
 const REMOTE_MASTER_JSON_PATHS = [
-  'https://nekokasai.github.io/PokeMMOHelper/data/cosmetics.master.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/gh-pages/data/cosmetics.master.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/dist/data/cosmetics.master.json',
+  'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.json',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/cosmetics.master.json',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/main/dist/data/cosmetics.master.json',
 ];
 const REMOTE_REPORT_JSON_PATHS = [
-  'https://nekokasai.github.io/PokeMMOHelper/data/build-report.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/gh-pages/data/build-report.json',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/dist/data/build-report.json',
+  'https://nekokasai.github.io/PokeMMOIndex/data/build-report.json',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/build-report.json',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/main/dist/data/build-report.json',
 ];
 const REMOTE_MASTER_JS_PATHS = [
-  'https://nekokasai.github.io/PokeMMOHelper/data/cosmetics.master.js',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/gh-pages/data/cosmetics.master.js',
+  'https://nekokasai.github.io/PokeMMOIndex/data/cosmetics.master.js',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/cosmetics.master.js',
 ];
 const REMOTE_REPORT_JS_PATHS = [
-  'https://nekokasai.github.io/PokeMMOHelper/data/build-report.js',
-  'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/gh-pages/data/build-report.js',
+  'https://nekokasai.github.io/PokeMMOIndex/data/build-report.js',
+  'https://raw.githubusercontent.com/NekoKasai/PokeMMOIndex/gh-pages/data/build-report.js',
 ];
 const RUNTIME_SOURCE_URLS = {
   items: 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item.json',
   cosmetics: 'https://raw.githubusercontent.com/PokeMMO-Tools/pokemmo-hub/master/src/data/pokemmo/item-cosmetic.json',
-  vanity: 'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/buyable-from-vanity-index.json',
-  locations: 'https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/cosmetic-locations.json',
+  vanity: '',
+  locations: '',
 };
 const SLOT_BY_NUM = {
   1: 'forehead',
@@ -801,13 +801,13 @@ function loadScript(src) {
 
 async function buildMasterFromRuntimeSources() {
   try {
-    const [items, cosmetics, vanity, locations] = await Promise.all([
+    const [items, cosmetics] = await Promise.all([
       loadLocalJson(RUNTIME_SOURCE_URLS.items),
       loadLocalJson(RUNTIME_SOURCE_URLS.cosmetics),
-      loadLocalJson(RUNTIME_SOURCE_URLS.vanity),
-      loadLocalJson(RUNTIME_SOURCE_URLS.locations),
     ]);
-    if (!Array.isArray(items) || !Array.isArray(cosmetics) || !vanity || !locations) return null;
+    const vanity = RUNTIME_SOURCE_URLS.vanity ? (await loadLocalJson(RUNTIME_SOURCE_URLS.vanity)) || {} : {};
+    const locations = RUNTIME_SOURCE_URLS.locations ? (await loadLocalJson(RUNTIME_SOURCE_URLS.locations)) || {} : {};
+    if (!Array.isArray(items) || !Array.isArray(cosmetics)) return null;
     return buildMasterRuntime(items, cosmetics, vanity, locations);
   } catch {
     return null;
@@ -1184,6 +1184,7 @@ function itemMatchesTagFilter(tags, filterTag) {
   }
   return tags.includes(filterTag);
 }
+
 
 
 

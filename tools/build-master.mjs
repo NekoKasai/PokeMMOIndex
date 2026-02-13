@@ -1,4 +1,4 @@
-import fs from "node:fs/promises";
+ï»¿import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -47,7 +47,7 @@ export function normalizeName(name) {
 
   return input
     .normalize("NFKD")
-    .replace(/[’´`]/g, "'")
+    .replace(/[â€™Â´`]/g, "'")
     .replace(/'/g, "")
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9 ]+/g, " ")
@@ -335,11 +335,26 @@ export async function writeOutputs(data, outputDir, options = {}) {
 }
 
 async function cli() {
+  const vanityPath = process.env.SOURCE_VANITY_FILE || path.join(PAGE_DIR, "sources", "vanity.json");
+  const locationsPath = process.env.SOURCE_LOCATIONS_FILE || path.join(PAGE_DIR, "sources", "locations.json");
+  let vanity = {};
+  let locations = {};
+  try {
+    vanity = await readJson(vanityPath);
+  } catch {
+    console.warn(`[build] vanity source missing (${vanityPath}), using empty dataset`);
+  }
+  try {
+    locations = await readJson(locationsPath);
+  } catch {
+    console.warn(`[build] locations source missing (${locationsPath}), using empty dataset`);
+  }
+
   const inputs = {
     items: await readRemoteJson(DEFAULT_SOURCE_URLS.items),
     cosmetics: await readRemoteJson(DEFAULT_SOURCE_URLS.cosmetics),
-    vanity: await readJson(path.join(PAGE_DIR, "buyable-from-vanity-index.json")),
-    locations: await readJson(path.join(PAGE_DIR, "cosmetic-locations.json")),
+    vanity,
+    locations,
   };
 
   const data = buildMaster(inputs);
@@ -361,3 +376,4 @@ if (path.resolve(process.argv[1] || "") === __filename) {
     process.exit(1);
   });
 }
+

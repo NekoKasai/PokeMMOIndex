@@ -12,32 +12,37 @@ import {
 } from "./build-master.mjs";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 const DIST_DIR = path.join(PAGE_DIR, "dist");
 const DIST_DATA_DIR = path.join(DIST_DIR, "data");
+const SOURCES_DIR = path.join(PAGE_DIR, "sources");
 
 const SOURCE_URLS = {
   items: DEFAULT_SOURCE_URLS.items,
   cosmetics: DEFAULT_SOURCE_URLS.cosmetics,
-  vanity: "https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/buyable-from-vanity-index.json",
-  locations: "https://raw.githubusercontent.com/NekoKasai/PokeMMOHelper/main/cosmetic-locations.json",
+  vanity: process.env.SOURCE_VANITY_URL || "",
+  locations: process.env.SOURCE_LOCATIONS_URL || "",
 };
 
 const LOCAL_FALLBACKS = {
-  vanity: path.join(PAGE_DIR, "buyable-from-vanity-index.json"),
-  locations: path.join(PAGE_DIR, "cosmetic-locations.json"),
+  vanity: path.join(SOURCES_DIR, "vanity.json"),
+  locations: path.join(SOURCES_DIR, "locations.json"),
 };
 
 const STATIC_FILES = ["index.html", "app.js", "styles.css", "data-utils.js", "README.md", "LICENSE"];
 
 async function fetchWithOptionalLocalFallback(url, fallbackPath, label) {
+  if (url) {
+    try {
+      return await readRemoteJson(url);
+    } catch {
+    }
+  }
   try {
-    return await readRemoteJson(url);
-  } catch (error) {
-    if (!fallbackPath) throw error;
-    console.warn(`[import] ${label}: remote fetch failed, using local fallback (${fallbackPath})`);
-    return readJson(fallbackPath);
+    return await readJson(fallbackPath);
+  } catch {
+    console.warn(`[import] ${label}: no source URL or local fallback found, using empty dataset`);
+    return {};
   }
 }
 

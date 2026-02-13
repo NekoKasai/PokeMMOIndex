@@ -5,3 +5,5 @@ dist/
 *.master.js
 build-report.json
 build-report.js
+sources/*.json
+!sources/README.md
