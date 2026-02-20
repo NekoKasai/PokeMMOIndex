@@ -1557,6 +1557,16 @@ select:focus-visible,
     padding-bottom: 1rem;
   }
 
+  .cosmetics-page .language-group,
+  .cosmetics-page .gender-group,
+  .cosmetics-page .search-group,
+  .cosmetics-page .favorites-group,
+  .cosmetics-page .share-row,
+  .cosmetics-page .toolbar-actions {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .cosmetics-page .toolbar-group label {
     font-size: 0.78rem;
   }
@@ -1570,13 +1580,25 @@ select:focus-visible,
     font-size: 16px;
   }
 
-  .cosmetics-page .share-row .inline-row {
+  .cosmetics-page .favorites-group .inline-row.no-wrap {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .cosmetics-page .favorites-group .inline-row.top-gap {
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
   }
 
-  .cosmetics-page .share-row .inline-row input {
-    grid-column: 1 / -1;
+  .cosmetics-page .share-row .inline-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .cosmetics-page .favorites-group .btn.mini,
+  .cosmetics-page .share-row .btn.mini {
+    width: 100%;
+    min-height: 42px;
   }
 
   .cosmetics-page .toolbar-actions {
@@ -1678,6 +1700,10 @@ select:focus-visible,
   }
 
   .cosmetics-page .toolbar-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .cosmetics-page .favorites-group .inline-row.top-gap {
     grid-template-columns: 1fr;
   }
 
