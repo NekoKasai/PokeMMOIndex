@@ -15,11 +15,12 @@
           <p id="guidesSubtitle">Switch between guides on one page and expand this section over time.</p>
         </div>
         <div class="header-menu">
-          <a href="index.html"><span class="link-icon">H</span><span id="menuHome">Startseite</span></a>
-          <a href="cosmetics.html"><span class="link-icon">C</span><span id="menuCosmetics">Kosmetik</span></a>
-          <a href="calendar.html"><span class="link-icon">K</span><span id="menuCalendar">Kalender</span></a>
-          <a class="active" href="guides.html"><span class="link-icon">G</span><span id="menuGuides">Anleitungen</span></a>
-          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="link-icon">GH</span><span id="menuGitHub">GitHub</span></a>
+          <a href="index.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20h13V9.5"/><path d="M9.5 20v-5h5v5"/></svg></span><span id="menuHome">Startseite</span></a>
+          <a href="cosmetics.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M5 16.5 6 19l2.5 1-2.5 1L5 23l-1-2.5L1.5 19 4 18z"/></svg></span><span id="menuCosmetics">Kosmetik</span></a>
+          <a href="calendar.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/></svg></span><span id="menuCalendar">Kalender</span></a>
+          <a class="active" href="guides.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.5h7a2 2 0 0 1 2 2v11h-7a2 2 0 0 0-2 2z"/><path d="M19.5 5.5h-7a2 2 0 0 0-2 2v11h7a2 2 0 0 1 2 2z"/></svg></span><span id="menuGuides">Anleitungen</span></a>
+          <a href="breeding.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4c3 0 3 4 6 4"/><path d="M8 20c3 0 3-4 6-4"/><circle cx="7" cy="4" r="1.5"/><circle cx="15" cy="8" r="1.5"/><circle cx="7" cy="20" r="1.5"/><circle cx="15" cy="16" r="1.5"/></svg></span><span id="menuBreeding">Zucht</span></a>
+          <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18 3 12l6-6"/><path d="m15 6 6 6-6 6"/></svg></span><span id="menuGitHub">GitHub</span></a>
           <div class="header-lang-group" aria-label="Language">
             <button type="button" class="header-lang-btn" data-lang="de">DE</button>
             <button type="button" class="header-lang-btn" data-lang="en">EN</button>
@@ -36,10 +37,12 @@
 
       <div class="guides-tabs" role="tablist" aria-label="Guide Tabs">
         <button type="button" class="guides-tab-btn active" data-guide="roaming" role="tab" aria-selected="true" id="tabRoaming">Alpha Guide</button>
+        <button type="button" class="guides-tab-btn" data-guide="legendary" role="tab" aria-selected="false" id="tabLegendary">Legendary Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="cosmetics" role="tab" aria-selected="false" id="tabCosmetics">Swarm Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="farming" role="tab" aria-selected="false" id="tabFarming">Rematch Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="ev" role="tab" aria-selected="false" id="tabEv">EV & Level Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="iv" role="tab" aria-selected="false" id="tabIv">IVs, EVs & Wesen</button>
+        <button type="button" class="guides-tab-btn" data-guide="breeding" role="tab" aria-selected="false" id="tabBreeding">Zucht-Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="hooh" role="tab" aria-selected="false" id="tabHooh">Ho-Oh Rematch</button>
       </div>
 
@@ -52,6 +55,12 @@
         <div id="roamingBody" class="calendar-detail-body"></div>
       </article>
 
+      <article class="guide-panel" data-guide-panel="legendary" role="tabpanel" aria-labelledby="tabLegendary">
+        <h3 id="legendaryTitle">Legendary Guide (Forum)</h3>
+        <p id="legendaryIntro">Kompakte Zusammenfassung zu Spawn-Bedingungen, Setups und Fangablauf.</p>
+        <div id="legendaryBody" class="calendar-detail-body"></div>
+      </article>
+
       <article class="guide-panel" data-guide-panel="cosmetics" role="tabpanel" aria-labelledby="tabCosmetics">
         <h3 id="cosmeticsTitle">Swarm Guide</h3>
         <p id="cosmeticsIntro">Wie Swarms funktionieren und wie du sie effektiv findest.</p>
@@ -62,7 +71,7 @@
       </article>
 
       <article class="guide-panel" data-guide-panel="farming" role="tabpanel" aria-labelledby="tabFarming">
-        <h3 id="farmingTitle">📘 Rematch Guide</h3>
+        <h3 id="farmingTitle">Rematch Guide</h3>
         <p id="farmingIntro">Setup, Ablauf und Team-Ideen für Arena-Rematches.</p>
         <div class="guide-icon-wrap">
           <img src="assets/arena.png" alt="Arena Icon" class="guide-icon" />
@@ -80,6 +89,12 @@
         <h3 id="ivTitle">Was sind IVs, EVs & Wesen?</h3>
         <p id="ivIntro">Grundlagen, Unterschiede und wichtige Naturen auf einen Blick.</p>
         <div id="ivBody" class="calendar-detail-body"></div>
+      </article>
+
+      <article class="guide-panel" data-guide-panel="breeding" role="tabpanel" aria-labelledby="tabBreeding">
+        <h3 id="breedingTitle">Zucht-Guide</h3>
+        <p id="breedingIntro">Die wichtigsten Zucht-Regeln kompakt aus Wiki + Forum-Guide.</p>
+        <div id="breedingBody" class="calendar-detail-body"></div>
       </article>
 
       <article class="guide-panel" data-guide-panel="hooh" role="tabpanel" aria-labelledby="tabHooh">
@@ -112,16 +127,19 @@
           menuCosmetics: "Kosmetik",
           menuCalendar: "Kalender",
           menuGuides: "Anleitungen",
+          menuBreeding: "Zucht",
           menuGitHub: "GitHub",
           guidesTitle: "PokeMMO Guides",
           guidesSubtitle: "Wechsle zwischen mehreren Guides auf einer Seite und erweitere sie nach und nach.",
           guidesSectionTitle: "Guide-Bibliothek",
           guidesSectionSubtitle: "Wähle einen Tab und lies den Guide direkt darunter.",
           tabRoaming: "Alpha-Guide",
+          tabLegendary: "Legendary-Guide",
           tabCosmetics: "Schwarm-Guide",
           tabFarming: "Rematch Guide",
           tabEv: "EV & Level Guide",
           tabIv: "IVs, EVs & Wesen",
+          tabBreeding: "Zucht-Guide",
           tabHooh: "Ho-Oh Rematch",
           roamingTitle: "Was sind Alpha-Pokémon?",
           roamingIntro: "Übersicht zu Spawn, Kampf und Zucht.",
@@ -144,8 +162,8 @@
                   </ul>
                   <p>Im Kampf sind sie deutlich mächtiger als normale Pokémon:</p>
                   <ul class="guide-list">
-                    <li>Sie boosten ihre Statuswerte, im laufe des Kampfes hoch.</li>
-                    <li>Dadurch verursachen sie sehr hohen Schaden – teilweise sogar Onehits gegen Level-100-Pokémon.</li>
+                    <li>Sie boosten ihre Statuswerte im Laufe des Kampfes.</li>
+                    <li>Dadurch verursachen sie sehr hohen Schaden - teilweise sogar One-Hits gegen Level-100-Pokémon.</li>
                   </ul>
                 </div>
               </details>
@@ -155,7 +173,7 @@
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
                     <li>Erscheinungshäufigkeit: Etwa alle 6 Stunden (Echtzeit)</li>
-                    <li>Dauer: ca. 75 Minuten (Echtzeit) → entspricht 5 Stunden Ingame-Zeit</li>
+                    <li>Dauer: ca. 75 Minuten (Echtzeit) -> entspricht 5 Stunden Ingame-Zeit</li>
                   </ul>
                 </div>
               </details>
@@ -164,10 +182,10 @@
                 <summary>Wie findet man Alpha-Schwärme?</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Alpha-Schwärme werden auf der Weltkarte (Map) angezeigt — erkennbar an einem Alpha-Symbol.</li>
+                    <li>Alpha-Schwärme werden auf der Weltkarte (Map) angezeigt - erkennbar an einem Alpha-Symbol.</li>
                     <li>Dort sieht man den ungefähren Ort, an dem sich der Schwarm befindet.</li>
                     <li><strong>Wichtig:</strong> Man erfährt erst, welches Alpha-Pokémon es ist, nachdem man gegen es gekämpft hat.</li>
-                    <li><strong>Tipp:</strong> Aktive Alphas werden oft im Global-Chat oder im offiziellen PokeMMO-Discord gemeldet — dort erfährt man meist schnell, um welches Alpha es sich handelt und wo genau es zu finden ist.</li>
+                    <li><strong>Tipp:</strong> Aktive Alphas werden oft im Global-Chat oder im offiziellen PokeMMO-Discord gemeldet - dort erfährt man meist schnell, um welches Alpha es sich handelt und wo genau es zu finden ist.</li>
                   </ul>
                 </div>
               </details>
@@ -191,7 +209,7 @@
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
                     <li>Pokémon, die rund um das Alpha spawnen, können selten eine Hidden Ability besitzen.</li>
-                    <li>Alphas sind nicht shiny-gesperrt, aber man kann nicht resetten, um gezielt einen Shiny zu erhalten – wenn man das Alpha besiegt oder flieht, bleibt das Ergebnis bestehen.</li>
+                    <li>Alphas sind nicht shiny-gesperrt, aber man kann nicht resetten, um gezielt einen Shiny zu erhalten - wenn man das Alpha besiegt oder flieht, bleibt das Ergebnis bestehen.</li>
                   </ul>
                 </div>
               </details>
@@ -200,16 +218,73 @@
                 <summary>Kampf-Mechanik</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Im Kampf können Alpha-Pokémon von einer „Wilden Kraft“ (Wild Might) erfüllt werden, wodurch alle ihre Statuswerte drastisch erhöht werden.</li>
+                    <li>Im Kampf können Alpha-Pokémon von einer "Wilden Kraft" (Wild Might) erfüllt werden, wodurch alle ihre Statuswerte drastisch erhöht werden.</li>
                     <li>Dies geschieht nach dem ersten Fangversuch des Trainers.</li>
                     <li>Wenn das Team des Spielers besiegt wird, kann man das Alpha erneut herausfordern, indem man zum Spawnpunkt zurückkehrt.</li>
                     <li>Wenn man vom Kampf flieht, muss man zwei Minuten warten, bevor das Alpha wieder erscheint und erneut bekämpft werden kann.</li>
                   </ul>
                 </div>
               </details>
+
             </div>
           `,
-          cosmeticsTitle: "Was ist ein Schwarm („Swarm“)?",
+          legendaryTitle: "Legendary-Guide (Forum zusammengefasst)",
+          legendaryIntro: "Basierend auf dem Beitrag 'The Ultimate Legendary Guide': Spawn-Bedingungen, Vorbereitung und Fangablauf.",
+          legendaryBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Quelle</summary>
+                <div class="calendar-detail-body">
+                  <p><a href="https://forums.pokemmo.com/index.php?/topic/187603-the-ultimate-legendary-guide/" target="_blank" rel="noopener noreferrer">The Ultimate Legendary Guide (Forum)</a></p>
+                  <p>Dieser Tab ist eine kompakte Zusammenfassung des Beitrags und dient als schneller Praxis-Überblick.</p>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Voraussetzungen je Region</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Kanto-Vogel: Kanto-Story weit genug (Badge-/Liga-Fortschritt).</li>
+                    <li>Johto-Biester: Johto-Story inklusive Ho-Oh-Fortschritt.</li>
+                    <li>Sinnoh/Unova-Roamer: nur nach passendem Story- und Endgame-Fortschritt.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Spawn-Logik und Vorbereitung</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Legendäre erscheinen als seltene wilde Begegnungen in passenden Gebieten.</li>
+                    <li>Route mit kurzer Laufzeit und schneller Heil-/PC-Nähe spart viel Zeit.</li>
+                    <li>Bringe viele Bälle, Heilitems und ausreichend Repels für den Weg mit.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Empfohlenes Fang-Setup</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Lead mit Schlaf/Paralyse (z. B. Trugschlag + Status).</li>
+                    <li>False Swipe/Trugschlag für 1 KP ist der Standard.</li>
+                    <li>Utility-Setups mit Smeargle sind beliebt (Spore, False Swipe, Soak, Mean Look je nach Ziel).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Wichtige Praxis-Tipps</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Roamer-Rotation und Monatswechsel im Blick behalten.</li>
+                    <li>Nach Fehlschlag ruhig weiter encountern; die Methode bleibt gleich.</li>
+                    <li>Nur eine solide, wiederholbare Route spielen statt ständig zu wechseln.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          `,          cosmeticsTitle: "Was ist ein Schwarm („Swarm“)?",
           cosmeticsIntro: "Übersicht zu Nutzen, Spawn-Orten, Dauer und TV-Hinweisen.",
           cosmeticsBody: `
             <div class="guide-accordion">
@@ -242,14 +317,14 @@
                     <li>im Meer, in Seen,</li>
                     <li>im Kraftwerk, oder in der Pokémon-Villa.</li>
                   </ul>
-                  <p><strong>Tipp:</strong> Ein aktueller Schwarm wird auf der Karte (Map unten) angezeigt. Dort sieht man welches Pokémon es ist und in welcher Gegend es sich befindet. Der genaue Spawnpunkt muss jedoch selbst gesucht werden – oder man fragt im Global- bzw. Team-Chat nach Hilfe.</p>
+                  <p><strong>Tipp:</strong> Ein aktueller Schwarm wird auf der Karte (Map unten) angezeigt. Dort sieht man welches Pokémon es ist und in welcher Gegend es sich befindet. Der genaue Spawnpunkt muss jedoch selbst gesucht werden - oder man fragt im Global- bzw. Team-Chat nach Hilfe.</p>
                 </div>
               </details>
 
               <details class="health-toggle">
                 <summary>Welche Pokémon erscheinen?</summary>
                 <div class="calendar-detail-body">
-                  <p>Die Liste ist noch unvollständig, aber bisher gibt es keine bekannten Einschränkungen – jedes im Spiel verfügbare Pokémon kann theoretisch in einem Schwarm vorkommen.</p>
+                  <p>Die Liste ist noch unvollständig, aber bisher gibt es keine bekannten Einschränkungen - jedes im Spiel verfügbare Pokémon kann theoretisch in einem Schwarm vorkommen.</p>
                   <p>Manche Kombinationen scheinen sinnvoll gewählt zu sein, z. B.:</p>
                   <ul class="guide-list">
                     <li>Magnezone im Kraftwerk</li>
@@ -257,7 +332,7 @@
                     <li>Lapras im Meer</li>
                     <li>Chaneira (Chansey) an Land</li>
                   </ul>
-                  <p>Es spawnen keine Legendären Pokemon im Schwarm.</p>
+                  <p>Es spawnen keine legendären Pokémon im Schwarm.</p>
                 </div>
               </details>
 
@@ -277,17 +352,17 @@
                   <p>Es gibt zwei Möglichkeiten:</p>
                   <ul class="guide-list">
                     <li>Zufällig entdecken, während man spielt.</li>
-                    <li>Fernseher (TVs) in Häusern ansehen — dort werden Nachrichten über aktuelle Swarms angezeigt.</li>
+                    <li>Fernseher (TVs) in Häusern ansehen - dort werden Nachrichten über aktuelle Swarms angezeigt.</li>
                   </ul>
                   <p><strong>Beispiel:</strong> „Eilmeldung! Wilde Lapras wurden auf Route 125 (Hoenn) gesichtet!“</p>
-                  <p>In Einall (Unova) funktioniert das TV-System nicht – dort kann man Swarms nicht verfolgen.</p>
+                  <p>In Einall (Unova) funktioniert das TV-System nicht - dort kann man Swarms nicht verfolgen.</p>
                   <p><strong>TV-Standorte:</strong></p>
                   <ul class="guide-list">
                     <li>Haus vor dem Hafen von Orania City (Kanto)</li>
                     <li>Haus südlich der Werft in Graphitport City (Hoenn)</li>
                     <li>Haus neben dem Matrosen in Weideburg (Sinnoh)</li>
                   </ul>
-                  <p><strong>Tipp:</strong> Ein aktueller Schwarm wird auf der Karte (Map unten) angezeigt. Dort sieht man welches Pokémon es ist und in welcher Gegend es sich befindet. Der genaue Spawnpunkt muss jedoch selbst gesucht werden – oder man fragt im Global- bzw. Team-Chat nach Hilfe.</p>
+                  <p><strong>Tipp:</strong> Ein aktueller Schwarm wird auf der Karte (Map unten) angezeigt. Dort sieht man welches Pokémon es ist und in welcher Gegend es sich befindet. Der genaue Spawnpunkt muss jedoch selbst gesucht werden - oder man fragt im Global- bzw. Team-Chat nach Hilfe.</p>
                 </div>
               </details>
 
@@ -295,16 +370,16 @@
                 <summary>Häufige Fragen</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Sind Swarms für alle Spieler gleich? → Ja</li>
-                    <li>Haben alle Spieler dieselben IVs bei den Schwarm-Pokémon? → Nein</li>
-                    <li>Wie viele Swarms gibt es pro Tag? → Unbekannt</li>
-                    <li>Haben Swarms eine höhere Shiny-Rate? → Nein (offiziell bestätigt)</li>
+                    <li>Sind Swarms für alle Spieler gleich? -> Ja</li>
+                    <li>Haben alle Spieler dieselben IVs bei den Schwarm-Pokémon? -> Nein</li>
+                    <li>Wie viele Swarms gibt es pro Tag? -> Unbekannt</li>
+                    <li>Haben Swarms eine höhere Shiny-Rate? -> Nein (offiziell bestätigt)</li>
                   </ul>
                 </div>
               </details>
             </div>
           `,
-          farmingTitle: "📘 Rematch Guide",
+          farmingTitle: "Rematch Guide",
           farmingIntro: "Setup, Ablauf und Team-Ideen für Arena-Rematches.",
           farmingBody: `
             <div class="guide-accordion">
@@ -312,8 +387,8 @@
                 <summary>Grundprinzip</summary>
                 <div class="calendar-detail-body">
                   <p>Wenn ihr die Liga in einer Region besiegt habt, könnt ihr am nächsten Tag die Arena-Leiter erneut herausfordern.</p>
-                  <p>Das Team vom Arena-Leiter skaliert mit eurem Team – es wird das Level von eurem Pokémon mit dem höchsten Level genommen.</p>
-                  <p>Bei einem fertigen Team liegt das Level zwischen 80 – 90.</p>
+                  <p>Das Team vom Arena-Leiter skaliert mit eurem Team - es wird das Level von eurem Pokémon mit dem höchsten Level genommen.</p>
+                  <p>Bei einem fertigen Team liegt das Level zwischen 80 - 90.</p>
                 </div>
               </details>
 
@@ -349,7 +424,7 @@
                     <li>EV Turtok 1: 252 Sp.Ang & 252 Init</li>
                     <li>EV Turtok 2 (Regentanz): 252 Sp.Ang & 252 Init</li>
                     <li>Item: Zauberwasser</li>
-                    <li>Attacken: Fontränen (wichtigste Ei-Attacke), Drachenpuls, Blitzkanone, auf einem Turtok zusätzlich Regentanz</li>
+                    <li>Attacken: Fontänen (wichtigste Ei-Attacke), Drachenpuls, Blitzkanone, auf einem Turtok zusätzlich Regentanz</li>
                   </ul>
                 </div>
               </details>
@@ -357,7 +432,7 @@
               <details class="health-toggle">
                 <summary>Wichtige Setup-Pokémon</summary>
                 <div class="calendar-detail-body">
-                  <p>Diese dienen nur zum Setup (Status-Boost) und sterben meist in der ersten Runde – Level und Werte sind egal.</p>
+                  <p>Diese dienen nur zum Setup (Status-Boost) und sterben meist in der ersten Runde - Level und Werte sind egal.</p>
                   <ul class="guide-list">
                     <li>Qurtel mit Dürre + Explosion (opfert sich selbst, macht Schaden, Sonne aktiv)</li>
                     <li>Elfun mit Strolch: Rückenwind + Kehrtwende</li>
@@ -374,7 +449,7 @@
                     <li>Start mit Qurtel & Elfun (oder Alternative)</li>
                     <li>Qurtel: Explosion</li>
                     <li>Elfun: Rückenwind</li>
-                    <li>Danach auf Tornupto wechseln → konstant Eruption nutzen</li>
+                    <li>Danach auf Tornupto wechseln -> konstant Eruption nutzen</li>
                     <li>Bei Bedarf auf Starmie oder Turtok wechseln</li>
                     <li><strong>Achtung bei der 8. Arena in Johto:</strong> Das Seedraking ist gefährlich</li>
                   </ul>
@@ -385,8 +460,8 @@
                 <summary>Tipps & Gewinn</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Seid flexibel: Manche Arena-Leiter haben Feuerfänger → Tornupto wird nutzlos → dann auf Wasser-Pokémon setzen.</li>
-                    <li>Arena-Leiter wechseln regelmäßig ihre Teams → bleibt vorsichtig.</li>
+                    <li>Seid flexibel: Manche Arena-Leiter haben Feuerfänger -> Tornupto wird nutzlos -> dann auf Wasser-Pokémon setzen.</li>
+                    <li>Arena-Leiter wechseln regelmäßig ihre Teams -> bleibt vorsichtig.</li>
                     <li>Mit dem Setup (2x Tornupto, 2x Turtok, Qurtel, Elfun) braucht ihr pro Region ca. 30 Minuten.</li>
                     <li>Mit Münz-Amulett (+50% Gewinn) macht ihr nach allen Regionen etwa 600k Gewinn.</li>
                   </ul>
@@ -402,12 +477,12 @@
                 <summary>Bester Spot für EVs</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li><strong>KP (HP):</strong> 5× Marill (10 EVs), Route 114, Surfer, Hoenn, 100 % KP-EV-Begegnung</li>
-                    <li><strong>Angriff (Atk):</strong> 5× Rizeros (Rhydon) (10 EVs), Siegesstraße, Sinnoh, 100 % Angr.-EV-Begegnung</li>
-                    <li><strong>Verteidigung (Def):</strong> 5× Pelipper (10 EVs), Surfer, Ondula-Bucht (Undella Bay), Einall, 100 % Vert.-EV-Begegnung</li>
-                    <li><strong>Spezial-Angriff (Sp.-Atk):</strong> 5× Entoron (Golduck) (10 EVs), Cape Brink, Surfer, Zwei-Inseln, Kanto, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li><strong>Spezial-Verteidigung (Sp.-Def):</strong> 5× Tentoxa (Tentacruel) (10 EVs), Surfer, Sieben-Inseln, Kanto, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li><strong>Initiative (Speed):</strong> 5× Gallopa (Rapidash) (10 EVs), Gras, Route 12, Einall, 100 % Init.-EV-Begegnung</li>
+                    <li><strong>KP (HP):</strong> 5x Marill (10 EVs), Route 114, Surfer, Hoenn, 100 % KP-EV-Begegnung</li>
+                    <li><strong>Angriff (Atk):</strong> 5x Rizeros (Rhydon) (10 EVs), Siegesstraße, Sinnoh, 100 % Angr.-EV-Begegnung</li>
+                    <li><strong>Verteidigung (Def):</strong> 5x Pelipper (10 EVs), Surfer, Ondula-Bucht (Undella Bay), Einall, 100 % Vert.-EV-Begegnung</li>
+                    <li><strong>Spezial-Angriff (Sp.-Atk):</strong> 5x Entoron (Golduck) (10 EVs), Cape Brink, Surfer, Zwei-Inseln, Kanto, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li><strong>Spezial-Verteidigung (Sp.-Def):</strong> 5x Tentoxa (Tentacruel) (10 EVs), Surfer, Sieben-Inseln, Kanto, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li><strong>Initiative (Speed):</strong> 5x Gallopa (Rapidash) (10 EVs), Gras, Route 12, Einall, 100 % Init.-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -417,11 +492,11 @@
                 <div class="calendar-detail-body">
                   <p>Die EP beziehen sich auf 1 Pokémon mit EP-Teiler bei Lead auf Level 100 und aktivem Exp Charm 100%.</p>
                   <ul class="guide-list">
-                    <li>5× Entoron (Golduck), Surfer, Azuria-Höhle, Kanto, 6 000 EP pro Horde</li>
-                    <li>5× Quappo (Poliwhirl), Surfer, Silberberg, Johto, 6 000 EP pro Horde</li>
-                    <li>5× Tentoxa (Tentacruel), Surfer, Kampfzone, Hoenn, 6 000 EP pro Horde</li>
-                    <li>5× Camerupt, Gras, Kahlberg (Stark Mountain), Sinnoh, 6 000 EP pro Horde</li>
-                    <li>5× Keifel (Piloswine), Dunkles Gras, Riesenschlund (Giant Chasm), andere Seite der Höhle, Einall, 6 000 EP pro Horde</li>
+                    <li>5x Entoron (Golduck), Surfer, Azuria-Höhle, Kanto, 6 000 EP pro Horde</li>
+                    <li>5x Quappo (Poliwhirl), Surfer, Silberberg, Johto, 6 000 EP pro Horde</li>
+                    <li>5x Tentoxa (Tentacruel), Surfer, Kampfzone, Hoenn, 6 000 EP pro Horde</li>
+                    <li>5x Camerupt, Gras, Kahlberg (Stark Mountain), Sinnoh, 6 000 EP pro Horde</li>
+                    <li>5x Keifel (Piloswine), Dunkles Gras, Riesenschlund (Giant Chasm), andere Seite der Höhle, Einall, 6 000 EP pro Horde</li>
                   </ul>
                 </div>
               </details>
@@ -430,14 +505,14 @@
                 <summary>Alternative Spots für EVs: KP (HP)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>5× Dummisel (Dunsparce) (5 EVs), Three Isle Port, Gras, Drei-Inseln, Kanto, 100 % KP-EV-Begegnung</li>
-                    <li>5× Woingenau (Wobbuffet) (10 EVs), 5× Schlurp (Lickitung) (10 EVs), Eingang Azuria-Höhle, Kanto, 100 % KP-EV-Begegnung</li>
-                    <li>5× Schlurp (10 EVs), Gras, Route 44, Johto, 100 % KP-EV-Begegnung</li>
-                    <li>5× Krakeelo (Loudred) (10 EVs), Wüsten-Unterführung, Hoenn, 100 % KP-EV-Begegnung</li>
-                    <li>5× Hariyama (10 EVs), Siegesstraße, Hoenn, 100 % KP-EV-Begegnung</li>
-                    <li>5× Seemops (Sealeo) (10 EVs), Surfer, Route 230, Sinnoh, 100 % KP-EV-Begegnung</li>
-                    <li>5× Flunschlik (Stunfisk) (10 EVs), Twindrake City (Icirrus City), Surfer im Teich, Einall, 100 % KP-EV-Begegnung</li>
-                    <li>5× Hutsassa (Amoonguss) (10 EVs), Dunkles Gras, Route 10, Einall, 100 % KP-EV-Begegnung</li>
+                    <li>5x Dummisel (Dunsparce) (5 EVs), Three Isle Port, Gras, Drei-Inseln, Kanto, 100 % KP-EV-Begegnung</li>
+                    <li>5x Woingenau (Wobbuffet) (10 EVs), 5x Schlurp (Lickitung) (10 EVs), Eingang Azuria-Höhle, Kanto, 100 % KP-EV-Begegnung</li>
+                    <li>5x Schlurp (10 EVs), Gras, Route 44, Johto, 100 % KP-EV-Begegnung</li>
+                    <li>5x Krakeelo (Loudred) (10 EVs), Wüsten-Unterführung, Hoenn, 100 % KP-EV-Begegnung</li>
+                    <li>5x Hariyama (10 EVs), Siegesstraße, Hoenn, 100 % KP-EV-Begegnung</li>
+                    <li>5x Seemops (Sealeo) (10 EVs), Surfer, Route 230, Sinnoh, 100 % KP-EV-Begegnung</li>
+                    <li>5x Flunschlik (Stunfisk) (10 EVs), Twindrake City (Icirrus City), Surfer im Teich, Einall, 100 % KP-EV-Begegnung</li>
+                    <li>5x Hutsassa (Amoonguss) (10 EVs), Dunkles Gras, Route 10, Einall, 100 % KP-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -446,15 +521,15 @@
                 <summary>Alternative Spots für EVs: Angriff (Atk)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>3× Paras (3 EVs), Mondberg (Mt. Moon), Höhle B1F, Kanto, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Nidorino (10 EVs), Gras, Route 15, Kanto, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Rasaff (Primeape) (10 EVs), 5× Arbok (10 EVs), Gras, Route 23, Kanto, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Kingler (10 EVs), 5× Maschock (Machoke) (10 EVs), Höhle, Klippenhöhle (Cliff Cave), Johto, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Ariados (10 EVs), 5× Banette (10 EVs), Himmels-Säule (Sky Pillar), Höhle, Hoenn, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Bisofank (Bouffalant) (10 EVs), Gras, Route 10, Einall, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Navitaub (Tranquill) (10 EVs), Dunkles Gras, Route 12, Einall, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Bidifas (Bibarel) (10 EVs), Gras, Sendoff Spring, Sinnoh, 100 % Angr.-EV-Begegnung</li>
-                    <li>5× Maschock (10 EVs), Gras, Route 211, Sinnoh, 100 % Angr.-EV-Begegnung</li>
+                    <li>3x Paras (3 EVs), Mondberg (Mt. Moon), Höhle B1F, Kanto, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Nidorino (10 EVs), Gras, Route 15, Kanto, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Rasaff (Primeape) (10 EVs), 5x Arbok (10 EVs), Gras, Route 23, Kanto, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Kingler (10 EVs), 5x Maschock (Machoke) (10 EVs), Höhle, Klippenhöhle (Cliff Cave), Johto, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Ariados (10 EVs), 5x Banette (10 EVs), Himmels-Säule (Sky Pillar), Höhle, Hoenn, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Bisofank (Bouffalant) (10 EVs), Gras, Route 10, Einall, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Navitaub (Tranquill) (10 EVs), Dunkles Gras, Route 12, Einall, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Bidifas (Bibarel) (10 EVs), Gras, Sendoff Spring, Sinnoh, 100 % Angr.-EV-Begegnung</li>
+                    <li>5x Maschock (10 EVs), Gras, Route 211, Sinnoh, 100 % Angr.-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -463,13 +538,13 @@
                 <summary>Alternative Spots für EVs: Verteidigung (Def)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>5× Sandamer (Sandslash) (10 EVs), 5× Knogga (Marowak) (10 EVs), Siegesstraße, Kanto, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Tangela (5 EVs), Route 21, Gras, Kanto, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Lahmus (Slowbro) (10 EVs), Cape Brink, Gras, Zwei-Inseln, Kanto, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Safcon (Metapod) (10 EVs), 5× Kokuna (10 EVs), Musterbusch (Pattern Bush), Gras, Sechs-Inseln, Kanto, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Sandamer (10 EVs), Route 26, Gras, Johto, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Pelipper (10 EVs), Surfer, Eingang Poké-Liga (Ever Grande City), Hoenn, 100 % Vert.-EV-Begegnung</li>
-                    <li>5× Pelipper (10 EVs), Surfer, Route 222, Sinnoh, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Sandamer (Sandslash) (10 EVs), 5x Knogga (Marowak) (10 EVs), Siegesstraße, Kanto, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Tangela (5 EVs), Route 21, Gras, Kanto, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Lahmus (Slowbro) (10 EVs), Cape Brink, Gras, Zwei-Inseln, Kanto, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Safcon (Metapod) (10 EVs), 5x Kokuna (10 EVs), Musterbusch (Pattern Bush), Gras, Sechs-Inseln, Kanto, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Sandamer (10 EVs), Route 26, Gras, Johto, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Pelipper (10 EVs), Surfer, Eingang Poké-Liga (Ever Grande City), Hoenn, 100 % Vert.-EV-Begegnung</li>
+                    <li>5x Pelipper (10 EVs), Surfer, Route 222, Sinnoh, 100 % Vert.-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -478,13 +553,13 @@
                 <summary>Alternative Spots für EVs: Spezial-Angriff (Sp.-Atk)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>5× Waaty (Flaaffy) (10 EVs), 5× Girafarig (10 EVs), Gras, Route 43, Johto, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Duflor (Gloom) (10 EVs), Gras, Route 119, Hoenn, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Entoron (Golduck) (10 EVs), Surfer, Erholungsgebiet (Resort Area), Sinnoh, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Mitodos (Duosion) (10 EVs), Gras, Route 9, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Furnifraß (Heatmor) (10 EVs), Siegesstraße Außenbereich, Gras, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Lichtel (Litwick) (5 EVs), Turm des Himmels (Celestial Tower), Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
-                    <li>5× Entoron (Golduck) (10 EVs), Gras, Route 11, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Waaty (Flaaffy) (10 EVs), 5x Girafarig (10 EVs), Gras, Route 43, Johto, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Duflor (Gloom) (10 EVs), Gras, Route 119, Hoenn, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Entoron (Golduck) (10 EVs), Surfer, Erholungsgebiet (Resort Area), Sinnoh, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Mitodos (Duosion) (10 EVs), Gras, Route 9, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Furnifraß (Heatmor) (10 EVs), Siegesstraße Außenbereich, Gras, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Lichtel (Litwick) (5 EVs), Turm des Himmels (Celestial Tower), Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
+                    <li>5x Entoron (Golduck) (10 EVs), Gras, Route 11, Einall, 100 % Sp.-Angr.-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -493,12 +568,12 @@
                 <summary>Alternative Spots für EVs: Spezial-Verteidigung (Sp.-Def)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>5× Jugong (Dewgong) (10 EVs), Eiskaskadenhöhle (Icefall Cave), Vier-Inseln, Kanto, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li>5× Tentoxa (10 EVs), Surfer, Route 26, Johto, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li>5× Tentoxa (10 EVs), Surfer, Kampfzone, Hoenn, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li>5× Tentoxa (10 EVs), Surfer, Siegesstraße, Sinnoh, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li>5× Hypnomorba (Gothorita) (10 EVs), Dunkles Gras, Route 9, Einall, 100 % Sp.-Vert.-EV-Begegnung</li>
-                    <li>5× Mantax (Mantine) (10 EVs), Surfer, Ondula City (Undella Town), Einall, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Jugong (Dewgong) (10 EVs), Eiskaskadenhöhle (Icefall Cave), Vier-Inseln, Kanto, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Tentoxa (10 EVs), Surfer, Route 26, Johto, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Tentoxa (10 EVs), Surfer, Kampfzone, Hoenn, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Tentoxa (10 EVs), Surfer, Siegesstraße, Sinnoh, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Hypnomorba (Gothorita) (10 EVs), Dunkles Gras, Route 9, Einall, 100 % Sp.-Vert.-EV-Begegnung</li>
+                    <li>5x Mantax (Mantine) (10 EVs), Surfer, Ondula City (Undella Town), Einall, 100 % Sp.-Vert.-EV-Begegnung</li>
                   </ul>
                 </div>
               </details>
@@ -507,14 +582,14 @@
                 <summary>Alternative Spots für EVs: Initiative (Speed)</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>5× Tauboga (Pidgeotto) (10 EVs), Gras, Wiesen von Fünf-Inseln (Five Isle Meadow), Kanto, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Quappo (Poliwhirl) (10 EVs), Surfer, Blackthorn City, Johto, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Quappo (Poliwhirl) (10 EVs), Surfer, Silberberg, Johto, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Geradaks (Linoone) (10 EVs), Gras, Route 121, Hoenn, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Rattikarl (Raticate) (10 EVs), Traumruine (Dreamyard) Untergeschoss, Einall, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Barschuft (Basculin) (10 EVs), 5× Bamelin (Buizel) (5 EVs), Surfer, Route 11, Einall, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Kleoparda (Liepard) (10 EVs), Traumruine, Dunkles Gras, Einall, 100 % Init.-EV-Begegnung</li>
-                    <li>5× Bojelin (Floatzel) (10 EVs), 5× Elektek (Electabuzz) (10 EVs), Gras, Route 222, Sinnoh, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Tauboga (Pidgeotto) (10 EVs), Gras, Wiesen von Fünf-Inseln (Five Isle Meadow), Kanto, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Quappo (Poliwhirl) (10 EVs), Surfer, Blackthorn City, Johto, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Quappo (Poliwhirl) (10 EVs), Surfer, Silberberg, Johto, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Geradaks (Linoone) (10 EVs), Gras, Route 121, Hoenn, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Rattikarl (Raticate) (10 EVs), Traumruine (Dreamyard) Untergeschoss, Einall, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Barschuft (Basculin) (10 EVs), 5x Bamelin (Buizel) (5 EVs), Surfer, Route 11, Einall, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Kleoparda (Liepard) (10 EVs), Traumruine, Dunkles Gras, Einall, 100 % Init.-EV-Begegnung</li>
+                    <li>5x Bojelin (Floatzel) (10 EVs), 5x Elektek (Electabuzz) (10 EVs), Gras, Route 222, Sinnoh, 100 % Init.-EV-Begegnung</li>
                     <li>5x Barschuft (10EVs), Orion City Surfen, Einall, 100 % Init.-EV-Begegnung</li>
                   </ul>
                 </div>
@@ -540,7 +615,7 @@
                   <ul class="guide-list">
                     <li>IVs können an Nachkommen vererbt werden.</li>
                     <li>Beispiel: Hat ein Pokémon 31 auf Initiative und ein anderes 31 auf Angriff, können beide Werte ans Baby weitergegeben werden.</li>
-                    <li>Achtung: Die Zucht in PokeMMO läuft anders als in den normalen Spielen – schaut euch dafür vorher unbedingt ein Tutorial an.</li>
+                    <li>Achtung: Die Zucht in PokeMMO läuft anders als in den normalen Spielen - schaut euch dafür vorher unbedingt ein Tutorial an.</li>
                   </ul>
                 </div>
               </details>
@@ -552,10 +627,10 @@
                   <ul class="guide-list">
                     <li>Ein Pokémon kann maximal 510 EVs haben.</li>
                     <li>Pro Wert können höchstens 252 EVs verteilt werden.</li>
-                    <li>Durch das Besiegen von Pokémon erhält man 1–2 EVs pro Kampf. Jedes Pokémon gibt spezifische EVs.</li>
+                    <li>Durch das Besiegen von Pokémon erhält man 1-2 EVs pro Kampf. Jedes Pokémon gibt spezifische EVs.</li>
                   </ul>
                   <p>Für gezieltes Training sollte man daher passende Pokémon farmen (wir haben dazu bereits einen Guide mit den besten Spots).</p>
-                  <p>EV-Training bringt einen deutlichen Boost. Schon während der Story sind trainierte Pokémon spürbar stärker – deshalb verursachen z. B. Arenaleiter so hohen Schaden, da ihre Pokémon oft EV-trainiert sind.</p>
+                  <p>EV-Training bringt einen deutlichen Boost. Schon während der Story sind trainierte Pokémon spürbar stärker - deshalb verursachen z. B. Arenaleiter so hohen Schaden, da ihre Pokémon oft EV-trainiert sind.</p>
                 </div>
               </details>
 
@@ -565,25 +640,25 @@
                   <p>Wesen sind Eigenschaften, die ein Pokémon von Geburt an hat.</p>
                   <ul class="guide-list">
                     <li>Es gibt neutrale Wesen, die weder Vor- noch Nachteile bringen.</li>
-                    <li>Die meisten Wesen geben +10% auf einen Wert und –10% auf einen anderen Wert.</li>
+                    <li>Die meisten Wesen geben +10% auf einen Wert und -10% auf einen anderen Wert.</li>
                   </ul>
                   <p>Das richtige Wesen ist extrem wichtig, um ein Pokémon zu optimieren.</p>
-                  <p><strong>Beispiel:</strong> Ein physisches Pokémon wie Farbeagle profitiert von einem Wesen, das den Angriff stärkt und dafür den Spezial-Angriff senkt – weil es sowieso mit physischen Attacken kämpft.</p>
+                  <p><strong>Beispiel:</strong> Ein physisches Pokémon wie Farbeagle profitiert von einem Wesen, das den Angriff stärkt und dafür den Spezial-Angriff senkt - weil es sowieso mit physischen Attacken kämpft.</p>
                 </div>
               </details>
 
               <details class="health-toggle">
                 <summary>Liste aller Wesen</summary>
                 <div class="calendar-detail-body">
-                  <p><strong>📊 Liste aller Wesen</strong></p>
+                  <p><strong>Liste aller Wesen</strong></p>
 
                   <div class="nature-grid">
                   <div class="nature-block">
-                    <p><strong>🟥 Angriff ⬆️</strong></p>
+                    <p><strong>Angriff</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table">
                         <thead>
-                          <tr><th>⬆️ Boost</th><th>⬇️ Malus</th><th>Wesen</th></tr>
+                          <tr><th>Boost</th><th>Malus</th><th>Wesen</th></tr>
                         </thead>
                         <tbody>
                           <tr><td>Angriff</td><td>Verteidigung</td><td>Frech</td></tr>
@@ -596,11 +671,11 @@
                   </div>
 
                   <div class="nature-block">
-                    <p><strong>🟦 Verteidigung ⬆️</strong></p>
+                    <p><strong>Verteidigung</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table">
                         <thead>
-                          <tr><th>⬆️ Boost</th><th>⬇️ Malus</th><th>Wesen</th></tr>
+                          <tr><th>Boost</th><th>Malus</th><th>Wesen</th></tr>
                         </thead>
                         <tbody>
                           <tr><td>Verteidigung</td><td>Angriff</td><td>Kühn</td></tr>
@@ -613,11 +688,11 @@
                   </div>
 
                   <div class="nature-block">
-                    <p><strong>🟪 Spezial-Angriff ⬆️</strong></p>
+                    <p><strong>Spezial-Angriff</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table">
                         <thead>
-                          <tr><th>⬆️ Boost</th><th>⬇️ Malus</th><th>Wesen</th></tr>
+                          <tr><th>Boost</th><th>Malus</th><th>Wesen</th></tr>
                         </thead>
                         <tbody>
                           <tr><td>Spezial-Angriff</td><td>Angriff</td><td>Mäßig</td></tr>
@@ -630,11 +705,11 @@
                   </div>
 
                   <div class="nature-block">
-                    <p><strong>🟩 Spezial-Verteidigung ⬆️</strong></p>
+                    <p><strong>Spezial-Verteidigung</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table">
                         <thead>
-                          <tr><th>⬆️ Boost</th><th>⬇️ Malus</th><th>Wesen</th></tr>
+                          <tr><th>Boost</th><th>Malus</th><th>Wesen</th></tr>
                         </thead>
                         <tbody>
                           <tr><td>Spezial-Verteidigung</td><td>Angriff</td><td>Still</td></tr>
@@ -647,11 +722,11 @@
                   </div>
 
                   <div class="nature-block">
-                    <p><strong>🟨 Initiative ⬆️</strong></p>
+                    <p><strong>Initiative</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table">
                         <thead>
-                          <tr><th>⬆️ Boost</th><th>⬇️ Malus</th><th>Wesen</th></tr>
+                          <tr><th>Boost</th><th>Malus</th><th>Wesen</th></tr>
                         </thead>
                         <tbody>
                           <tr><td>Initiative</td><td>Angriff</td><td>Scheu</td></tr>
@@ -664,7 +739,7 @@
                   </div>
 
                   <div class="nature-block nature-neutral-block">
-                    <p><strong>⚪ Neutrale Wesen</strong></p>
+                    <p><strong>Neutrale Wesen</strong></p>
                     <div class="nature-table-wrap">
                       <table class="nature-table nature-neutral-table">
                         <thead>
@@ -710,6 +785,116 @@
               </details>
             </div>
           `,
+          breedingTitle: "Zucht-Guide (Wiki + Forum zusammengefasst)",
+          breedingIntro: "Schneller Leitfaden: Elternverbrauch, Vererbung, Kostenplanung und Ablauf.",
+          breedingBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Quellen und Einordnung</summary>
+                <div class="calendar-detail-body">
+                  <p>Diese Zusammenfassung kombiniert das PokeMMO ShoutWiki (Breeding) mit dem offiziellen Forum-Guide.</p>
+                  <ul class="guide-list">
+                    <li>Wiki: bessere Referenz für aktuelle Mechanik.</li>
+                    <li>Forum-Guide: nützliche Praxis-Strategien (v. a. 2x31, 3x31 und Schritt-für-Schritt).</li>
+                    <li>Bei Preisabweichungen gilt in der Regel der neuere Stand.</li>
+                  </ul>
+                  <p><strong>Links:</strong></p>
+                  <ul class="guide-list">
+                    <li><a href="breeding.html">Breeding Calculator (PokeMMOIndex)</a></li>
+                    <li><a href="https://pokemmo.shoutwiki.com/wiki/Breeding" target="_blank" rel="noopener noreferrer">ShoutWiki Breeding</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/49440-the-breeding-guide/" target="_blank" rel="noopener noreferrer">Forum: The Breeding Guide</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Basisregeln (wichtig vor jeder Zucht)</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Beide Eltern werden beim Züchten verbraucht.</li>
+                    <li>Das Ei gehört zur Spezies der Mutter (oder des Nicht-Ditto-Partners).</li>
+                    <li>Kompatibilität läuft über Ei-Gruppen; Ditto kann viele Lücken füllen.</li>
+                    <li>Geschlechtslose oder nur männliche Spezies brauchen meist Ditto als Partner.</li>
+                    <li>Die Basis-IVs des Kindes sind zufällig, außer du fixierst Werte mit Power-Items.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>IV-Vererbung mit Power-Items</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Mit Power-Items (Braces) übernimmst du gezielt IVs von den Eltern.</li>
+                    <li>Ohne Brace ist der jeweilige Wert nicht garantiert und kann die Zucht ruinieren.</li>
+                    <li>Typischer Aufbau aus dem Forum-Guide: erst 1x31-Eltern bauen, dann 2x31 kombinieren, danach auf 3x31/5x31 hochziehen.</li>
+                    <li>Mit jedem weiteren garantierten Wert steigen benötigte Zwischenstufen und Gesamtkosten stark an.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Zucht-Items (laut Wiki)</summary>
+                <div class="calendar-detail-body">
+                  <p><strong>Quelle:</strong> <a href="https://pokemmo.shoutwiki.com/wiki/Breeding_Items" target="_blank" rel="noopener noreferrer">Breeding Items (ShoutWiki)</a></p>
+                  <p>Laut Wiki sind alle folgenden Zucht-Items (außer Ewigstein) beim NPC in der Pension kaufbar.</p>
+                  <p><strong>Standard-Items</strong></p>
+                  <ul class="guide-list">
+                    <li><strong>Ewigstein (Everstone):</strong> Vererbt sicher das Wesen des Trägers beim Züchten.</li>
+                    <li><strong>Power Weight / Bracer / Belt / Lens / Band / Anklet:</strong> Erzwingen jeweils KP / Angriff / Verteidigung / Sp.-Angriff / Sp.-Verteidigung / Initiative IV vom Träger. Diese Power-Items werden beim Einsatz verbraucht.</li>
+                    <li><strong>Ability Pill:</strong> Wechselt die Fähigkeit eines Pokémon (nicht primär ein Breeding-Schritt, aber relevant für Builds).</li>
+                  </ul>
+                  <p><strong>Preise (Wiki-Stand):</strong></p>
+                  <ul class="guide-list">
+                    <li>Power-Items: 10.000 (Verkauf 5.000)</li>
+                    <li>Ability Pill: 35.000 (Verkauf 17.500)</li>
+                    <li>Ewigstein: Verkauf 2.000 (Kaufpreis nicht auf der Item-Seite gelistet)</li>
+                  </ul>
+                  <p><strong>Räucher-Items (Incense) für Baby-Pokémon</strong></p>
+                  <ul class="guide-list">
+                    <li>Sea, Lax, Full, Odd, Rock, Rose, Pure, Luck, Wave Incense (je 9.600 laut Wiki-Stand).</li>
+                    <li>Diese Items ermöglichen bestimmte Baby-Formen (z. B. Azurill, Wynaut, Munchlax, Mime Jr., Bonsly, Budew, Chingling, Happiny, Mantyke).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Natur und Fähigkeiten</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Die Natur wird mit Everstone von einem Elternteil fixiert.</li>
+                    <li>Fähigkeit/Versteckte Fähigkeit folgen eigenen Vererbungsregeln und sind nicht zu 100 % frei wählbar.</li>
+                    <li>Wenn du eine Versteckte Fähigkeit willst, plane die Linie früh mit passenden Eltern.</li>
+                    <li>Bei Spezialfällen (z. B. Alpha-Linien) gelten zusätzliche Einschränkungen aus den Alpha-Regeln.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Empfohlener Ablauf (praxisnah)</summary>
+                <div class="calendar-detail-body">
+                  <ol class="guide-list">
+                    <li>Ziel definieren: Natur, Fähigkeit, finale IVs (z. B. 2x31 + Natur oder 5x31 kompetitiv).</li>
+                    <li>Elternmarkt prüfen und Kosten für jede Zwischenstufe abschätzen.</li>
+                    <li>Zuerst Natur/Fähigkeit absichern, dann IVs schrittweise zusammenbauen.</li>
+                    <li>Nach jedem Schritt Ergebnis kontrollieren, bevor du weiter kombinierst.</li>
+                    <li>Wenn Budget knapp ist: bei 2x31/3x31 stoppen und später upgraden.</li>
+                  </ol>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Häufige Fehler</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Ohne Brace auf einen wichtigen Wert züchten.</li>
+                    <li>Falsche Ei-Gruppe oder falsches Geschlecht einkaufen.</li>
+                    <li>Teure Eltern zu früh verbrauchen, bevor Natur/Fähigkeit gesichert ist.</li>
+                    <li>Alte Preislisten aus historischen Anleitungen 1:1 übernehmen.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          `,
           hoohTitle: "Komplett-Guide: Ho-Oh Rematch",
           hoohIntro: "Einfachste Methode (10 Züge, keine Verbrauchsitems).",
           hoohBody: `
@@ -718,7 +903,7 @@
                 <summary>FAQ (Häufig gestellte Fragen)</summary>
                 <div class="calendar-detail-body">
                   <p><strong>Wie lang ist das Cooldown für das Rematch gegen Ho-Oh?</strong> 7 Tage.</p>
-                  <p><strong>Bekomme ich Belohnungen, wenn ich ihn besiege?</strong> Ja, 3× Köder (Legendär) und 10× Regenbogenfeder (beim ersten Mal ein Incubator).</p>
+                  <p><strong>Bekomme ich Belohnungen, wenn ich ihn besiege?</strong> Ja, 3x Köder (Legendär) und 10x Regenbogenfeder (beim ersten Mal ein Incubator).</p>
                   <p><strong>Kann ich sehen, wie viel Zeit noch bleibt?</strong> Ja: Menü > Instanz-Info.</p>
                   <p><strong>Wo finde ich Ho-Oh für das Rematch?</strong> Teak City (Ecruteak City), Glockenturm (Bell Tower), Johto.</p>
                 </div>
@@ -727,9 +912,9 @@
               <details class="health-toggle">
                 <summary>Pokémon + Items</summary>
                 <div class="calendar-detail-body">
-                  <p>Optional nutze ich 1× Top-Schutz, um ungestört zu Ho-Oh zu kommen.</p>
+                  <p>Optional nutze ich 1x Top-Schutz, um ungestört zu Ho-Oh zu kommen.</p>
                   <p>Wichtig: Skelabra muss das schnellste und Lunastein das langsamste Pokémon im Team sein.</p>
-                  <p><strong>Reihenfolge im Team:</strong> Skelabra → Rotom-Hitze → Lunastein.</p>
+                  <p><strong>Reihenfolge im Team:</strong> Skelabra -> Rotom-Hitze -> Lunastein.</p>
                   <p><strong>Skelabra (Chandelure)</strong></p>
                   <ul class="guide-list">
                     <li>Item: Schutzband (Spell Tag)</li>
@@ -762,9 +947,9 @@
                 <div class="calendar-detail-body">
                   <p><strong>Hinweise:</strong></p>
                   <ul class="guide-list">
-                    <li>„Besiege das legendäre Biest“ bedeutet: Entei/Raikou → Kraftreserve [Boden], Suicune → Donnerblitz.</li>
+                    <li>„Besiege das legendäre Biest“ bedeutet: Entei/Raikou -> Kraftreserve [Boden], Suicune -> Donnerblitz.</li>
                     <li>In Zug 6 darf Lunastein keinen Volltreffer gegen Ho-Oh landen.</li>
-                    <li>Ende Zug 9 besiegt Ho-Oh meist ein Pokémon – kein Problem, mit den verbleibenden besiegen.</li>
+                    <li>Ende Zug 9 besiegt Ho-Oh meist ein Pokémon - kein Problem, mit den verbleibenden besiegen.</li>
                   </ul>
                   <p><strong>Zug 1:</strong> Bodyguard / Ränkeschmied / Schutzschild</p>
                   <p><strong>Zug 2:</strong> Schutzschild / Ränkeschmied / Bizarroraum</p>
@@ -800,23 +985,26 @@
           menuCosmetics: "Cosmetics",
           menuCalendar: "Calendar",
           menuGuides: "Guides",
+          menuBreeding: "Breeding",
           menuGitHub: "GitHub",
           guidesTitle: "PokeMMO Guides",
           guidesSubtitle: "Switch between guides on one page and expand this section over time.",
           guidesSectionTitle: "Guide Library",
           guidesSectionSubtitle: "Choose a tab to read a guide directly below.",
           tabRoaming: "Alpha Guide",
+          tabLegendary: "Legendary Guide",
           tabCosmetics: "Swarm Guide",
           tabFarming: "Rematch Guide",
           tabEv: "EV & Level Guide",
           tabIv: "IVs, EVs & Natures",
+          tabBreeding: "Breeding Guide",
           tabHooh: "Ho-Oh Rematch",
-          roamingTitle: "What are Alpha Pokemon?",
+          roamingTitle: "What are Alpha Pokémon?",
           roamingIntro: "Overview of spawn timing, combat behavior, and breeding rules.",
           roamingBody: `
             <div class="guide-accordion">
               <details class="health-toggle" open>
-                <summary>What are Alpha Pokemon?</summary>
+                <summary>What are Alpha Pokémon?</summary>
                 <div class="calendar-detail-body">
                   <p>Alpha Pokemon are special wild Pokemon with:</p>
                   <ul class="guide-list">
@@ -896,6 +1084,64 @@
                   </ul>
                 </div>
               </details>
+
+            </div>
+          `,
+          legendaryTitle: "Legendary Guide (Forum summary)",
+          legendaryIntro: "Based on 'The Ultimate Legendary Guide': requirements, setup, and practical capture flow.",
+          legendaryBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Source</summary>
+                <div class="calendar-detail-body">
+                  <p><a href="https://forums.pokemmo.com/index.php?/topic/187603-the-ultimate-legendary-guide/" target="_blank" rel="noopener noreferrer">The Ultimate Legendary Guide (Forum)</a></p>
+                  <p>This tab is a compact quick-reference based on that guide.</p>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Regional requirements</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Kanto birds: enough Kanto story progress (badges/league).</li>
+                    <li>Johto beasts: Johto story progress including Ho-Oh progression.</li>
+                    <li>Sinnoh/Unova roamers: require matching story/endgame progression.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Spawn logic and preparation</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Legendaries appear as rare wild encounters in valid areas.</li>
+                    <li>Use short routes with fast heal/PC access for efficient farming.</li>
+                    <li>Bring enough balls, healing items, and repels for travel time.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Recommended catching setup</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Lead with sleep/paralysis support.</li>
+                    <li>False Swipe to 1 HP is the standard approach.</li>
+                    <li>Smeargle utility builds are common (Spore, False Swipe, Soak, Mean Look based on target).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Practical tips</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Track monthly/rotation changes for roamers.</li>
+                    <li>After a failed attempt, keep the same encounter route and continue.</li>
+                    <li>Consistency beats frequent route switching.</li>
+                  </ul>
+                </div>
+              </details>
             </div>
           `,
           cosmeticsTitle: "What is a swarm?",
@@ -968,7 +1214,7 @@
                     <li>Find one randomly while playing.</li>
                     <li>Watch TVs inside houses to see news reports about current swarms.</li>
                   </ul>
-                  <p><strong>Example:</strong> “Breaking news! Wild Lapras have been sighted on Route 125 (Hoenn)!”</p>
+                  <p><strong>Example:</strong> "Breaking news! Wild Lapras have been sighted on Route 125 (Hoenn)!"</p>
                   <p>In Unova, the TV tracking system does not work for swarms.</p>
                   <p><strong>TV locations:</strong></p>
                   <ul class="guide-list">
@@ -983,16 +1229,16 @@
                 <summary>Common questions</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Are swarms the same for all players? → Yes</li>
-                    <li>Do all players get the same IVs from swarm Pokémon? → No</li>
-                    <li>How many swarms happen per day? → Unknown</li>
-                    <li>Do swarms have a higher shiny rate? → No (officially confirmed)</li>
+                    <li>Are swarms the same for all players? -> Yes</li>
+                    <li>Do all players get the same IVs from swarm Pokémon? -> No</li>
+                    <li>How many swarms happen per day? -> Unknown</li>
+                    <li>Do swarms have a higher shiny rate? -> No (officially confirmed)</li>
                   </ul>
                 </div>
               </details>
             </div>
           `,
-          farmingTitle: "📘 Rematch Guide",
+          farmingTitle: "Rematch Guide",
           farmingIntro: "Team setup and battle flow for daily Gym Leader rematches.",
           farmingBody: `
             <div class="guide-accordion">
@@ -1001,7 +1247,7 @@
                 <div class="calendar-detail-body">
                   <p>After you clear a region's League, you can challenge Gym Leaders again the next day.</p>
                   <p>Gym teams scale to your highest-level Pokémon.</p>
-                  <p>With a finished team, battle levels are typically around 80–90.</p>
+                  <p>With a finished team, battle levels are typically around 80x90.</p>
                 </div>
               </details>
 
@@ -1111,6 +1357,116 @@
               </details>
             </div>
           `,
+          breedingTitle: "Breeding Guide (Wiki + Forum synthesis)",
+          breedingIntro: "Fast reference for parent consumption, inheritance planning, and efficient breeding flow.",
+          breedingBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Sources and how to use them</summary>
+                <div class="calendar-detail-body">
+                  <p>This section merges the PokeMMO ShoutWiki Breeding page with the official forum breeding guide.</p>
+                  <ul class="guide-list">
+                    <li>Use the Wiki as the primary reference for current mechanics.</li>
+                    <li>Use the forum guide for practical examples and build-order logic.</li>
+                    <li>If price values differ, treat old forum numbers as historical context.</li>
+                  </ul>
+                  <p><strong>Links:</strong></p>
+                  <ul class="guide-list">
+                    <li><a href="breeding.html">Breeding Calculator (PokeMMOIndex)</a></li>
+                    <li><a href="https://pokemmo.shoutwiki.com/wiki/Breeding" target="_blank" rel="noopener noreferrer">ShoutWiki Breeding</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/49440-the-breeding-guide/" target="_blank" rel="noopener noreferrer">Forum: The Breeding Guide</a></li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Core rules before you breed</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Both parents are consumed when breeding.</li>
+                    <li>The egg species follows the female (or the non-Ditto parent).</li>
+                    <li>Compatibility is based on egg groups; Ditto covers many edge cases.</li>
+                    <li>Genderless or male-only species usually require Ditto.</li>
+                    <li>Child IVs are random unless locked with power items.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>IV inheritance with power items</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Power items (braces) force chosen IV stats to pass down.</li>
+                    <li>Skipping a brace on a key stat can break the chain.</li>
+                    <li>Common forum workflow: build 1x31 parents, combine into 2x31, then scale to 3x31/5x31.</li>
+                    <li>Each extra guaranteed stat increases total steps and total cost quickly.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Breeding items (Wiki reference)</summary>
+                <div class="calendar-detail-body">
+                  <p><strong>Source:</strong> <a href="https://pokemmo.shoutwiki.com/wiki/Breeding_Items" target="_blank" rel="noopener noreferrer">Breeding Items (ShoutWiki)</a></p>
+                  <p>According to the wiki, all breeding items below (except Everstone) can be bought from the NPC inside the daycare.</p>
+                  <p><strong>Core items</strong></p>
+                  <ul class="guide-list">
+                    <li><strong>Everstone:</strong> Guarantees the holder's nature is passed to the offspring.</li>
+                    <li><strong>Power Weight / Bracer / Belt / Lens / Band / Anklet:</strong> Force inheritance of HP / Attack / Defense / Sp.Atk / Sp.Def / Speed IV from the holder. These power items are consumed on use.</li>
+                    <li><strong>Ability Pill:</strong> Switches a Pokémon's ability (not a direct breeding step, but relevant for final builds).</li>
+                  </ul>
+                  <p><strong>Prices (Wiki snapshot):</strong></p>
+                  <ul class="guide-list">
+                    <li>Power items: 10,000 (sell 5,000)</li>
+                    <li>Ability Pill: 35,000 (sell 17,500)</li>
+                    <li>Everstone: sell 2,000 (buy price not listed on that item table)</li>
+                  </ul>
+                  <p><strong>Incense items for baby forms</strong></p>
+                  <ul class="guide-list">
+                    <li>Sea, Lax, Full, Odd, Rock, Rose, Pure, Luck, Wave Incense (each 9,600 on the wiki page).</li>
+                    <li>They enable specific baby Pokémon outcomes (e.g., Azurill, Wynaut, Munchlax, Mime Jr., Bonsly, Budew, Chingling, Happiny, Mantyke).</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Nature and ability planning</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Use an Everstone to lock nature from a parent.</li>
+                    <li>Ability and hidden ability follow inheritance rules and are not fully free-pick.</li>
+                    <li>If you need hidden ability, plan it early in the chain.</li>
+                    <li>Special cases (like Alpha lines) add extra breeding restrictions.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Recommended practical workflow</summary>
+                <div class="calendar-detail-body">
+                  <ol class="guide-list">
+                    <li>Define target first: nature, ability, and final IV spread.</li>
+                    <li>Check market parents and estimate each intermediate step cost.</li>
+                    <li>Secure nature/ability early, then build IVs stage by stage.</li>
+                    <li>Verify every offspring before continuing the chain.</li>
+                    <li>If budget is tight, stop at 2x31/3x31 and upgrade later.</li>
+                  </ol>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Common mistakes</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li>Breeding key stats without braces.</li>
+                    <li>Buying wrong egg group or wrong gender parents.</li>
+                    <li>Consuming expensive parents before nature/ability are secured.</li>
+                    <li>Using old forum pricing as if it were current.</li>
+                  </ul>
+                </div>
+              </details>
+            </div>
+          `,
           hoohTitle: "Complete Guide: Ho-Oh Rematch",
           hoohIntro: "Simple method (10 turns, no consumable items).",
           hoohBody: `
@@ -1134,7 +1490,7 @@
       };
 
       const normalizeGuide = (value) => {
-        const validGuides = ["roaming", "cosmetics", "farming", "ev", "iv", "hooh"];
+        const validGuides = ["roaming", "legendary", "cosmetics", "farming", "ev", "iv", "breeding", "hooh"];
         return validGuides.includes(value) ? value : "roaming";
       };
 
@@ -1173,10 +1529,10 @@
         setActiveLang(next);
 
         const ids = [
-          "menuHome", "menuCosmetics", "menuCalendar", "menuGuides", "menuGitHub",
+          "menuHome", "menuCosmetics", "menuCalendar", "menuGuides", "menuBreeding", "menuGitHub",
           "guidesTitle", "guidesSubtitle", "guidesSectionTitle", "guidesSectionSubtitle",
-          "tabRoaming", "tabCosmetics", "tabFarming", "tabEv", "tabIv", "tabHooh",
-          "roamingTitle", "roamingIntro", "cosmeticsTitle", "cosmeticsIntro", "farmingTitle", "farmingIntro", "evTitle", "evIntro", "ivTitle", "ivIntro", "hoohTitle", "hoohIntro"
+          "tabRoaming", "tabLegendary", "tabCosmetics", "tabFarming", "tabEv", "tabIv", "tabBreeding", "tabHooh",
+          "roamingTitle", "roamingIntro", "legendaryTitle", "legendaryIntro", "cosmeticsTitle", "cosmeticsIntro", "farmingTitle", "farmingIntro", "evTitle", "evIntro", "ivTitle", "ivIntro", "breedingTitle", "breedingIntro", "hoohTitle", "hoohIntro"
         ];
         ids.forEach((id) => {
           const el = document.getElementById(id);
@@ -1185,6 +1541,8 @@
 
         const roamingBody = document.getElementById("roamingBody");
         if (roamingBody && t.roamingBody) roamingBody.innerHTML = t.roamingBody;
+        const legendaryBody = document.getElementById("legendaryBody");
+        if (legendaryBody && t.legendaryBody) legendaryBody.innerHTML = t.legendaryBody;
         const cosmeticsBody = document.getElementById("cosmeticsBody");
         if (cosmeticsBody && t.cosmeticsBody) cosmeticsBody.innerHTML = t.cosmeticsBody;
         const farmingBody = document.getElementById("farmingBody");
@@ -1193,6 +1551,8 @@
         if (evBody && t.evBody) evBody.innerHTML = t.evBody;
         const ivBody = document.getElementById("ivBody");
         if (ivBody && t.ivBody) ivBody.innerHTML = t.ivBody;
+        const breedingBody = document.getElementById("breedingBody");
+        if (breedingBody && t.breedingBody) breedingBody.innerHTML = t.breedingBody;
         const hoohBody = document.getElementById("hoohBody");
         if (hoohBody && t.hoohBody) hoohBody.innerHTML = t.hoohBody;
 
@@ -1227,3 +1587,5 @@
   </script>
 </body>
 </html>
+
+
