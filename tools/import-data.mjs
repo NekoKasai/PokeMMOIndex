@@ -30,8 +30,8 @@ const LOCAL_FALLBACKS = {
   locations: path.join(SOURCES_DIR, "locations.json"),
 };
 
-const STATIC_FILES = ["index.html", "app.js", "styles.css", "data-utils.js"];
-const STATIC_DIRS = ["assets"];
+const STATIC_FILES = ["index.html", "calendar.html", "cosmetics.html", "guides.html", "breeding.html"];
+const STATIC_DIRS = ["assets", "css", "js"];
 
 async function fetchWithOptionalLocalFallback(url, fallbackPath, label) {
   const errors = [];
