@@ -418,6 +418,13 @@
 <div class="modal-overlay" id="importModal">
   <div class="modal">
     <div class="modal-title">Team importieren (Showdown-Format)</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <label class="btn btn-secondary btn-sm" style="cursor:pointer;margin:0">
+        📂 Datei laden
+        <input type="file" accept=".txt" style="display:none" onchange="loadImportFile(event)">
+      </label>
+      <span id="importFileName" style="font-size:.75rem;color:var(--text-muted);font-style:italic"></span>
+    </div>
     <textarea class="paste-area" id="importText" rows="12" placeholder="Paste your Showdown export here...&#10;&#10;Pikachu @ Light Ball&#10;Ability: Static&#10;Level: 50&#10;EVs: 252 SpA / 4 SpD / 252 Spe&#10;Timid Nature&#10;- Thunderbolt&#10;- Volt Switch&#10;- Hidden Power Ice&#10;- Grass Knot"></textarea>
     <div id="importHint" style="display:none;margin-top:10px;padding:8px 12px;background:#1a2a1a;border:1px solid #48c77455;border-radius:6px;color:#48c774;font-size:.8rem;display:none;align-items:center;gap:8px;">
       <span style="font-size:1rem">⏳</span>
@@ -437,6 +444,7 @@
     <textarea class="paste-area" id="exportText" rows="12" readonly></textarea>
     <div class="modal-actions">
       <button class="btn btn-secondary" onclick="closeExport()">Schließen</button>
+      <button class="btn btn-secondary" onclick="downloadExport()">⬇ Download</button>
       <button class="btn btn-primary" onclick="copyExport()">Kopieren</button>
     </div>
   </div>
@@ -1993,6 +2001,34 @@ function doImport() {
   }
 }
 function copyExport() { navigator.clipboard.writeText(document.getElementById('exportText').value).then(()=>showToast('📋 Kopiert!')); }
+
+function downloadExport() {
+  const text = document.getElementById('exportText').value;
+  if (!text.trim()) return;
+  const name = (document.getElementById('teamNameInput').value.trim() || 'Team')
+    .replace(/[^a-z0-9äöüÄÖÜß _-]/gi, '_');
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name + '.txt';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showToast('⬇ ' + name + '.txt heruntergeladen!');
+}
+
+function loadImportFile(event) {
+  const file = event.target.files[0]; if (!file) return;
+  const label = document.getElementById('importFileName');
+  if (label) label.textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const ta = document.getElementById('importText');
+    if (ta) ta.value = e.target.result;
+  };
+  reader.readAsText(file, 'utf-8');
+  // Reset input so same file can be reloaded
+  event.target.value = '';
+}
 
 // ============================================================================
 // MISC
