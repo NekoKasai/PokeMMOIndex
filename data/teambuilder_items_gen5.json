@@ -1,0 +1,977 @@
+[
+  {
+    "name": "shed-shell",
+    "name_de": "Abstreihhülle",
+    "category": "defense"
+  },
+  {
+    "name": "aguav-berry",
+    "name_de": "Aguav-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "kelp-berry",
+    "name_de": "Algen-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "apicot-berry",
+    "name_de": "Apicot-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "aspear-berry",
+    "name_de": "Aspear-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "eject-button",
+    "name_de": "Auswurftaste",
+    "category": "defense"
+  },
+  {
+    "name": "babiri-berry",
+    "name_de": "Babiri-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "twisted-spoon",
+    "name_de": "Biegelöffel",
+    "category": "type-boost"
+  },
+  {
+    "name": "binding-band",
+    "name_de": "Bindeband",
+    "category": "defense"
+  },
+  {
+    "name": "ground-gem",
+    "name_de": "Boden-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "earth-plate",
+    "name_de": "Boden-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "lagging-tail",
+    "name_de": "Bummelschwanz",
+    "category": "speed"
+  },
+  {
+    "name": "charti-berry",
+    "name_de": "Charti-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "cheri-berry",
+    "name_de": "Cheri-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "chesto-berry",
+    "name_de": "Chesto-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "chilan-berry",
+    "name_de": "Chilan-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "chople-berry",
+    "name_de": "Chople-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "coba-berry",
+    "name_de": "Coba-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "colbur-berry",
+    "name_de": "Colbur-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "custap-berry",
+    "name_de": "Custap-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "thick-club",
+    "name_de": "Dickenknüppel",
+    "category": "misc"
+  },
+  {
+    "name": "dragon-gem",
+    "name_de": "Drachen-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "draco-plate",
+    "name_de": "Drachen-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "dragon-scale",
+    "name_de": "Drachenschuppe",
+    "category": "evolution"
+  },
+  {
+    "name": "dragon-fang",
+    "name_de": "Drachenzahn",
+    "category": "type-boost"
+  },
+  {
+    "name": "dread-plate",
+    "name_de": "Dunkel-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "durin-berry",
+    "name_de": "Durin-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "ice-gem",
+    "name_de": "Eis-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "icicle-plate",
+    "name_de": "Eis-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "never-melt-ice",
+    "name_de": "Eisblock",
+    "category": "type-boost"
+  },
+  {
+    "name": "iron-ball",
+    "name_de": "Eisenball",
+    "category": "speed"
+  },
+  {
+    "name": "icy-rock",
+    "name_de": "Eisstein",
+    "category": "weather"
+  },
+  {
+    "name": "electirizer",
+    "name_de": "Elektrisator",
+    "category": "evolution"
+  },
+  {
+    "name": "electric-gem",
+    "name_de": "Elektro-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "zap-plate",
+    "name_de": "Elektro-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "enigma-berry",
+    "name_de": "Enigma-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "exp-share",
+    "name_de": "EP-Teiler",
+    "category": "misc"
+  },
+  {
+    "name": "eviolite",
+    "name_de": "Eviolith",
+    "category": "defense"
+  },
+  {
+    "name": "expert-belt",
+    "name_de": "Expertengürtel",
+    "category": "combat"
+  },
+  {
+    "name": "pixie-plate",
+    "name_de": "Fee-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "soft-sand",
+    "name_de": "Feinsand",
+    "category": "type-boost"
+  },
+  {
+    "name": "rocky-helmet",
+    "name_de": "Felshelm",
+    "category": "defense"
+  },
+  {
+    "name": "rock-incense",
+    "name_de": "Felsweihrauch",
+    "category": "type-boost"
+  },
+  {
+    "name": "fire-gem",
+    "name_de": "Feuer-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "flame-plate",
+    "name_de": "Feuer-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "figy-berry",
+    "name_de": "Figy-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "flame-orb",
+    "name_de": "Flammenorb",
+    "category": "orb"
+  },
+  {
+    "name": "flying-gem",
+    "name_de": "Flug-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "sky-plate",
+    "name_de": "Flug-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "focus-sash",
+    "name_de": "Fokusband",
+    "category": "defense"
+  },
+  {
+    "name": "ganlon-berry",
+    "name_de": "Ganlon-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "ghost-gem",
+    "name_de": "Geist-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "spooky-plate",
+    "name_de": "Geist-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "mental-herb",
+    "name_de": "Geistkraut",
+    "category": "misc"
+  },
+  {
+    "name": "rock-gem",
+    "name_de": "Gestein-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "stone-plate",
+    "name_de": "Gestein-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "poison-gem",
+    "name_de": "Gift-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "toxic-plate",
+    "name_de": "Gift-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "toxic-orb",
+    "name_de": "Giftorb",
+    "category": "orb"
+  },
+  {
+    "name": "poison-barb",
+    "name_de": "Giftstachel",
+    "category": "type-boost"
+  },
+  {
+    "name": "bright-powder",
+    "name_de": "Glanzpuder",
+    "category": "combat"
+  },
+  {
+    "name": "smooth-rock",
+    "name_de": "Glattestein",
+    "category": "weather"
+  },
+  {
+    "name": "lucky-egg",
+    "name_de": "Glücksei",
+    "category": "misc"
+  },
+  {
+    "name": "lucky-punch",
+    "name_de": "Glückstreffer",
+    "category": "misc"
+  },
+  {
+    "name": "grass-gem",
+    "name_de": "Gras-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "meadow-plate",
+    "name_de": "Gras-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "grip-claw",
+    "name_de": "Greifklaue",
+    "category": "misc"
+  },
+  {
+    "name": "grepa-berry",
+    "name_de": "Grepa-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "haban-berry",
+    "name_de": "Haban-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "hard-stone",
+    "name_de": "Hartstein",
+    "category": "type-boost"
+  },
+  {
+    "name": "heat-rock",
+    "name_de": "Hitzestein",
+    "category": "weather"
+  },
+  {
+    "name": "charcoal",
+    "name_de": "Holzkohle",
+    "category": "type-boost"
+  },
+  {
+    "name": "hondew-berry",
+    "name_de": "Hondew-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "iapapa-berry",
+    "name_de": "Iapapa-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "everstone",
+    "name_de": "Immerstein",
+    "category": "misc"
+  },
+  {
+    "name": "jaboca-berry",
+    "name_de": "Jaboca-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "fighting-gem",
+    "name_de": "Kampf-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "fist-plate",
+    "name_de": "Kampf-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "kasib-berry",
+    "name_de": "Kasib-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "kebia-berry",
+    "name_de": "Kebia-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "kee-berry",
+    "name_de": "Kee-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "kelpsy-berry",
+    "name_de": "Kelpsy-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "focus-band",
+    "name_de": "Konzentband",
+    "category": "defense"
+  },
+  {
+    "name": "macho-brace",
+    "name_de": "Kraftarmband",
+    "category": "speed"
+  },
+  {
+    "name": "power-bracer",
+    "name_de": "Kraftarmreif",
+    "category": "ev-item"
+  },
+  {
+    "name": "power-band",
+    "name_de": "Kraftband",
+    "category": "ev-item"
+  },
+  {
+    "name": "power-anklet",
+    "name_de": "Kraftfußring",
+    "category": "ev-item"
+  },
+  {
+    "name": "power-weight",
+    "name_de": "Kraftgewicht",
+    "category": "ev-item"
+  },
+  {
+    "name": "power-belt",
+    "name_de": "Kraftgürtel",
+    "category": "ev-item"
+  },
+  {
+    "name": "power-herb",
+    "name_de": "Kraftkraut",
+    "category": "misc"
+  },
+  {
+    "name": "power-lens",
+    "name_de": "Kraftlinse",
+    "category": "ev-item"
+  },
+  {
+    "name": "bug-gem",
+    "name_de": "Käfer-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "insect-plate",
+    "name_de": "Käfer-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "kings-rock",
+    "name_de": "Königsstein",
+    "category": "combat"
+  },
+  {
+    "name": "lansat-berry",
+    "name_de": "Lansat-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "lax-incense",
+    "name_de": "Laxweihrauch",
+    "category": "combat"
+  },
+  {
+    "name": "life-orb",
+    "name_de": "Lebenskugel",
+    "category": "combat"
+  },
+  {
+    "name": "leppa-berry",
+    "name_de": "Leppa-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "light-ball",
+    "name_de": "Lichtkugel",
+    "category": "misc"
+  },
+  {
+    "name": "light-clay",
+    "name_de": "Lichtton",
+    "category": "defense"
+  },
+  {
+    "name": "liechi-berry",
+    "name_de": "Liechi-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "air-balloon",
+    "name_de": "Luftballon",
+    "category": "defense"
+  },
+  {
+    "name": "lum-berry",
+    "name_de": "Lum-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "magmarizer",
+    "name_de": "Magmarisator",
+    "category": "evolution"
+  },
+  {
+    "name": "magnet",
+    "name_de": "Magnet",
+    "category": "type-boost"
+  },
+  {
+    "name": "mago-berry",
+    "name_de": "Mago-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "maranga-berry",
+    "name_de": "Maranga-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "sea-incense",
+    "name_de": "Meeresweihrauch",
+    "category": "type-boost"
+  },
+  {
+    "name": "metal-coat",
+    "name_de": "Metallmantel",
+    "category": "type-boost"
+  },
+  {
+    "name": "metal-powder",
+    "name_de": "Metallpuder",
+    "category": "misc"
+  },
+  {
+    "name": "metronome",
+    "name_de": "Metronom",
+    "category": "combat"
+  },
+  {
+    "name": "micle-berry",
+    "name_de": "Micle-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "shell-bell",
+    "name_de": "Muschelglocke",
+    "category": "recovery"
+  },
+  {
+    "name": "muscle-band",
+    "name_de": "Muskelband",
+    "category": "combat"
+  },
+  {
+    "name": "mystic-water",
+    "name_de": "Mystikwasser",
+    "category": "type-boost"
+  },
+  {
+    "name": "amulet-coin",
+    "name_de": "Münzamulett",
+    "category": "misc"
+  },
+  {
+    "name": "damp-rock",
+    "name_de": "Nassstein",
+    "category": "weather"
+  },
+  {
+    "name": "nomel-berry",
+    "name_de": "Nomel-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "normal-gem",
+    "name_de": "Normal-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "occa-berry",
+    "name_de": "Occa-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "oran-berry",
+    "name_de": "Oran-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "oval-stone",
+    "name_de": "Ovalstein",
+    "category": "evolution"
+  },
+  {
+    "name": "pamtre-berry",
+    "name_de": "Pamtre-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "passho-berry",
+    "name_de": "Passho-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "payapa-berry",
+    "name_de": "Payapa-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "pecha-berry",
+    "name_de": "Pecha-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "persim-berry",
+    "name_de": "Persim-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "petaya-berry",
+    "name_de": "Petaya-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "pinap-berry",
+    "name_de": "Pinap-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "pomeg-berry",
+    "name_de": "Pomeg-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "prism-scale",
+    "name_de": "Prismaschuppe",
+    "category": "evolution"
+  },
+  {
+    "name": "protector",
+    "name_de": "Protektor",
+    "category": "evolution"
+  },
+  {
+    "name": "psychic-gem",
+    "name_de": "Psycho-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "mind-plate",
+    "name_de": "Psycho-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "qualot-berry",
+    "name_de": "Qualot-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "rabuta-berry",
+    "name_de": "Rabuta-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "razor-fang",
+    "name_de": "Rasierfang",
+    "category": "combat"
+  },
+  {
+    "name": "razor-claw",
+    "name_de": "Rasierklinge",
+    "category": "combat"
+  },
+  {
+    "name": "rawst-berry",
+    "name_de": "Rawst-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "razz-berry",
+    "name_de": "Razz-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "big-root",
+    "name_de": "Riesenwurzel",
+    "category": "recovery"
+  },
+  {
+    "name": "rindo-berry",
+    "name_de": "Rindo-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "ring-target",
+    "name_de": "Ringziel",
+    "category": "defense"
+  },
+  {
+    "name": "rose-incense",
+    "name_de": "Rosenweihrauch",
+    "category": "type-boost"
+  },
+  {
+    "name": "red-card",
+    "name_de": "Rote Karte",
+    "category": "defense"
+  },
+  {
+    "name": "rowap-berry",
+    "name_de": "Rowap-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "salac-berry",
+    "name_de": "Salac-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "destiny-knot",
+    "name_de": "Schicksalsknoten",
+    "category": "misc"
+  },
+  {
+    "name": "quick-claw",
+    "name_de": "Schnellklaue",
+    "category": "speed"
+  },
+  {
+    "name": "quick-powder",
+    "name_de": "Schnellpuder",
+    "category": "misc"
+  },
+  {
+    "name": "spell-tag",
+    "name_de": "Schriftanhänger",
+    "category": "type-boost"
+  },
+  {
+    "name": "safety-goggles",
+    "name_de": "Schutzbrille",
+    "category": "defense"
+  },
+  {
+    "name": "black-glasses",
+    "name_de": "Schwarzbrille",
+    "category": "type-boost"
+  },
+  {
+    "name": "black-belt",
+    "name_de": "Schwarzgurt",
+    "category": "type-boost"
+  },
+  {
+    "name": "black-sludge",
+    "name_de": "Schwarzschlamm",
+    "category": "recovery"
+  },
+  {
+    "name": "soul-dew",
+    "name_de": "Seelentau",
+    "category": "misc"
+  },
+  {
+    "name": "silk-scarf",
+    "name_de": "Seidenschal",
+    "category": "type-boost"
+  },
+  {
+    "name": "odd-incense",
+    "name_de": "Seltsamweihrauch",
+    "category": "type-boost"
+  },
+  {
+    "name": "reaper-cloth",
+    "name_de": "Sensenstoff",
+    "category": "evolution"
+  },
+  {
+    "name": "shuca-berry",
+    "name_de": "Shuca-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "silver-powder",
+    "name_de": "Silberpuder",
+    "category": "type-boost"
+  },
+  {
+    "name": "sitrus-berry",
+    "name_de": "Sitrus-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "spelon-berry",
+    "name_de": "Spelon-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "sharp-beak",
+    "name_de": "Spitzschnabel",
+    "category": "type-boost"
+  },
+  {
+    "name": "steel-gem",
+    "name_de": "Stahl-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "iron-plate",
+    "name_de": "Stahl-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "starf-berry",
+    "name_de": "Starf-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "assault-vest",
+    "name_de": "Sturmweste",
+    "category": "combat"
+  },
+  {
+    "name": "stick",
+    "name_de": "Stöckchen",
+    "category": "misc"
+  },
+  {
+    "name": "tamato-berry",
+    "name_de": "Tamato-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "tanga-berry",
+    "name_de": "Tanga-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "deep-sea-scale",
+    "name_de": "Tiefseeschuppe",
+    "category": "evolution"
+  },
+  {
+    "name": "deep-sea-tooth",
+    "name_de": "Tiefseezan",
+    "category": "evolution"
+  },
+  {
+    "name": "dark-gem",
+    "name_de": "Unlicht-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "up-grade",
+    "name_de": "Upgrade",
+    "category": "evolution"
+  },
+  {
+    "name": "full-incense",
+    "name_de": "Vollweihrauch",
+    "category": "speed"
+  },
+  {
+    "name": "wacan-berry",
+    "name_de": "Wacan-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "choice-band",
+    "name_de": "Wahl-Band",
+    "category": "choice"
+  },
+  {
+    "name": "choice-specs",
+    "name_de": "Wahl-Brille",
+    "category": "choice"
+  },
+  {
+    "name": "choice-scarf",
+    "name_de": "Wahl-Tuch",
+    "category": "choice"
+  },
+  {
+    "name": "water-gem",
+    "name_de": "Wasser-Juwel",
+    "category": "gem"
+  },
+  {
+    "name": "splash-plate",
+    "name_de": "Wasser-Platte",
+    "category": "plate"
+  },
+  {
+    "name": "watmel-berry",
+    "name_de": "Wassermelonen-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "wise-glasses",
+    "name_de": "Weisebrille",
+    "category": "combat"
+  },
+  {
+    "name": "wide-lens",
+    "name_de": "Weitwinkelobjektiv",
+    "category": "combat"
+  },
+  {
+    "name": "white-herb",
+    "name_de": "Weißkraut",
+    "category": "misc"
+  },
+  {
+    "name": "wave-incense",
+    "name_de": "Wellenweihrauch",
+    "category": "type-boost"
+  },
+  {
+    "name": "wepear-berry",
+    "name_de": "Wepear-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "wiki-berry",
+    "name_de": "Wiki-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "miracle-seed",
+    "name_de": "Wundersamen",
+    "category": "type-boost"
+  },
+  {
+    "name": "yache-berry",
+    "name_de": "Yache-Beere",
+    "category": "berry"
+  },
+  {
+    "name": "scope-lens",
+    "name_de": "Ziellinse",
+    "category": "combat"
+  },
+  {
+    "name": "zoom-lens",
+    "name_de": "Zoomobjektiv",
+    "category": "combat"
+  },
+  {
+    "name": "dubious-disc",
+    "name_de": "Zweifelsscheibe",
+    "category": "evolution"
+  },
+  {
+    "name": "leftovers",
+    "name_de": "Überreste",
+    "category": "recovery"
+  }
+]

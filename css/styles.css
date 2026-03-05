@@ -161,6 +161,32 @@ header.hero {
   white-space: nowrap;
 }
 
+.header-nav-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  min-width: 220px;
+}
+
+.header-nav-select {
+  width: 100%;
+  min-height: 38px;
+  padding: 0.42rem 0.68rem;
+  background: rgba(11, 24, 40, 0.62);
+  border: 1px solid rgba(78, 205, 196, 0.25);
+  border-radius: 0.62rem;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.header-nav-select:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 2px rgba(78, 205, 196, 0.14);
+}
+
 .header-menu a:hover {
   color: #ffe8e8;
   transform: translateY(-1px);
@@ -173,6 +199,11 @@ header.hero {
   border-color: rgba(126, 191, 235, 0.62);
   background: linear-gradient(145deg, rgba(74, 126, 167, 0.42), rgba(52, 92, 126, 0.36));
   box-shadow: inset 0 0 0 1px rgba(190, 225, 255, 0.15);
+}
+
+/* Simplified header nav: use dropdown globally */
+.header-menu a {
+  display: none;
 }
 
 .nav-icon {
