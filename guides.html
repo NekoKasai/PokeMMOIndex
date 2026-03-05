@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -19,6 +19,7 @@
           <a href="cosmetics.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 1.8 4.2L18 9l-4.2 1.8L12 15l-1.8-4.2L6 9l4.2-1.8z"/><path d="M5 16.5 6 19l2.5 1-2.5 1L5 23l-1-2.5L1.5 19 4 18z"/></svg></span><span id="menuCosmetics">Kosmetik</span></a>
           <a href="calendar.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M7.5 3.5v4M16.5 3.5v4M3.5 9.5h17"/></svg></span><span id="menuCalendar">Kalender</span></a>
           <a class="active" href="guides.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 5.5h7a2 2 0 0 1 2 2v11h-7a2 2 0 0 0-2 2z"/><path d="M19.5 5.5h-7a2 2 0 0 0-2 2v11h7a2 2 0 0 1 2 2z"/></svg></span><span id="menuGuides">Anleitungen</span></a>
+          <a href="LegendäreGuide.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m12 3 2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.7 7.2 17.9l.9-5.4L4.2 8.7l5.4-.8z"/></svg></span><span id="menuLegendary">Legendäre</span></a>
           <a href="breeding.html"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4c3 0 3 4 6 4"/><path d="M8 20c3 0 3-4 6-4"/><circle cx="7" cy="4" r="1.5"/><circle cx="15" cy="8" r="1.5"/><circle cx="7" cy="20" r="1.5"/><circle cx="15" cy="16" r="1.5"/></svg></span><span id="menuBreeding">Zucht</span></a>
           <a href="https://github.com/NekoKasai/PokeMMOIndex" target="_blank" rel="noopener noreferrer"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18 3 12l6-6"/><path d="m15 6 6 6-6 6"/></svg></span><span id="menuGitHub">GitHub</span></a>
           <div class="header-lang-group" aria-label="Language">
@@ -56,7 +57,7 @@
       </article>
 
       <article class="guide-panel" data-guide-panel="legendary" role="tabpanel" aria-labelledby="tabLegendary">
-        <h3 id="legendaryTitle">Legendary Guide (Forum)</h3>
+        <h3 id="legendaryTitle">Legendary Guide</h3>
         <p id="legendaryIntro">Kompakte Zusammenfassung zu Spawn-Bedingungen, Setups und Fangablauf.</p>
         <div id="legendaryBody" class="calendar-detail-body"></div>
       </article>
@@ -127,6 +128,7 @@
           menuCosmetics: "Kosmetik",
           menuCalendar: "Kalender",
           menuGuides: "Anleitungen",
+          menuLegendary: "Legendäre",
           menuBreeding: "Zucht",
           menuGitHub: "GitHub",
           guidesTitle: "PokeMMO Guides",
@@ -236,6 +238,7 @@
                 <summary>Quelle</summary>
                 <div class="calendar-detail-body">
                   <p><a href="https://forums.pokemmo.com/index.php?/topic/187603-the-ultimate-legendary-guide/" target="_blank" rel="noopener noreferrer">The Ultimate Legendary Guide (Forum)</a></p>
+                  <p><a href="LegendäreGuide.html">Ausführliche native Version im Projekt öffnen</a></p>
                   <p>Dieser Tab ist eine kompakte Zusammenfassung des Beitrags und dient als schneller Praxis-Überblick.</p>
                 </div>
               </details>
@@ -244,9 +247,21 @@
                 <summary>Voraussetzungen je Region</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Kanto-Vogel: Kanto-Story weit genug (Badge-/Liga-Fortschritt).</li>
-                    <li>Johto-Biester: Johto-Story inklusive Ho-Oh-Fortschritt.</li>
-                    <li>Sinnoh/Unova-Roamer: nur nach passendem Story- und Endgame-Fortschritt.</li>
+                    <li>Kanto-Vögel: Nach dem Beenden der Liga als Random Encounter.</li>
+                    <li>Johto-Biester: Nach dem Besiegen von Ho-Oh während der Story als Random Encounter.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Forum-Strategien (Raids)</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/193398-cresselia-raid-guide/" target="_blank" rel="noopener noreferrer">Cresselia Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/194982-meloetta-raid-guide/" target="_blank" rel="noopener noreferrer">Meloetta Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196360-cobalion-raid-guide/" target="_blank" rel="noopener noreferrer">Cobalion Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196362-terrakion-raid-guide/" target="_blank" rel="noopener noreferrer">Terrakion Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196361-virizion-raid-guide/" target="_blank" rel="noopener noreferrer">Virizion Raid Guide</a></li>
                   </ul>
                 </div>
               </details>
@@ -985,6 +1000,7 @@
           menuCosmetics: "Cosmetics",
           menuCalendar: "Calendar",
           menuGuides: "Guides",
+          menuLegendary: "Legendary",
           menuBreeding: "Breeding",
           menuGitHub: "GitHub",
           guidesTitle: "PokeMMO Guides",
@@ -1095,6 +1111,7 @@
                 <summary>Source</summary>
                 <div class="calendar-detail-body">
                   <p><a href="https://forums.pokemmo.com/index.php?/topic/187603-the-ultimate-legendary-guide/" target="_blank" rel="noopener noreferrer">The Ultimate Legendary Guide (Forum)</a></p>
+                  <p><a href="LegendäreGuide.html">Open full native project version</a></p>
                   <p>This tab is a compact quick-reference based on that guide.</p>
                 </div>
               </details>
@@ -1103,9 +1120,21 @@
                 <summary>Regional requirements</summary>
                 <div class="calendar-detail-body">
                   <ul class="guide-list">
-                    <li>Kanto birds: enough Kanto story progress (badges/league).</li>
-                    <li>Johto beasts: Johto story progress including Ho-Oh progression.</li>
-                    <li>Sinnoh/Unova roamers: require matching story/endgame progression.</li>
+                    <li>Kanto birds: available as random encounters after clearing the League.</li>
+                    <li>Johto beasts: available as random encounters after defeating Ho-Oh during the story.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Forum strategies (raids)</summary>
+                <div class="calendar-detail-body">
+                  <ul class="guide-list">
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/193398-cresselia-raid-guide/" target="_blank" rel="noopener noreferrer">Cresselia Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/194982-meloetta-raid-guide/" target="_blank" rel="noopener noreferrer">Meloetta Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196360-cobalion-raid-guide/" target="_blank" rel="noopener noreferrer">Cobalion Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196362-terrakion-raid-guide/" target="_blank" rel="noopener noreferrer">Terrakion Raid Guide</a></li>
+                    <li><a href="https://forums.pokemmo.com/index.php?/topic/196361-virizion-raid-guide/" target="_blank" rel="noopener noreferrer">Virizion Raid Guide</a></li>
                   </ul>
                 </div>
               </details>
@@ -1529,7 +1558,7 @@
         setActiveLang(next);
 
         const ids = [
-          "menuHome", "menuCosmetics", "menuCalendar", "menuGuides", "menuBreeding", "menuGitHub",
+          "menuHome", "menuCosmetics", "menuCalendar", "menuGuides", "menuLegendary", "menuBreeding", "menuGitHub",
           "guidesTitle", "guidesSubtitle", "guidesSectionTitle", "guidesSectionSubtitle",
           "tabRoaming", "tabLegendary", "tabCosmetics", "tabFarming", "tabEv", "tabIv", "tabBreeding", "tabHooh",
           "roamingTitle", "roamingIntro", "legendaryTitle", "legendaryIntro", "cosmeticsTitle", "cosmeticsIntro", "farmingTitle", "farmingIntro", "evTitle", "evIntro", "ivTitle", "ivIntro", "breedingTitle", "breedingIntro", "hoohTitle", "hoohIntro"
@@ -1587,5 +1616,6 @@
   </script>
 </body>
 </html>
+
 
 
