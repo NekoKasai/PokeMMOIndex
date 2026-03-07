@@ -1531,7 +1531,7 @@
         }
       };
 
-      const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "en");
+      const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "de");
       const setActiveLang = (lang) => {
         langButtons.forEach((btn) => btn.classList.toggle("active", btn.dataset.lang === lang));
       };

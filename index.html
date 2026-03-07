@@ -282,6 +282,185 @@
             transform: translateY(-2px);
         }
 
+        .guide-section {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .guide-container {
+            background: linear-gradient(135deg, var(--surface-alt) 0%, var(--surface) 100%);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+
+        .guide-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .guide-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guide-header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .guide-content {
+            padding: 2rem;
+        }
+
+        .guide-section-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .guide-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .guide-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .guide-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1rem 0;
+        }
+
+        .guide-list li {
+            color: var(--text-secondary);
+            padding: 0.4rem 0 0.4rem 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .guide-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .guide-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .guide-table th {
+            background: rgba(78, 205, 196, 0.2);
+            color: var(--secondary);
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 2px solid var(--border);
+            font-weight: 600;
+        }
+
+        .guide-table td {
+            color: var(--text-secondary);
+            padding: 0.6rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .guide-table tr:hover {
+            background: rgba(78, 205, 196, 0.05);
+        }
+
+        .guide-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .guide-box {
+            background: rgba(255, 107, 107, 0.1);
+            border-left: 3px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.3rem;
+        }
+
+        .guide-box strong {
+            color: var(--primary);
+        }
+
+        .guide-tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .guide-table-wrapper {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        .guide-table-title {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 0.9rem;
+        }
+
+        .guide-table-wrapper .guide-table {
+            margin: 0;
+            font-size: 0.85rem;
+        }
+
+        .guide-table-wrapper .guide-table th {
+            padding: 0.5rem 0.5rem;
+        }
+
+        .guide-table-wrapper .guide-table td {
+            padding: 0.4rem 0.5rem;
+        }
+
+        .guide-hint {
+            display: flex;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .guide-hint-icon {
+            color: var(--accent);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .guide-header h2 {
+                font-size: 1.4rem;
+            }
+
+            .guide-content {
+                padding: 1.5rem;
+            }
+
+            .guide-tables-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .projects-section {
             max-width: 1200px;
             margin: 4rem auto 0;
@@ -503,6 +682,7 @@
         <p id="heroSubtitle">Hilfreiche PokeMMO-Tools an einem Ort – einfach zu nutzen, klar aufgebaut und für den Alltag im Spiel gemacht.</p>
         <div class="hero-buttons">
             <a id="heroExploreBtn" href="#projects" class="btn btn-primary">Explore Projects</a>
+            <a id="heroGuideBtn" href="#quick-guide" class="btn btn-primary">Getting Started</a>
             <a id="heroGitHubBtn" href="https://github.com/NekoKasai/PokeMMOIndex" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
     </section>
@@ -590,6 +770,209 @@
         </div>
     </section>
 
+    <section class="guide-section" id="quick-guide">
+        <div class="guide-container">
+            <div class="guide-header">
+                <h2 id="guideTitle">PokeMMO – Starter Guide</h2>
+                <p id="guideSubtitle">Wichtige Informationen für deinen Spielstart</p>
+            </div>
+            <div class="guide-content">
+                <!-- GTL Section -->
+                <h3 id="gtlTitle" class="guide-section-title">💰 Globaler Handelsplatz (GTL)</h3>
+                <p id="gtlDesc" class="guide-text">Sobald du in deiner Startregion den 4. Orden hast, kannst du den GTL nutzen.</p>
+                <ul class="guide-list">
+                    <li id="gtlItem1">Der GTL ist das 4. Icon unten rechts in der Menüleiste</li>
+                    <li id="gtlItem2">Items kaufen und verkaufen</li>
+                    <li id="gtlItem3">Pokémon von anderen Spielern kaufen</li>
+                    <li id="gtlItem4">Eigene Pokémon oder Items verkaufen</li>
+                </ul>
+                <p id="gtlExtra" class="guide-text" style="margin-top: 0.75rem;"><strong id="gtlExtraLabel">Zusätzlich:</strong> Du kannst jederzeit mit anderen Spielern tauschen oder die Post nutzen.</p>
+
+                <!-- Region Wechsel -->
+                <h3 id="regionTitle" class="guide-section-title">🌍 Regionen wechseln</h3>
+                <p id="regionDesc" class="guide-text">Ab dem 4. Orden kannst du in neue Regionen reisen:</p>
+                <ul class="guide-list">
+                    <li id="regionItem1">Gehe zum Hafen deiner gewünschten Region</li>
+                    <li id="regionItem2">Sprich mit dem Piraten/Kapitän</li>
+                </ul>
+
+                <div class="guide-box">
+                    <strong id="regionWarnLabel">⚠️ Wichtig:</strong>
+                    <div id="regionWarning">
+                        <p style="margin: 0.5rem 0;">Beim Betreten einer neuen Region:</p>
+                        <ul class="guide-list" style="margin: 0.5rem 0;">
+                            <li id="regionWarn1">Alle Pokémon im Team gehen automatisch in die PC-Box</li>
+                            <li id="regionWarn2">Du wählst einen neuen Starter aus</li>
+                            <li id="regionWarn3">Du kannst ab dem 1. Pokémon-Center wieder auf deine Box zugreifen</li>
+                        </ul>
+                    </div>
+                    <p id="regionReturn" style="margin: 0.5rem 0;"><strong id="regionReturnLabel">Zurück:</strong> <span id="regionReturnText">Bis du den Hafen erreichst, kannst du bei deiner Mutter zurück zur alten Region</span></p>
+                </div>
+
+                <p id="portsTitle" class="guide-text" style="margin-top: 1rem; margin-bottom: 0.5rem;"><strong>Häfen der Regionen:</strong></p>
+                <div class="guide-tables-grid">
+                    <div class="guide-table-wrapper">
+                        <div id="portKanto" class="guide-table-title">Kanto</div>
+                        <div style="color: var(--text-secondary); font-size: 0.85rem;">Orania City</div>
+                    </div>
+                    <div class="guide-table-wrapper">
+                        <div id="portJohto" class="guide-table-title">Johto</div>
+                        <div style="color: var(--text-secondary); font-size: 0.85rem;">Oliviana City</div>
+                    </div>
+                    <div class="guide-table-wrapper">
+                        <div id="portHoenn" class="guide-table-title">Hoenn</div>
+                        <div style="color: var(--text-secondary); font-size: 0.85rem;">Graphitport City</div>
+                    </div>
+                    <div class="guide-table-wrapper">
+                        <div id="portSinnoh" class="guide-table-title">Sinnoh</div>
+                        <div style="color: var(--text-secondary); font-size: 0.85rem;">Weideburg</div>
+                    </div>
+                    <div class="guide-table-wrapper">
+                        <div id="portUnova" class="guide-table-title">Einall (Unova)</div>
+                        <div style="color: var(--text-secondary); font-size: 0.85rem;">Stratos City</div>
+                    </div>
+                </div>
+
+                <!-- Level Cap -->
+                <h3 id="levelCapTitle" class="guide-section-title">📊 Level Cap (Gehorsamslevel)</h3>
+                <p id="levelCapDesc" class="guide-text">Jede Region hat ein Level Cap, das bestimmt, bis zu welchem Level deine Pokémon kämpfen können.</p>
+                <ul class="guide-list">
+                    <li id="levelCapItem1">Überprüfe dein Level Cap in der Trainerkarte (Taste C)</li>
+                    <li id="levelCapItem2">Pokémon über dem Cap gehorchen dir nicht</li>
+                    <li id="levelCapItem3">Bleibe immer unter dem Level Cap!</li>
+                    <li id="levelCapItem4">Nach der Elite 4 wird das Cap auf Level 100 erhöht</li>
+                </ul>
+
+                <div class="guide-box">
+                    <strong id="levelCapTableTitle">Level Caps nach Region:</strong>
+                </div>
+
+                <div class="guide-tables-grid">
+                    <div class="guide-table-wrapper">
+                        <div class="guide-table-title" id="regionTableKanto">Kanto</div>
+                        <table class="guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>20</td></tr>
+                                <tr><td>1</td><td>26</td></tr>
+                                <tr><td>2</td><td>32</td></tr>
+                                <tr><td>3</td><td>37</td></tr>
+                                <tr><td>4</td><td>46</td></tr>
+                                <tr><td>5</td><td>47</td></tr>
+                                <tr><td>6</td><td>50</td></tr>
+                                <tr><td>7</td><td>55</td></tr>
+                                <tr><td>8</td><td>62</td></tr>
+                                <tr><td>Elite 4</td><td>100</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="guide-table-wrapper">
+                        <div class="guide-table-title" id="regionTableJohto">Johto</div>
+                        <table class="guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>20</td></tr>
+                                <tr><td>1</td><td>24</td></tr>
+                                <tr><td>2</td><td>29</td></tr>
+                                <tr><td>3</td><td>32</td></tr>
+                                <tr><td>4</td><td>37</td></tr>
+                                <tr><td>5</td><td>39</td></tr>
+                                <tr><td>6</td><td>41</td></tr>
+                                <tr><td>7</td><td>46</td></tr>
+                                <tr><td>8</td><td>48</td></tr>
+                                <tr><td>Ho-Oh</td><td>55</td></tr>
+                                <tr><td>Elite 4</td><td>100</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="guide-table-wrapper">
+                        <div class="guide-table-title" id="regionTableHoenn">Hoenn</div>
+                        <table class="guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>20</td></tr>
+                                <tr><td>1</td><td>24</td></tr>
+                                <tr><td>2</td><td>28</td></tr>
+                                <tr><td>3</td><td>33</td></tr>
+                                <tr><td>4</td><td>35</td></tr>
+                                <tr><td>5</td><td>38</td></tr>
+                                <tr><td>6</td><td>44</td></tr>
+                                <tr><td>7</td><td>48</td></tr>
+                                <tr><td>8</td><td>58</td></tr>
+                                <tr><td>Elite 4</td><td>100</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="guide-table-wrapper">
+                        <div class="guide-table-title" id="regionTableSinnoh">Sinnoh</div>
+                        <table class="guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>20</td></tr>
+                                <tr><td>1</td><td>27</td></tr>
+                                <tr><td>2</td><td>29</td></tr>
+                                <tr><td>3</td><td>34</td></tr>
+                                <tr><td>4</td><td>37</td></tr>
+                                <tr><td>5</td><td>43</td></tr>
+                                <tr><td>6</td><td>46</td></tr>
+                                <tr><td>7</td><td>52</td></tr>
+                                <tr><td>8</td><td>60</td></tr>
+                                <tr><td>Elite 4</td><td>100</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="guide-table-wrapper">
+                        <div class="guide-table-title" id="regionTableUnova">Einall (Unova)</div>
+                        <table class="guide-table">
+                            <thead>
+                                <tr>
+                                    <th>Orden</th>
+                                    <th>Cap</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>0</td><td>20</td></tr>
+                                <tr><td>1</td><td>24</td></tr>
+                                <tr><td>2</td><td>27</td></tr>
+                                <tr><td>3</td><td>31</td></tr>
+                                <tr><td>4</td><td>35</td></tr>
+                                <tr><td>5</td><td>38</td></tr>
+                                <tr><td>6</td><td>43</td></tr>
+                                <tr><td>7</td><td>46</td></tr>
+                                <tr><td>8</td><td>56</td></tr>
+                                <tr><td>Elite 4</td><td>100</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer id="contact">
         <p id="footerCopy">© 2026 PokeMMOIndex. All rights reserved.</p>
         <p id="footerDisclaimer" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
@@ -616,6 +999,7 @@
                     menuGitHub: "GitHub",
                     heroSubtitle: "Hilfreiche PokeMMO-Tools an einem Ort – einfach zu nutzen, klar aufgebaut und für den Alltag im Spiel gemacht.",
                     heroExploreBtn: "Projekte entdecken",
+                    heroGuideBtn: "Starter Guide",
                     projectsTitle: "Projekte",
                     cosmeticsBadgeText: "Aktiv",
                     cosmeticsTitle: "Cosmetics",
@@ -642,7 +1026,46 @@
                     teamBuilderDesc: "Team-Planung und Build-Workflow sind aktuell in Entwicklung.",
                     teamBuilderLink: "→ Beta",
                     footerCopy: "© 2026 PokeMMOIndex. Alle Rechte vorbehalten.",
-                    footerDisclaimer: "Diese Tools sind nicht offiziell mit PokeMMO verbunden."
+                    footerDisclaimer: "Diese Tools sind nicht offiziell mit PokeMMO verbunden.",
+                    guideTitle: "PokeMMO – Starter Guide",
+                    guideSubtitle: "Wichtige Informationen für deinen Spielstart",
+                    gtlTitle: "💰 Globaler Handelsplatz (GTL)",
+                    gtlDesc: "Sobald du in deiner Startregion den 4. Orden hast, kannst du den GTL nutzen.",
+                    gtlItem1: "Der GTL ist das 4. Icon unten rechts in der Menüleiste",
+                    gtlItem2: "Items kaufen und verkaufen",
+                    gtlItem3: "Pokémon von anderen Spielern kaufen",
+                    gtlItem4: "Eigene Pokémon oder Items verkaufen",
+                    gtlExtraLabel: "Zusätzlich:",
+                    gtlExtra: "Du kannst jederzeit mit anderen Spielern tauschen oder die Post nutzen.",
+                    regionTitle: "🌍 Regionen wechseln",
+                    regionDesc: "Ab dem 4. Orden kannst du in neue Regionen reisen:",
+                    regionItem1: "Gehe zum Hafen deiner gewünschten Region",
+                    regionItem2: "Sprich mit dem Piraten/Kapitän",
+                    regionWarnLabel: "⚠️ Wichtig:",
+                    regionWarning: "Beim Betreten einer neuen Region:",
+                    regionWarn1: "Alle Pokémon im Team gehen automatisch in die PC-Box",
+                    regionWarn2: "Du wählst einen neuen Starter aus",
+                    regionWarn3: "Du kannst ab dem 1. Pokémon-Center wieder auf deine Box zugreifen",
+                    regionReturnLabel: "Zurück:",
+                    regionReturnText: "Bis du den Hafen erreichst, kannst du bei deiner Mutter zurück zur alten Region",
+                    portsTitle: "Häfen der Regionen:",
+                    portKanto: "Kanto",
+                    portJohto: "Johto",
+                    portHoenn: "Hoenn",
+                    portSinnoh: "Sinnoh",
+                    portUnova: "Einall (Unova)",
+                    levelCapTitle: "📊 Level Cap (Gehorsamslevel)",
+                    levelCapDesc: "Jede Region hat ein Level Cap, das bestimmt, bis zu welchem Level deine Pokémon kämpfen können.",
+                    levelCapItem1: "Überprüfe dein Level Cap in der Trainerkarte (Taste C)",
+                    levelCapItem2: "Pokémon über dem Cap gehorchen dir nicht",
+                    levelCapItem3: "Bleibe immer unter dem Level Cap!",
+                    levelCapItem4: "Nach der Elite 4 wird das Cap auf Level 100 erhöht",
+                    levelCapTableTitle: "Level Caps nach Region:",
+                    regionTableKanto: "Kanto",
+                    regionTableJohto: "Johto",
+                    regionTableHoenn: "Hoenn",
+                    regionTableSinnoh: "Sinnoh",
+                    regionTableUnova: "Einall (Unova)"
                 },
                 en: {
                     menuHome: "Home",
@@ -655,6 +1078,7 @@
                     menuGitHub: "GitHub",
                     heroSubtitle: "Useful PokeMMO tools in one place, built to be simple, clear, and practical for everyday gameplay.",
                     heroExploreBtn: "Explore Projects",
+                    heroGuideBtn: "Getting Started",
                     projectsTitle: "Projects",
                     cosmeticsBadgeText: "Active",
                     cosmeticsTitle: "Cosmetics",
@@ -681,11 +1105,50 @@
                     teamBuilderDesc: "Team planning and build workflow are currently in development.",
                     teamBuilderLink: "→ Beta",
                     footerCopy: "© 2026 PokeMMOIndex. All rights reserved.",
-                    footerDisclaimer: "These tools are not officially affiliated with PokeMMO."
+                    footerDisclaimer: "These tools are not officially affiliated with PokeMMO.",
+                    guideTitle: "PokeMMO – Getting Started Guide",
+                    guideSubtitle: "Important information for your game start",
+                    gtlTitle: "💰 Global Trade List (GTL)",
+                    gtlDesc: "Once you have the 4th badge in your starting region, you can use the GTL.",
+                    gtlItem1: "The GTL is the 4th icon in the bottom right of the menu bar",
+                    gtlItem2: "Buy and sell items",
+                    gtlItem3: "Buy Pokémon from other players",
+                    gtlItem4: "Sell your own Pokémon or items",
+                    gtlExtraLabel: "Additionally:",
+                    gtlExtra: "You can always trade directly with other players or use the mail system.",
+                    regionTitle: "🌍 Changing Regions",
+                    regionDesc: "After getting the 4th badge, you can travel to new regions:",
+                    regionItem1: "Go to the port of your desired region",
+                    regionItem2: "Talk to the pirate/captain",
+                    regionWarnLabel: "⚠️ Important:",
+                    regionWarning: "When entering a new region:",
+                    regionWarn1: "All Pokémon in your party automatically go to your PC box",
+                    regionWarn2: "You choose a new starter Pokémon",
+                    regionWarn3: "You can access your box again at the first Pokémon Center",
+                    regionReturnLabel: "Going Back:",
+                    regionReturnText: "Until you reach the port, you can return to the previous region at your home",
+                    portsTitle: "Regional Ports:",
+                    portKanto: "Kanto",
+                    portJohto: "Johto",
+                    portHoenn: "Hoenn",
+                    portSinnoh: "Sinnoh",
+                    portUnova: "Unova",
+                    levelCapTitle: "📊 Level Cap (Obedience Level)",
+                    levelCapDesc: "Each region has a level cap that determines up to what level your Pokémon can battle.",
+                    levelCapItem1: "Check your level cap in your Trainer Card (Press C)",
+                    levelCapItem2: "Pokémon above the cap won't obey you",
+                    levelCapItem3: "Always stay below the level cap!",
+                    levelCapItem4: "After defeating the Elite Four, the cap increases to level 100",
+                    levelCapTableTitle: "Level Caps by Region:",
+                    regionTableKanto: "Kanto",
+                    regionTableJohto: "Johto",
+                    regionTableHoenn: "Hoenn",
+                    regionTableSinnoh: "Sinnoh",
+                    regionTableUnova: "Unova"
                 }
             };
 
-            const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "en");
+            const normalizeLang = (value) => (VALID_LANGS.includes(value) ? value : "de");
             const headerLangButtons = document.querySelectorAll(".header-lang-btn[data-lang]");
             const setActiveLangButton = (lang) => {
                 headerLangButtons.forEach((btn) => {
