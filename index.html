@@ -777,8 +777,21 @@
                 <p id="guideSubtitle">Wichtige Informationen für deinen Spielstart</p>
             </div>
             <div class="guide-content">
+                <!-- Inhaltsverzeichnis -->
+                <nav style="background:rgba(78,205,196,0.07);border:1px solid rgba(78,205,196,0.22);border-radius:0.6rem;padding:1rem 1.25rem;margin-bottom:1.5rem;">
+                    <p style="color:var(--secondary);font-weight:700;margin-bottom:0.6rem;font-size:0.95rem;">📋 Inhaltsverzeichnis</p>
+                    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.35rem;">
+                        <li><a href="#gtlTitle" style="color:var(--text-primary);text-decoration:none;font-size:0.93rem;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--text-primary)'">💰 Globaler Handelsplatz (GTL)</a></li>
+                        <li><a href="#regionTitle" style="color:var(--text-primary);text-decoration:none;font-size:0.93rem;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--text-primary)'">🌍 Regionen wechseln</a></li>
+                        <li><a href="#levelCapTitle" style="color:var(--text-primary);text-decoration:none;font-size:0.93rem;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--text-primary)'">📊 Level Cap (Gehorsamslevel)</a></li>
+                        <li><a href="#epTeilerGuide" style="color:var(--text-primary);text-decoration:none;font-size:0.93rem;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--text-primary)'">🔄 EP-Teiler Guide (PokeMMO)</a></li>
+                    </ul>
+                </nav>
                 <!-- GTL Section -->
-                <h3 id="gtlTitle" class="guide-section-title">💰 Globaler Handelsplatz (GTL)</h3>
+                                <h3 id="gtlTitle" class="guide-section-title">
+                                    <span><a href="#gtlTitle" style="color:inherit;text-decoration:underline dotted;cursor:pointer;" title="Link zu diesem Abschnitt">💰 Globaler Handelsplatz (GTL)</a></span>
+                                    <button onclick="copySectionLink('gtlTitle')" title="Link kopieren" style="margin-left:8px;background:none;border:none;cursor:pointer;color:var(--secondary);font-size:1.1em;vertical-align:middle;">🔗</button>
+                                </h3>
                 <p id="gtlDesc" class="guide-text">Sobald du in deiner Startregion den 4. Orden hast, kannst du den GTL nutzen.</p>
                 <ul class="guide-list">
                     <li id="gtlItem1">Der GTL ist das 4. Icon unten rechts in der Menüleiste</li>
@@ -797,7 +810,10 @@
                     </div>
 
                 <!-- Region Wechsel -->
-                <h3 id="regionTitle" class="guide-section-title">🌍 Regionen wechseln</h3>
+                <h3 id="regionTitle" class="guide-section-title">
+                    <span><a href="#regionTitle" style="color:inherit;text-decoration:underline dotted;cursor:pointer;" title="Link zu diesem Abschnitt">🌍 Regionen wechseln</a></span>
+                    <button onclick="copySectionLink('regionTitle')" title="Link kopieren" style="margin-left:8px;background:none;border:none;cursor:pointer;color:var(--secondary);font-size:1.1em;vertical-align:middle;">🔗</button>
+                </h3>
                 <p id="regionDesc" class="guide-text">Ab dem 4. Orden kannst du in neue Regionen reisen:</p>
                 <ul class="guide-list">
                     <li id="regionItem1">Gehe zum Hafen deiner gewünschten Region</li>
@@ -842,7 +858,10 @@
                 </div>
 
                 <!-- Level Cap -->
-                <h3 id="levelCapTitle" class="guide-section-title">📊 Level Cap (Gehorsamslevel)</h3>
+                                <h3 id="levelCapTitle" class="guide-section-title">
+                                    <span><a href="#levelCapTitle" style="color:inherit;text-decoration:underline dotted;cursor:pointer;" title="Link zu diesem Abschnitt">📊 Level Cap (Gehorsamslevel)</a></span>
+                                    <button onclick="copySectionLink('levelCapTitle')" title="Link kopieren" style="margin-left:8px;background:none;border:none;cursor:pointer;color:var(--secondary);font-size:1.1em;vertical-align:middle;">🔗</button>
+                                </h3>
                 <p id="levelCapDesc" class="guide-text">Jede Region hat ein Level Cap, das bestimmt, bis zu welchem Level deine Pokémon kämpfen können.</p>
                 <ul class="guide-list">
                     <li id="levelCapItem1">Überprüfe dein Level Cap in der Trainerkarte (Taste C)</li>
@@ -861,136 +880,219 @@
                     </div>
 
                 <div class="guide-box">
-                    <strong id="levelCapTableTitle">Level Caps nach Region:</strong>
+                    <strong id="levelCapTableTitle">Level Caps nach Region (zum Aufklappen):</strong>
                 </div>
-
-                <div class="guide-tables-grid">
-                    <div class="guide-table-wrapper">
-                        <div class="guide-table-title" id="regionTableKanto">Kanto</div>
-                        <table class="guide-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Cap</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>0</td><td>20</td></tr>
-                                <tr><td>1</td><td>26</td></tr>
-                                <tr><td>2</td><td>32</td></tr>
-                                <tr><td>3</td><td>37</td></tr>
-                                <tr><td>4</td><td>46</td></tr>
-                                <tr><td>5</td><td>47</td></tr>
-                                <tr><td>6</td><td>50</td></tr>
-                                <tr><td>7</td><td>55</td></tr>
-                                <tr><td>8</td><td>62</td></tr>
-                                <tr><td>Elite 4</td><td>100</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="guide-table-wrapper">
-                        <div class="guide-table-title" id="regionTableJohto">Johto</div>
-                        <table class="guide-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Cap</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>0</td><td>20</td></tr>
-                                <tr><td>1</td><td>24</td></tr>
-                                <tr><td>2</td><td>29</td></tr>
-                                <tr><td>3</td><td>32</td></tr>
-                                <tr><td>4</td><td>37</td></tr>
-                                <tr><td>5</td><td>39</td></tr>
-                                <tr><td>6</td><td>41</td></tr>
-                                <tr><td>7</td><td>46</td></tr>
-                                <tr><td>8</td><td>48</td></tr>
-                                <tr><td>Ho-Oh</td><td>55</td></tr>
-                                <tr><td>Elite 4</td><td>100</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="guide-table-wrapper">
-                        <div class="guide-table-title" id="regionTableHoenn">Hoenn</div>
-                        <table class="guide-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Cap</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>0</td><td>20</td></tr>
-                                <tr><td>1</td><td>24</td></tr>
-                                <tr><td>2</td><td>28</td></tr>
-                                <tr><td>3</td><td>33</td></tr>
-                                <tr><td>4</td><td>35</td></tr>
-                                <tr><td>5</td><td>38</td></tr>
-                                <tr><td>6</td><td>44</td></tr>
-                                <tr><td>7</td><td>48</td></tr>
-                                <tr><td>8</td><td>58</td></tr>
-                                <tr><td>Elite 4</td><td>100</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="guide-table-wrapper">
-                        <div class="guide-table-title" id="regionTableSinnoh">Sinnoh</div>
-                        <table class="guide-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Cap</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>0</td><td>20</td></tr>
-                                <tr><td>1</td><td>27</td></tr>
-                                <tr><td>2</td><td>29</td></tr>
-                                <tr><td>3</td><td>34</td></tr>
-                                <tr><td>4</td><td>37</td></tr>
-                                <tr><td>5</td><td>43</td></tr>
-                                <tr><td>6</td><td>46</td></tr>
-                                <tr><td>7</td><td>52</td></tr>
-                                <tr><td>8</td><td>60</td></tr>
-                                <tr><td>Elite 4</td><td>100</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="guide-table-wrapper">
-                        <div class="guide-table-title" id="regionTableUnova">Einall (Unova)</div>
-                        <table class="guide-table">
-                            <thead>
-                                <tr>
-                                    <th>Orden</th>
-                                    <th>Cap</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>0</td><td>20</td></tr>
-                                <tr><td>1</td><td>24</td></tr>
-                                <tr><td>2</td><td>27</td></tr>
-                                <tr><td>3</td><td>31</td></tr>
-                                <tr><td>4</td><td>35</td></tr>
-                                <tr><td>5</td><td>38</td></tr>
-                                <tr><td>6</td><td>43</td></tr>
-                                <tr><td>7</td><td>46</td></tr>
-                                <tr><td>8</td><td>56</td></tr>
-                                <tr><td>Elite 4</td><td>100</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div>
+                    <details>
+                        <summary class="guide-table-title" id="regionTableKanto">Kanto</summary>
+                        <div class="guide-table-wrapper" style="margin-top:0;">
+                            <table class="guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Cap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>20</td></tr>
+                                    <tr><td>1</td><td>26</td></tr>
+                                    <tr><td>2</td><td>32</td></tr>
+                                    <tr><td>3</td><td>37</td></tr>
+                                    <tr><td>4</td><td>46</td></tr>
+                                    <tr><td>5</td><td>47</td></tr>
+                                    <tr><td>6</td><td>50</td></tr>
+                                    <tr><td>7</td><td>55</td></tr>
+                                    <tr><td>8</td><td>62</td></tr>
+                                    <tr><td>Elite 4</td><td>100</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="guide-table-title" id="regionTableJohto">Johto</summary>
+                        <div class="guide-table-wrapper" style="margin-top:0;">
+                            <table class="guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Cap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>20</td></tr>
+                                    <tr><td>1</td><td>24</td></tr>
+                                    <tr><td>2</td><td>29</td></tr>
+                                    <tr><td>3</td><td>32</td></tr>
+                                    <tr><td>4</td><td>37</td></tr>
+                                    <tr><td>5</td><td>39</td></tr>
+                                    <tr><td>6</td><td>41</td></tr>
+                                    <tr><td>7</td><td>46</td></tr>
+                                    <tr><td>8</td><td>48</td></tr>
+                                    <tr><td>Ho-Oh</td><td>55</td></tr>
+                                    <tr><td>Elite 4</td><td>100</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="guide-table-title" id="regionTableHoenn">Hoenn</summary>
+                        <div class="guide-table-wrapper" style="margin-top:0;">
+                            <table class="guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Cap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>20</td></tr>
+                                    <tr><td>1</td><td>24</td></tr>
+                                    <tr><td>2</td><td>28</td></tr>
+                                    <tr><td>3</td><td>33</td></tr>
+                                    <tr><td>4</td><td>35</td></tr>
+                                    <tr><td>5</td><td>38</td></tr>
+                                    <tr><td>6</td><td>44</td></tr>
+                                    <tr><td>7</td><td>48</td></tr>
+                                    <tr><td>8</td><td>58</td></tr>
+                                    <tr><td>Elite 4</td><td>100</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="guide-table-title" id="regionTableSinnoh">Sinnoh</summary>
+                        <div class="guide-table-wrapper" style="margin-top:0;">
+                            <table class="guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Cap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>20</td></tr>
+                                    <tr><td>1</td><td>27</td></tr>
+                                    <tr><td>2</td><td>29</td></tr>
+                                    <tr><td>3</td><td>34</td></tr>
+                                    <tr><td>4</td><td>37</td></tr>
+                                    <tr><td>5</td><td>43</td></tr>
+                                    <tr><td>6</td><td>46</td></tr>
+                                    <tr><td>7</td><td>52</td></tr>
+                                    <tr><td>8</td><td>60</td></tr>
+                                    <tr><td>Elite 4</td><td>100</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
+                    <details>
+                        <summary class="guide-table-title" id="regionTableUnova">Einall (Unova)</summary>
+                        <div class="guide-table-wrapper" style="margin-top:0;">
+                            <table class="guide-table">
+                                <thead>
+                                    <tr>
+                                        <th>Orden</th>
+                                        <th>Cap</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>0</td><td>20</td></tr>
+                                    <tr><td>1</td><td>24</td></tr>
+                                    <tr><td>2</td><td>27</td></tr>
+                                    <tr><td>3</td><td>31</td></tr>
+                                    <tr><td>4</td><td>35</td></tr>
+                                    <tr><td>5</td><td>38</td></tr>
+                                    <tr><td>6</td><td>43</td></tr>
+                                    <tr><td>7</td><td>46</td></tr>
+                                    <tr><td>8</td><td>56</td></tr>
+                                    <tr><td>Elite 4</td><td>100</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </details>
                 </div>
+                    <!-- EP-Teiler Guide -->
+                                        <h3 id="epTeilerGuide" class="guide-section-title">
+                                            <span><a href="#epTeilerGuide" style="color:inherit;text-decoration:underline dotted;cursor:pointer;" title="Link zu diesem Abschnitt">🔄 EP-Teiler Guide (PokeMMO)</a></span>
+                                            <button onclick="copySectionLink('epTeilerGuide')" title="Link kopieren" style="margin-left:8px;background:none;border:none;cursor:pointer;color:var(--secondary);font-size:1.1em;vertical-align:middle;">🔗</button>
+                                        </h3>
+                    <p class="guide-text">Der EP-Teiler ist ein sehr nützliches Item zum Leveln mehrerer Pokémon gleichzeitig. Während der Story kann man in jeder Region kostenlos einen EP-Teiler erhalten. Unten findest du wann und wo.</p>
+                    <div class="guide-box">
+                        <strong>Wie funktioniert der EP-Teiler?</strong>
+                        <ul class="guide-list">
+                            <li>Die erhaltenen Erfahrungspunkte werden zwischen den Pokémon geteilt, die einen EP-Teiler tragen.</li>
+                            <li>Anders als in neueren Spielen bekommen nicht automatisch alle Pokémon im Team volle EP.</li>
+                            <li>Am effizientesten: Ein Haupt-Pokémon kämpft, ein weiteres wird mit EP-Teiler nebenbei gelevelt.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-box">
+                        <strong>EV-Training mit mehreren EP-Teilern</strong>
+                        <ul class="guide-list">
+                            <li>Alle Pokémon mit EP-Teiler erhalten die entsprechenden EV-Punkte.</li>
+                            <li>So reicht ein einziger Kampf, um mehreren Pokémon die gleichen EVs zu geben.</li>
+                            <li><b>Beispiel:</b> Wenn 5 Pokémon Angriff-EVs trainieren sollen, reicht es, ein Pokémon kämpfen zu lassen, während die anderen mit EP-Teiler die EVs mitbekommen.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-box">
+                        <strong>Wichtiger Hinweis</strong>
+                        <ul class="guide-list">
+                            <li>EP-Teiler sind einmalige Items.</li>
+                            <li>Wenn ihr sie verschenkt, verleiht oder verkauft, sind sie für immer weg.</li>
+                            <li>Also vorsichtig damit umgehen, besonders beim Verleihen.</li>
+                        </ul>
+                    </div>
+                    <div class="guide-box">
+                        <strong>Premium-Shop Alternative</strong>
+                        <ul class="guide-list">
+                            <li>Im Shop gibt es einen Exp-Verstärker.</li>
+                            <li>Beim Aktivieren werden 25 % der erhaltenen Erfahrungspunkte an alle Pokémon im Team verteilt.</li>
+                            <li>EV-Punkte werden ebenfalls verteilt.</li>
+                            <li>Hilfreich beim Leveln oder EV-Training mehrerer Pokémon gleichzeitig.</li>
+                        </ul>
+                    </div>
+                    <h4 class="guide-section-title" style="font-size:1.1rem; margin-top:2rem;">Fundorte der EP-Teiler</h4>
+                    <div class="guide-tables-grid">
+                        <div class="guide-table-wrapper">
+                            <div class="guide-table-title">Kanto</div>
+                            <div style="color: var(--text-secondary); font-size: 0.85rem;">Im Tor zwischen Fuchsania City und Route 15 mit dem Assistenten des Professors sprechen, wenn 50 verschiedene Pokémon gefangen wurden.</div>
+                        </div>
+                        <div class="guide-table-wrapper">
+                            <div class="guide-table-title">Johto</div>
+                            <div style="color: var(--text-secondary); font-size: 0.85rem;">Nach dem Boss-Garados am See des Zorns und Erhalt der Roten Haut mit Mr. Pokémon auf Route 30 sprechen.</div>
+                        </div>
+                        <div class="guide-table-wrapper">
+                            <div class="guide-table-title">Hoenn</div>
+                            <div style="color: var(--text-secondary); font-size: 0.85rem;">Nach dem Überbringen des Briefes an Steven in Faustauhaven mit dem Mann im obersten Stockwerk der Devon Corporation im Nordwesten von Metarost City sprechen.</div>
+                        </div>
+                        <div class="guide-table-wrapper">
+                            <div class="guide-table-title">Sinnoh</div>
+                            <div style="color: var(--text-secondary); font-size: 0.85rem;">Mit dem Wissenschaftler im Tor südlich von Ewigenau sprechen, wenn mindestens 35 Pokémon gesehen wurden.</div>
+                        </div>
+                        <div class="guide-table-wrapper">
+                            <div class="guide-table-title">Einall (2 EP-Teiler)</div>
+                            <div style="color: var(--text-secondary); font-size: 0.85rem;">
+                                <b>Stratos City:</b> Battle Company westlich des Pokémon-Centers, 55. Stock, nach Sieg gegen den Hausmeister.<br><br>
+                                <b>Neivaio City:</b> Pokémon-Fanclub nordwestlich des Pokémon-Centers – dem Mann dort ein Pokémon zeigen, das zwischen 25 und 49 Level aufgestiegen ist.
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </section>
 
     <footer id="contact">
+            <script>
+            function copySectionLink(id) {
+                const url = window.location.origin + window.location.pathname + '#' + id;
+                navigator.clipboard.writeText(url).then(() => {
+                    // Optional: Feedback für den Nutzer
+                    const btns = document.querySelectorAll('button[onclick^="copySectionLink"]');
+                    btns.forEach(btn => btn.textContent = '🔗');
+                    const btn = event.currentTarget;
+                    btn.textContent = '✔️';
+                    setTimeout(() => { btn.textContent = '🔗'; }, 1200);
+                });
+            }
+            </script>
         <p id="footerCopy">© 2026 PokeMMOIndex. All rights reserved.</p>
         <p id="footerDisclaimer" style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
             These tools are not officially affiliated with PokeMMO.
@@ -1046,7 +1148,6 @@
                     footerDisclaimer: "Diese Tools sind nicht offiziell mit PokeMMO verbunden.",
                     guideTitle: "PokeMMO – Starter Guide",
                     guideSubtitle: "Wichtige Informationen für deinen Spielstart",
-                    gtlTitle: "💰 Globaler Handelsplatz (GTL)",
                     gtlDesc: "Sobald du in deiner Startregion den 4. Orden hast, kannst du den GTL nutzen.",
                     gtlItem1: "Der GTL ist das 4. Icon unten rechts in der Menüleiste",
                     gtlItem2: "Items kaufen und verkaufen",
@@ -1054,7 +1155,6 @@
                     gtlItem4: "Eigene Pokémon oder Items verkaufen",
                     gtlExtraLabel: "Zusätzlich:",
                     gtlExtra: "Du kannst jederzeit mit anderen Spielern tauschen oder die Post nutzen.",
-                    regionTitle: "🌍 Regionen wechseln",
                     regionDesc: "Ab dem 4. Orden kannst du in neue Regionen reisen:",
                     regionItem1: "Gehe zum Hafen deiner gewünschten Region",
                     regionItem2: "Sprich mit dem Piraten/Kapitän",
@@ -1071,7 +1171,6 @@
                     portHoenn: "Hoenn",
                     portSinnoh: "Sinnoh",
                     portUnova: "Einall (Unova)",
-                    levelCapTitle: "📊 Level Cap (Gehorsamslevel)",
                     levelCapDesc: "Jede Region hat ein Level Cap, das bestimmt, bis zu welchem Level deine Pokémon kämpfen können.",
                     levelCapItem1: "Überprüfe dein Level Cap in der Trainerkarte (Taste C)",
                     levelCapItem2: "Pokémon über dem Cap gehorchen dir nicht",
@@ -1125,7 +1224,6 @@
                     footerDisclaimer: "These tools are not officially affiliated with PokeMMO.",
                     guideTitle: "PokeMMO – Getting Started Guide",
                     guideSubtitle: "Important information for your game start",
-                    gtlTitle: "💰 Global Trade List (GTL)",
                     gtlDesc: "Once you have the 4th badge in your starting region, you can use the GTL.",
                     gtlItem1: "The GTL is the 4th icon in the bottom right of the menu bar",
                     gtlItem2: "Buy and sell items",
@@ -1133,7 +1231,6 @@
                     gtlItem4: "Sell your own Pokémon or items",
                     gtlExtraLabel: "Additionally:",
                     gtlExtra: "You can always trade directly with other players or use the mail system.",
-                    regionTitle: "🌍 Changing Regions",
                     regionDesc: "After getting the 4th badge, you can travel to new regions:",
                     regionItem1: "Go to the port of your desired region",
                     regionItem2: "Talk to the pirate/captain",
@@ -1150,7 +1247,6 @@
                     portHoenn: "Hoenn",
                     portSinnoh: "Sinnoh",
                     portUnova: "Unova",
-                    levelCapTitle: "📊 Level Cap (Obedience Level)",
                     levelCapDesc: "Each region has a level cap that determines up to what level your Pokémon can battle.",
                     levelCapItem1: "Check your level cap in your Trainer Card (Press C)",
                     levelCapItem2: "Pokémon above the cap won't obey you",

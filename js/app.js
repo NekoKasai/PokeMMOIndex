@@ -1720,9 +1720,3 @@ function itemMatchesTagFilter(tags, filterTag) {
   }
   return tags.includes(filterTag);
 }
-
-
-
-
-
-

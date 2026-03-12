@@ -61,6 +61,7 @@
         <button type="button" class="guides-tab-btn" data-guide="iv" role="tab" aria-selected="false" id="tabIv">IVs, EVs & Wesen</button>
         <button type="button" class="guides-tab-btn" data-guide="breeding" role="tab" aria-selected="false" id="tabBreeding">Zucht-Guide</button>
         <button type="button" class="guides-tab-btn" data-guide="hooh" role="tab" aria-selected="false" id="tabHooh">Ho-Oh Rematch</button>
+        <button type="button" class="guides-tab-btn" data-guide="sevii" role="tab" aria-selected="false" id="tabSevii">Sevii Islands</button>
       </div>
 
       <article class="guide-panel active" data-guide-panel="roaming" role="tabpanel" aria-labelledby="tabRoaming">
@@ -119,6 +120,12 @@
         <p id="hoohIntro">Einfachste Methode (10 Züge, keine Verbrauchsitems).</p>
         <div id="hoohBody" class="calendar-detail-body"></div>
       </article>
+
+      <article class="guide-panel" data-guide-panel="sevii" role="tabpanel" aria-labelledby="tabSevii">
+        <h3 id="seviiTitle">Sevii Islands – Rubin &amp; Saphir Guide (Kanto)</h3>
+        <p id="seviiIntro">Schritt-für-Schritt-Guide für beide Edelsteine und die Freischaltung der Azuria-Höhle.</p>
+        <div id="seviiBody" class="calendar-detail-body"></div>
+      </article>
     </section>
   </main>
 
@@ -160,6 +167,7 @@
           tabIv: "IVs, EVs & Wesen",
           tabBreeding: "Zucht-Guide",
           tabHooh: "Ho-Oh Rematch",
+          tabSevii: "Sevii Islands",
           roamingTitle: "Was sind Alpha-Pokémon?",
           roamingIntro: "Übersicht zu Spawn, Kampf und Zucht.",
           roamingBody: `
@@ -927,6 +935,73 @@
               </details>
             </div>
           `,
+          seviiTitle: "Sevii Islands – Rubin & Saphir Guide (Kanto)",
+          seviiIntro: "Schritt-für-Schritt-Guide für beide Edelsteine und die Freischaltung der Azuria-Höhle.",
+          seviiBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Teil 1: Den Rubin finden</summary>
+                <div class="calendar-detail-body">
+                  <p>Besiege die Top 4 und deinen Rivalen. Danach erhältst du direkt den nationalen Pokédex. Fliege nach <strong>Orania City</strong> und fahre von dort mit dem Schiff zu <strong>Eiland 1</strong>.</p>
+                  <p>Betritt das Pokémon-Center und sprich mit <strong>Celio</strong>, der vor der großen Maschine steht. Er erklärt dir, dass er einen Edelstein benötigt, um seine Maschine fertigzustellen.</p>
+                  <p>Begib dich danach zum <strong>Glutberg</strong>, der sich rechts von Eiland 1 befindet – surfe dazu nach oben. Gleich am Eingang rechts stehen zwei Team Rocket-Rüpel vor einem offenen Höhleneingang. Besiege sie und betritt die Höhle.</p>
+                  <ul class="guide-list">
+                    <li>Folge dem Weg durch das <strong>Erdgeschoss</strong> bis zur Leiter nach unten.</li>
+                    <li>Im <strong>1. Untergeschoss</strong> gehst du weiter zur nächsten Leiter.</li>
+                    <li>Im <strong>2. Untergeschoss</strong> schiebst du mit Stärke die Steine beiseite und steigst erneut eine Etage tiefer.</li>
+                    <li>Im <strong>3. Untergeschoss</strong> schiebst du wieder Steine: den ersten nur einmal nach rechts, dann von oben nach unten. An der Kreuzung gehst du nach unten weiter – der Weg nach rechts führt lediglich zum Ausgang.</li>
+                    <li>Steige noch <strong>zwei weitere Etagen</strong> hinab – im 5. Untergeschoss findest du den <strong>Rubin</strong> auf einem Podest.</li>
+                  </ul>
+                  <p>Kehre mit dem Rubin zu <strong>Celio</strong> im Pokémon-Center von Eiland 1 zurück. Als Dank erhältst du den <strong>Bunt-Pass</strong>, der dir das Reisen zu Eiland 4 bis 7 ermöglicht.</p>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Teil 2: Den Saphir finden</summary>
+                <div class="calendar-detail-body">
+                  <div class="guide-box" style="background:rgba(78,205,196,0.1);border-left-color:var(--secondary);margin-bottom:1rem;">
+                    <strong>Benötigte Fähigkeiten:</strong> Surfer, Kaskade, Zerschneider, Stärke
+                  </div>
+
+                  <p><strong>Eiland 4 – Eiskaskadenhöhle:</strong></p>
+                  <ul class="guide-list">
+                    <li>Fliege zu <strong>Eiland 4</strong> (Sevii-Eiland) und surfe zum linken Eingang der <strong>Eiskaskadenhöhle</strong>.</li>
+                    <li>Navigiere durch die Eispuzzles bis ans Ende des zweiten Bereichs – dort erhältst du <strong>VM07 Kaskade</strong>, ein Ewiges Eis und eine Top-Genesung.</li>
+                    <li>Kehre zum Eingangsbereich zurück und benutze <strong>Kaskade</strong> am Wasserfall, um oben eine Leiter nach unten zu erreichen.</li>
+                    <li>Durch einen Höhleneingang gelangst du in einen neuen Bereich, wo <strong>Lorelei</strong> gegen Team Rocket kämpft. Besiege dort alle Rocket-Rüpel.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Eiland 5 – Chrono-Insel:</strong></p>
+                  <ul class="guide-list">
+                    <li>Folge dem Weg nach rechts durch die Wiese und besiege die drei Team Rocket-Rüpel, die den Weg zum Lager blockieren – so erhältst du das <strong>erste Passwort</strong>.</li>
+                    <li>Das Lager kann noch nicht betreten werden, da das zweite Passwort fehlt.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Eiland 6 – Schicksalsinsel / Punktloch-Ruinen:</strong></p>
+                  <ul class="guide-list">
+                    <li>Verlasse das Pokémon-Center nach unten rechts und folge dem Weg bis zum <strong>Ruinental</strong>.</li>
+                    <li>Untersuche den Eingang der Ruinen – auf der Tür steht in Blindenschrift „<strong>Zerschneider</strong>". Benutze genau diese Attacke, um die Tür zu öffnen.</li>
+                    <li>Betritt die Ruine namens <strong>Punktloch</strong> und falle durch das erste Loch in das Untergeschoss.</li>
+                    <li>Lese die Tafeln und folge den Lochrichtungen in dieser Reihenfolge: <strong>Hinauf → Links → Rechts → Hinunter</strong>.</li>
+                    <li>Am Ende findest du den <strong>Saphir</strong> – doch ein Forscher klaut ihn sofort und verrät dir dabei das <strong>zweite Passwort</strong> für das Rocket-Lager auf Eiland 5.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Zurück zu Eiland 5 – Rocket-Lager:</strong></p>
+                  <ul class="guide-list">
+                    <li>Durchquere die Wiese mit <strong>Zerschneider</strong> und gehe zur Vordertür des Rocket-Lagers.</li>
+                    <li>Gib beide Passwörter ein und betritt das Lager.</li>
+                    <li>Durchquere das Lager, besiege die Rocket-Vorsteher und kämpfe schließlich gegen <strong>Forscher Ingo</strong>.</li>
+                    <li>Er übergibt dir anschließend den <strong>Saphir</strong> zurück.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;">Kehre nun zu <strong>Celio auf Eiland 1</strong> zurück und übergib ihm den Saphir. Die Maschine ist nun vollständig.</p>
+                  <div class="guide-box" style="margin-top:0.75rem;">
+                    <strong>🎉 Belohnung:</strong> Du erhältst nun Zugang zur <strong>Azuria-Höhle</strong> bei Azuria City, wo viele starke Pokémon auf dich warten. Viel Spaß!
+                  </div>
+                </div>
+              </details>
+            </div>
+          `,
           hoohTitle: "Komplett-Guide: Ho-Oh Rematch",
           hoohIntro: "Einfachste Methode (10 Züge, keine Verbrauchsitems).",
           hoohBody: `
@@ -1514,6 +1589,73 @@
               </details>
             </div>
           `,
+          seviiTitle: "Sevii Islands – Ruby & Sapphire Guide (Kanto)",
+          seviiIntro: "Step-by-step guide for both gems and unlocking the Cerulean Cave.",
+          seviiBody: `
+            <div class="guide-accordion">
+              <details class="health-toggle" open>
+                <summary>Part 1: Finding the Ruby</summary>
+                <div class="calendar-detail-body">
+                  <p>Defeat the Elite Four and your Rival. You will immediately receive the National Pokédex. Fly to <strong>Vermilion City</strong> and take the ship to <strong>One Island</strong>.</p>
+                  <p>Enter the Pokémon Center and talk to <strong>Celio</strong>, who stands in front of the large machine. He explains he needs a gem to complete it.</p>
+                  <p>Head to <strong>Mt. Ember</strong>, located to the right of One Island – surf upward. Just inside the entrance, two Team Rocket grunts block an open cave. Defeat them and enter.</p>
+                  <ul class="guide-list">
+                    <li>Follow the path through the <strong>ground floor</strong> to the ladder down.</li>
+                    <li>In <strong>B1F</strong>, continue to the next ladder.</li>
+                    <li>In <strong>B2F</strong>, use Strength to push boulders aside and descend again.</li>
+                    <li>In <strong>B3F</strong>, push boulders: the first one right once, then from above push it down. At the junction go downward – the right path only leads to the exit.</li>
+                    <li>Descend <strong>two more floors</strong> – on B5F you find the <strong>Ruby</strong> on a pedestal.</li>
+                  </ul>
+                  <p>Return the Ruby to <strong>Celio</strong> in the Pokémon Center on One Island. As thanks you receive the <strong>Rainbow Pass</strong>, granting access to Islands 4–7.</p>
+                </div>
+              </details>
+
+              <details class="health-toggle">
+                <summary>Part 2: Finding the Sapphire</summary>
+                <div class="calendar-detail-body">
+                  <div class="guide-box" style="background:rgba(78,205,196,0.1);border-left-color:var(--secondary);margin-bottom:1rem;">
+                    <strong>Required HMs:</strong> Surf, Waterfall, Cut, Strength
+                  </div>
+
+                  <p><strong>Four Island – Icefall Cave:</strong></p>
+                  <ul class="guide-list">
+                    <li>Fly to <strong>Four Island</strong> and surf to the left entrance of the <strong>Icefall Cave</strong>.</li>
+                    <li>Navigate the ice puzzles to the end of the second area – collect <strong>HM07 Waterfall</strong>, a Never-Melt Ice, and a Full Restore.</li>
+                    <li>Return to the entrance area and use <strong>Waterfall</strong> to climb up and reach a ladder.</li>
+                    <li>Through a cave entrance you reach a new area where <strong>Lorelei</strong> battles Team Rocket. Defeat all Rocket grunts.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Five Island – Chrono Island:</strong></p>
+                  <ul class="guide-list">
+                    <li>Follow the path right through the meadow and defeat the three Team Rocket grunts blocking the path to the warehouse – you receive the <strong>first password</strong>.</li>
+                    <li>You cannot enter the warehouse yet without the second password.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Six Island – Ruin Valley / Dotted Hole:</strong></p>
+                  <ul class="guide-list">
+                    <li>Exit the Pokémon Center to the lower right and follow the path to <strong>Ruin Valley</strong>.</li>
+                    <li>Examine the ruin entrance – the door reads "<strong>Cut</strong>" in Braille. Use Cut to open it.</li>
+                    <li>Enter <strong>Dotted Hole</strong> and fall through the first hole into the basement.</li>
+                    <li>Read the tablets and follow the hole directions: <strong>Up → Left → Right → Down</strong>.</li>
+                    <li>At the end you find the <strong>Sapphire</strong> – but a researcher steals it immediately and reveals the <strong>second password</strong> for the Team Rocket warehouse on Five Island.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;"><strong>Back to Five Island – Team Rocket Warehouse:</strong></p>
+                  <ul class="guide-list">
+                    <li>Cut through the meadow and go to the front door of the <strong>Rocket Warehouse</strong>.</li>
+                    <li>Enter both passwords and go inside.</li>
+                    <li>Fight your way through the warehouse, defeat the Rocket leaders, and finally battle <strong>Scientist Gideon</strong>.</li>
+                    <li>He returns the <strong>Sapphire</strong> to you afterward.</li>
+                  </ul>
+
+                  <p style="margin-top:0.75rem;">Return to <strong>Celio on One Island</strong> and hand over the Sapphire. The machine is now complete.</p>
+                  <div class="guide-box" style="margin-top:0.75rem;">
+                    <strong>🎉 Reward:</strong> You now have access to <strong>Cerulean Cave</strong> near Cerulean City, home to many powerful Pokémon. Have fun!
+                  </div>
+                </div>
+              </details>
+            </div>
+          `,
           hoohTitle: "Complete Guide: Ho-Oh Rematch",
           hoohIntro: "Simple method (10 turns, no consumable items).",
           hoohBody: `
@@ -1537,7 +1679,7 @@
       };
 
       const normalizeGuide = (value) => {
-        const validGuides = ["roaming", "legendary", "cosmetics", "farming", "ev", "iv", "breeding", "hooh"];
+        const validGuides = ["roaming", "legendary", "cosmetics", "farming", "ev", "iv", "breeding", "hooh", "sevii"];
         return validGuides.includes(value) ? value : "roaming";
       };
 
@@ -1578,8 +1720,8 @@
         const ids = [
           "menuHome", "menuCosmetics", "menuCalendar", "menuGuides", "menuLegendary", "menuBreeding", "menuTeambuilder", "menuGitHub",
           "guidesTitle", "guidesSubtitle", "guidesSectionTitle", "guidesSectionSubtitle",
-          "tabRoaming", "tabLegendary", "tabCosmetics", "tabFarming", "tabEv", "tabIv", "tabBreeding", "tabHooh",
-          "roamingTitle", "roamingIntro", "legendaryTitle", "legendaryIntro", "cosmeticsTitle", "cosmeticsIntro", "farmingTitle", "farmingIntro", "evTitle", "evIntro", "ivTitle", "ivIntro", "breedingTitle", "breedingIntro", "hoohTitle", "hoohIntro"
+          "tabRoaming", "tabLegendary", "tabCosmetics", "tabFarming", "tabEv", "tabIv", "tabBreeding", "tabHooh", "tabSevii",
+          "roamingTitle", "roamingIntro", "legendaryTitle", "legendaryIntro", "cosmeticsTitle", "cosmeticsIntro", "farmingTitle", "farmingIntro", "evTitle", "evIntro", "ivTitle", "ivIntro", "breedingTitle", "breedingIntro", "hoohTitle", "hoohIntro", "seviiTitle", "seviiIntro"
         ];
         ids.forEach((id) => {
           const el = document.getElementById(id);
@@ -1602,6 +1744,8 @@
         if (breedingBody && t.breedingBody) breedingBody.innerHTML = t.breedingBody;
         const hoohBody = document.getElementById("hoohBody");
         if (hoohBody && t.hoohBody) hoohBody.innerHTML = t.hoohBody;
+        const seviiBody = document.getElementById("seviiBody");
+        if (seviiBody && t.seviiBody) seviiBody.innerHTML = t.seviiBody;
 
         const sourceLink = document.querySelector(".page-footer-links a");
         if (sourceLink) sourceLink.innerHTML = `<span class="link-icon">PH</span>${t.footerSource}`;

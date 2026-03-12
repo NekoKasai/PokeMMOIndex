@@ -1,4 +1,22 @@
-﻿* {
+﻿/* Kopier-Button für Abschnittslinks in Guide-Überschriften */
+.guide-section-title button[onclick^="copySectionLink"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary);
+  font-size: 1.1em;
+  vertical-align: middle;
+  padding: 0 2px;
+  transition: color 0.2s;
+}
+.guide-section-title button[onclick^="copySectionLink"]:hover {
+  color: var(--primary);
+}
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
